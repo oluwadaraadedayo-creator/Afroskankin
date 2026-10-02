@@ -1,13 +1,207 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#FEE600" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PAYBAC IBORO | AFROSKANKIN</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --yellow: #FEE600;
+            --green: #1A5B2C;
+            --red: #ED1C24;
+            --black: #000000;
+        }
+
+        body {
+            background-color: var(--yellow);
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            color: var(--black);
+            overflow-x: hidden;
+        }
+
+        .afroskankin-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 0.75;
+            text-transform: uppercase;
+            font-weight: 900;
+            user-select: none;
+        }
+
+        .border-thick { border: 3px solid var(--black); }
+
+        .btn-raw {
+            border: 3px solid var(--black);
+            background: var(--black);
+            color: var(--yellow);
+            transition: all 0.2s;
+        }
+
+        .btn-raw:hover {
+            background: var(--red);
+            color: var(--black);
+        }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: var(--yellow);
+            border-left: 3px solid var(--black);
+            transition: right 0.3s ease-in-out;
+            z-index: 1000;
+            padding: 2rem;
+            box-shadow: -10px 0 0 rgba(0,0,0,0.1);
+        }
+
+        .cart-drawer.open { right: 0; }
+
+        .product-card {
+            border: 3px solid var(--black);
+            background: white;
+            transition: transform 0.2s;
+        }
+
+        .product-card:hover { transform: translateY(-5px); }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-yellow-400 p-4 border-b-3 border-black flex justify-between items-center" style="background-color: #FEE600;">
+        <a href="#top" class="flex items-center"><img src="./logo.png" alt="Paybac Iboro" style="height:58px; width:auto; object-fit:contain; display:block;"></a>
+        <div class="flex gap-6 items-center">
+            <span class="font-bold cursor-pointer underline">SHOP</span>
+            <button onclick="toggleCart()" class="font-bold border-2 border-black px-4 py-1" id="cart-btn">CART (0)</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="w-full h-screen border-b-3 border-black">
+        <video id="hero-video" class="w-full h-full object-cover" autoplay muted loop playsinline>
+            Your browser does not support video playback.
+        </video>
+    </section>
+
+    <script>
+        fetch('https://api.github.com/repos/oluwadaraadedayo-creator/Afroskankin/contents')
+            .then(response => response.json())
+            .then(files => {
+                const videoFile = files.find(file =>
+                    file.name.toLowerCase().startsWith('models_walking_runway') &&
+                    file.name.toLowerCase().endsWith('.mp4')
+                );
+
+                if (videoFile) {
+                    const video = document.getElementById('hero-video');
+                    video.src = videoFile.download_url;
+                    video.load();
+                    video.play().catch(() => {});
+                }
+            })
+            .catch(error => console.error('Hero video could not be loaded:', error));
+    </script>
+
+    <!-- Merch Grid -->
+    <section class="p-6 md:p-12 max-w-6xl mx-auto">
+        <h2 class="text-4xl md:text-6xl mb-12 uppercase italic underline">Catalog</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="product-grid">
+            <!-- Product 1 -->
+            <div class="product-card p-4">
+                <div class="bg-gray-200 h-64 mb-4 flex items-center justify-center font-bold">IMAGE AREA</div>
+                <h3 class="text-2xl font-bold uppercase">Signature Tee</h3>
+                <p class="text-xl mb-2">₦25,000</p>
+                <select class="w-full p-2 mb-4 border-2 border-black bg-white">
+                    <option>S</option><option>M</option><option>L</option><option>XL</option>
+                </select>
+                <button onclick="addToCart('Signature Tee', 25000)" class="w-full p-3 btn-raw uppercase font-bold">Add to Cart</button>
+            </div>
+            <!-- Product 2 -->
+            <div class="product-card p-4">
+                <div class="bg-gray-200 h-64 mb-4 flex items-center justify-center font-bold">IMAGE AREA</div>
+                <h3 class="text-2xl font-bold uppercase">Classic Hoodie</h3>
+                <p class="text-xl mb-2">₦45,000</p>
+                <select class="w-full p-2 mb-4 border-2 border-black bg-white">
+                    <option>S</option><option>M</option><option>L</option><option>XL</option>
+                </select>
+                <button onclick="addToCart('Classic Hoodie', 45000)" class="w-full p-3 btn-raw uppercase font-bold">Add to Cart</button>
+            </div>
+            <!-- Product 3 -->
+            <div class="product-card p-4">
+                <div class="bg-gray-200 h-64 mb-4 flex items-center justify-center font-bold">IMAGE AREA</div>
+                <h3 class="text-2xl font-bold uppercase">Embroidered Cap</h3>
+                <p class="text-xl mb-2">₦18,000</p>
+                <select class="w-full p-2 mb-4 border-2 border-black bg-white">
+                    <option>One Size</option>
+                </select>
+                <button onclick="addToCart('Embroidered Cap', 18000)" class="w-full p-3 btn-raw uppercase font-bold">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Drawer -->
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-bold uppercase">Your Bag</h2>
+            <button onclick="toggleCart()" class="text-2xl font-bold">X</button>
+        </div>
+        <div id="cart-items" class="space-y-4 mb-8"></div>
+        <div class="border-t-3 border-black pt-4">
+            <h3 class="text-2xl font-bold mb-4">Total: ₦<span id="cart-total">0</span></h3>
+            <form id="checkout-form" class="space-y-3">
+                <input type="text" placeholder="Full Name" class="w-full p-2 border-2 border-black" required>
+                <input type="email" placeholder="Email" class="w-full p-2 border-2 border-black" required>
+                <input type="text" placeholder="Phone" class="w-full p-2 border-2 border-black" required>
+                <input type="text" placeholder="Address" class="w-full p-2 border-2 border-black" required>
+                <input type="text" placeholder="City" class="w-full p-2 border-2 border-black" required>
+                <button type="submit" class="w-full p-4 btn-raw font-black text-xl uppercase">Pay Now (Paystack Placeholder)</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+
+        function toggleCart() {
+            document.getElementById('cart-drawer').classList.toggle('open');
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
+            const countEl = document.getElementById('cart-btn');
+            
+            container.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                container.innerHTML += `
+                    <div class="flex justify-between border-b-2 border-black pb-2">
+                        <span>${item.name}</span>
+                        <span>₦${item.price.toLocaleString()}</span>
+                    </div>
+                `;
+            });
+
+            totalEl.innerText = total.toLocaleString();
+            countEl.innerText = `CART (${cart.length})`;
+        }
+
+        document.getElementById('checkout-form').onsubmit = (e) => {
+            e.preventDefault();
+            alert('Checkout processed via Paystack (Placeholder).');
+        };
+    </script>
+</body>
 </html>
