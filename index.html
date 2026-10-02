@@ -90,10 +90,22 @@
     </section>
 
     <script>
-        const video = document.getElementById('hero-video');
-        video.src = 'https://raw.githubusercontent.com/oluwadaraadedayo-creator/Afroskankin/f204ba165f0185c7253a97b6ac313d95d2b22404/Models_walking_runway_transformi%E2%80%A6_20261001074208.mp4';
-        video.load();
-        video.play().catch(() => {});
+        fetch('https://api.github.com/repos/oluwadaraadedayo-creator/Afroskankin/contents')
+            .then(response => response.json())
+            .then(files => {
+                const videoFile = files.find(file =>
+                    file.name.toLowerCase().includes('models_walking_runway') &&
+                    file.name.toLowerCase().endsWith('.mp4')
+                );
+
+                if (videoFile) {
+                    const video = document.getElementById('hero-video');
+                    video.src = videoFile.download_url;
+                    video.load();
+                    video.play().catch(() => {});
+                }
+            })
+            .catch(error => console.error('Hero video could not be loaded:', error));
     </script>
 
     <!-- Merch Grid -->
