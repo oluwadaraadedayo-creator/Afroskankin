@@ -26,10 +26,12 @@
 .category-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:25px}.cat{background:transparent;border:2px solid #000;padding:9px 13px;font-size:10px;font-weight:800}.cat.active,.cat:hover{background:#000;color:var(--y)}.load-more{text-align:center;border-top:2px solid #000;margin-top:30px;padding:18px;font-size:11px;font-weight:800}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.3),transparent 50%,rgba(0,0,0,.7));z-index:1}
 @media(max-width:800px){.influence-grid,.release{grid-template-columns:1fr}.release-art{min-height:500px;border-right:0;border-bottom:2px solid #000}.release-copy{min-height:560px;padding:60px 18px}.photo-grid{grid-template-columns:1fr 1fr;grid-template-rows:250px 220px 220px}.photo-main{grid-column:span 2;grid-row:span 1}.video-list>div{grid-template-columns:35px 1fr}.video-list small{display:none}.stream-grid{grid-template-columns:1fr}.stream-grid a:nth-child(odd){border-right:0}}
+
+.albums{background:#050505;color:#F4F1E8}.album-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.album-card{border:1px solid #444;padding:12px;background:#0b0b0b}.album-art{height:330px;display:flex;align-items:center;justify-content:center;font-size:clamp(38px,6vw,82px);line-height:.72;letter-spacing:-.08em;font-weight:800;text-align:center}.album-one{background:#174E2A;color:#FEE600}.album-two{background:#FEE600;color:#000}.album-three{background:#E5262F;color:#000}.album-four{background:#F4F1E8;color:#000}.album-card h3{font-size:22px;margin:18px 0 5px;text-transform:uppercase}.album-card p{font-size:11px;margin:0 0 14px;color:#aaa}.album-card a{font-size:10px;font-weight:800;border-bottom:1px solid #FEE600;padding-bottom:4px}.album-card a:hover{color:#FEE600}@media(max-width:800px){.album-grid{grid-template-columns:1fr}.album-art{height:280px}}
 </style></style>
 </head>
 <body>
-<header class="top"><a href="#home"><img src="./logo.png" alt="Paybac Iboro"></a><nav class="menu"><a href="#bio">BIO</a><a href="#gallery">GALLERY</a><a href="#shop">MERCH</a><a href="#contact">CONTACT</a><button class="bag" id="bagBtn">CART (0)</button></nav></header>
+<header class="top"><a href="#home"><img src="./logo.png" alt="Paybac Iboro"></a><nav class="menu"><a href="#bio">BIO</a><a href="#gallery">GALLERY</a><a href="#music">MUSIC</a><a href="#shop">MERCH</a><a href="#contact">CONTACT</a><button class="bag" id="bagBtn">CART (0)</button></nav></header>
 
 <section class="hero" id="home"><video id="heroVideo" autoplay muted loop playsinline></video><h1 class="hero-title">PAYBAC<br>IBORO</h1><div class="hero-meta">AFROSKANKIN<br>Music / Culture / Movement<span>01 — 2026</span></div></section>
 <div class="band"><div>AFROSKANKIN / PAYBAC IBORO / LAGOS / MUSIC / MERCH / CULTURE / AFROSKANKIN / PAYBAC IBORO / LAGOS / MUSIC / MERCH / CULTURE / </div></div>
@@ -40,7 +42,19 @@
 
 <section class="section" id="influences"><div class="eyebrow">03 — Musical influences</div><h2 class="headline">THE<br>SOUND<br>BEHIND IT.</h2><div class="influence-grid"><div class="influence-big">AFRO<br>RAP.<br>ALT.<br>STREET.</div><div class="influence-copy"><span>PAYBAC IBORO / AFROSKANKIN</span><br><br>A collision of Nigerian energy, hip-hop, alternative sounds and street culture. The music and visual world are built to feel connected, not separated.</div></div></section>
 
-<section class="release" id="music"><div class="release-art"><div class="release-stamp">NEW<br>RELEASE</div><div class="release-name">AFRO<br>SKANKIN</div></div><div class="release-copy"><div><div class="eyebrow" style="color:#000">04 — Featured release</div><h2>LISTEN<br>NOW.</h2><p>The featured release lives here as the main entry point into the music. Add the official streaming destination to each button when the artist links are ready.</p></div><div class="stream-grid"><a href="#" target="_blank" rel="noopener">SPOTIFY ↗</a><a href="#" target="_blank" rel="noopener">APPLE MUSIC ↗</a><a href="#" target="_blank" rel="noopener">YOUTUBE ↗</a><a href="#" target="_blank" rel="noopener">ALL PLATFORMS ↗</a></div></div></section>
+<section class="release" id="music">
+<div class="release-art"><div class="release-stamp">NEW<br>RELEASE</div><div class="release-name">AFRO<br>SKANKIN</div></div>
+<div class="release-copy">
+<div><div class="eyebrow" style="color:#000">04 — Featured release</div><h2>LISTEN<br>NOW.</h2><p>Start with the latest AFROSKANKIN project, then explore the wider PayBac Iboro catalogue below.</p>
+<iframe style="border-radius:12px;margin-top:24px" src="https://open.spotify.com/embed/album/REPLACE_WITH_AFROSKANKIN_ALBUM_ID?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+</div><div class="stream-grid"><a href="#" target="_blank" rel="noopener">SPOTIFY ↗</a><a href="#" target="_blank" rel="noopener">APPLE MUSIC ↗</a><a href="#" target="_blank" rel="noopener">YOUTUBE ↗</a><a href="#" target="_blank" rel="noopener">ALL PLATFORMS ↗</a></div></div>
+</section>
+<section class="section albums" id="discography"><div class="gallery-head"><div><div class="eyebrow">05 — Discography</div><h2 class="headline" style="margin-bottom:0">THE<br>CATALOGUE</h2></div><div class="eyebrow">PAYBAC IBORO</div></div><div class="album-grid">
+<article class="album-card"><div class="album-art album-one">THE<br>BIGGEST<br>TREE</div><div><h3>The Biggest Tree</h3><p>Studio album</p><a href="#" target="_blank" rel="noopener">LISTEN ON SPOTIFY ↗</a></div></article>
+<article class="album-card"><div class="album-art album-two">CULT!</div><div><h3>CULT!</h3><p>Studio album · 2020</p><a href="https://open.spotify.com/track/3q4MCaBWGWRkrOx5gGon4I" target="_blank" rel="noopener">LISTEN ON SPOTIFY ↗</a></div></article>
+<article class="album-card"><div class="album-art album-three">WEST<br>AFRICAN<br>GOAT</div><div><h3>West African Goat</h3><p>Studio album</p><a href="#" target="_blank" rel="noopener">LISTEN ON SPOTIFY ↗</a></div></article>
+<article class="album-card"><div class="album-art album-four">AFRO<br>SKANKIN</div><div><h3>AFROSKANKIN</h3><p>Latest project</p><a href="#" target="_blank" rel="noopener">OPEN PROJECT ↗</a></div></article>
+</div></section>
 
 <section class="section gallery" id="gallery"><div class="gallery-head"><div><div class="eyebrow">05 — Photos</div><h2 class="headline" style="margin-bottom:0">THE<br>ARCHIVE</h2></div><div class="eyebrow">LAGOS / NIGERIA</div></div><div class="photo-grid"><div class="photo photo-main"><span>AFRO<br>SKANKIN</span></div><div class="photo photo-red"><span>PAYBAC</span></div><div class="photo photo-paper"><span>IBORO</span></div><div class="photo photo-green"><span>RAW<br>ENERGY</span></div><div class="photo photo-black"><span>MOVE<br>LOUD</span></div></div></section>
 
