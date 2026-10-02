@@ -49,13 +49,13 @@
             top: 0;
             right: -100%;
             width: 100%;
-            max-width: 400px;
+            max-width: 360px;
             height: 100vh;
             background: var(--yellow);
             border-left: 3px solid var(--black);
             transition: right 0.3s ease-in-out;
             z-index: 1000;
-            padding: 2rem;
+            padding: 1.25rem;
             box-shadow: -10px 0 0 rgba(0,0,0,0.1);
             overflow-y: auto;
             box-sizing: border-box;
@@ -137,12 +137,12 @@
     </script>
 
     <!-- Merch Grid -->
-    <section class="p-6 md:p-12 max-w-6xl mx-auto">
+    <section class="p-5 md:p-8 max-w-6xl mx-auto">
         <h2 class="text-4xl md:text-6xl mb-12 uppercase italic underline">Catalog</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="product-grid">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="product-grid">
             <!-- Product 1 -->
-            <div class="product-card p-4">
-                <div class="bg-gray-200 h-64 mb-4 flex items-center justify-center font-semibold">IMAGE AREA</div>
+            <div class="product-card p-3">
+                <div class="bg-gray-200 h-56 mb-4 flex items-center justify-center font-semibold">IMAGE AREA</div>
                 <h3 class="text-2xl font-semibold uppercase">Signature Tee</h3>
                 <p class="text-xl mb-2">₦25,000</p>
                 <select class="w-full p-2 mb-4 border-2 border-black bg-white">
@@ -151,8 +151,8 @@
                 <button onclick="addToCart('Signature Tee', 25000)" class="w-full p-3 btn-raw uppercase font-semibold">Add to Cart</button>
             </div>
             <!-- Product 2 -->
-            <div class="product-card p-4">
-                <div class="bg-gray-200 h-64 mb-4 flex items-center justify-center font-semibold">IMAGE AREA</div>
+            <div class="product-card p-3">
+                <div class="bg-gray-200 h-56 mb-4 flex items-center justify-center font-semibold">IMAGE AREA</div>
                 <h3 class="text-2xl font-semibold uppercase">Classic Hoodie</h3>
                 <p class="text-xl mb-2">₦45,000</p>
                 <select class="w-full p-2 mb-4 border-2 border-black bg-white">
@@ -161,8 +161,8 @@
                 <button onclick="addToCart('Classic Hoodie', 45000)" class="w-full p-3 btn-raw uppercase font-semibold">Add to Cart</button>
             </div>
             <!-- Product 3 -->
-            <div class="product-card p-4">
-                <div class="bg-gray-200 h-64 mb-4 flex items-center justify-center font-bold">IMAGE AREA</div>
+            <div class="product-card p-3">
+                <div class="bg-gray-200 h-56 mb-4 flex items-center justify-center font-bold">IMAGE AREA</div>
                 <h3 class="text-2xl font-semibold uppercase">Embroidered Cap</h3>
                 <p class="text-xl mb-2">₦18,000</p>
                 <select class="w-full p-2 mb-4 border-2 border-black bg-white">
@@ -175,11 +175,11 @@
 
     <!-- Cart Drawer -->
     <div id="cart-drawer" class="cart-drawer">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-3xl font-semibold uppercase">Your Bag</h2>
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-semibold uppercase">Your Bag</h2>
             <button onclick="toggleCart()" class="text-2xl font-semibold">X</button>
         </div>
-        <div id="cart-items" class="space-y-4 mb-8"></div>
+        <div id="cart-items" class="space-y-3 mb-5"></div>
         <div class="border-t-3 border-black pt-4">
                 <div class="border-2 border-black p-3 mb-3 bg-white">
                     <div class="flex justify-between font-semibold"><span>Items Total</span><span>₦<span id="items-total">0</span></span></div>
@@ -236,6 +236,14 @@
             countEl.innerText = `CART (${cart.length})`;
         }
 
+        function calculateDeliveryFee(distanceKm) {
+            if (distanceKm <= 5) return 4000;
+            if (distanceKm <= 10) return 8000;
+            if (distanceKm <= 15) return 12000;
+            if (distanceKm <= 20) return 18000;
+            return 18000 + Math.ceil((distanceKm - 20) / 0.5) * 1000;
+        }
+
         async function calculateDelivery() {
             const address = document.getElementById('delivery-address').value.trim();
             const city = document.getElementById('delivery-city').value.trim();
@@ -249,49 +257,48 @@
                 return;
             }
 
+            const fullAddress = address + ', ' + city + ', Nigeria';
+
             try {
                 const response = await fetch(DELIVERY_API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ address: `${address}, ${city}, Nigeria` })
+                    body: JSON.stringify({ address: fullAddress })
                 });
 
                 const data = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(data.error || 'Unable to calculate delivery');
-                }
+                if (!response.ok) throw new Error(data.error || 'Backend unavailable');
 
                 deliveryFee = data.deliveryFee;
                 deliveryDistanceKm = data.distanceKm;
-
-                feeEl.innerText = data.deliveryFee.toLocaleString();
-                status.innerText = 'Delivery fee calculated from the dispatch store.';
-                updateCartUI();
             } catch (error) {
-                deliveryFee = 0;
-                deliveryDistanceKm = null;
-                feeEl.innerText = '0';
-                status.innerText = error.message;
-                updateCartUI();
-            } finally {
-                button.disabled = false;
-                button.innerText = 'Calculate Delivery';
+                try {
+                    const origin = await fetch('https://photon.komoot.io/api/?q=' + encodeURIComponent('31 Alhaji Mosobolaje Street off Ago Palace Way Okota Isolo, Lagos, Nigeria') + '&limit=1').then(r => r.json());
+                    const destination = await fetch('https://photon.komoot.io/api/?q=' + encodeURIComponent(fullAddress) + '&limit=1').then(r => r.json());
+
+                    const originCoords = origin?.features?.[0]?.geometry?.coordinates;
+                    const destinationCoords = destination?.features?.[0]?.geometry?.coordinates;
+                    if (!originCoords || !destinationCoords) throw new Error('Address not found');
+
+                    const route = await fetch('https://router.project-osrm.org/route/v1/driving/' + originCoords[0] + ',' + originCoords[1] + ';' + destinationCoords[0] + ',' + destinationCoords[1] + '?overview=false').then(r => r.json());
+                    const distanceKm = route?.routes?.[0]?.distance / 1000;
+                    if (!Number.isFinite(distanceKm)) throw new Error('Route not found');
+
+                    deliveryDistanceKm = Number(distanceKm.toFixed(2));
+                    deliveryFee = calculateDeliveryFee(distanceKm);
+                } catch (fallbackError) {
+                    deliveryFee = 0;
+                    deliveryDistanceKm = null;
+                }
             }
+
+            feeEl.innerText = deliveryFee.toLocaleString();
+            updateCartUI();
         }
 
-        document.getElementById('calculate-delivery').addEventListener('click', calculateDelivery);
+        document.getElementById('delivery-address').addEventListener('blur', calculateDelivery);
+        document.getElementById('delivery-city').addEventListener('blur', calculateDelivery);
 
-        document.getElementById('checkout-form').onsubmit = (e) => {
-            e.preventDefault();
-
-            if (deliveryDistanceKm === null) {
-                alert('Please calculate your delivery fee before continuing.');
-                return;
-            }
-
-            alert('Checkout processed via Paystack (Placeholder).');
-        };
     </script>
 </body>
 </html>
