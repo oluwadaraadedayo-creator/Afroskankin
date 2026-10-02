@@ -15,7 +15,7 @@
 
         body {
             background-color: var(--yellow);
-            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-family: 'Arial Black', Arial, Helvetica, sans-serif;
             color: var(--black);
             overflow-x: hidden;
         }
@@ -26,7 +26,7 @@
             align-items: center;
             line-height: 0.75;
             text-transform: uppercase;
-            font-weight: 900;
+            font-weight: 800;
             user-select: none;
         }
 
@@ -76,8 +76,8 @@
     <nav class="sticky top-0 z-50 bg-yellow-400 p-4 border-b-3 border-black flex justify-between items-center" style="background-color: #FEE600;">
         <a href="#top" class="flex items-center"><img src="./logo.png" alt="Paybac Iboro" style="height:58px; width:auto; object-fit:contain; display:block;"></a>
         <div class="flex gap-6 items-center">
-            <span class="font-bold cursor-pointer underline">SHOP</span>
-            <button onclick="toggleCart()" class="font-bold border-2 border-black px-4 py-1" id="cart-btn">CART (0)</button>
+            <span class="font-semibold cursor-pointer underline">SHOP</span>
+            <button onclick="toggleCart()" class="font-semibold border-2 border-black px-4 py-1" id="cart-btn">CART (0)</button>
         </div>
     </nav>
 
@@ -116,18 +116,18 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="product-grid">
             <!-- Product 1 -->
             <div class="product-card p-4">
-                <div class="bg-gray-200 h-64 mb-4 flex items-center justify-center font-bold">IMAGE AREA</div>
-                <h3 class="text-2xl font-bold uppercase">Signature Tee</h3>
+                <div class="bg-gray-200 h-64 mb-4 flex items-center justify-center font-semibold">IMAGE AREA</div>
+                <h3 class="text-2xl font-semibold uppercase">Signature Tee</h3>
                 <p class="text-xl mb-2">₦25,000</p>
                 <select class="w-full p-2 mb-4 border-2 border-black bg-white">
                     <option>S</option><option>M</option><option>L</option><option>XL</option>
                 </select>
-                <button onclick="addToCart('Signature Tee', 25000)" class="w-full p-3 btn-raw uppercase font-bold">Add to Cart</button>
+                <button onclick="addToCart('Signature Tee', 25000)" class="w-full p-3 btn-raw uppercase font-semibold">Add to Cart</button>
             </div>
             <!-- Product 2 -->
             <div class="product-card p-4">
                 <div class="bg-gray-200 h-64 mb-4 flex items-center justify-center font-bold">IMAGE AREA</div>
-                <h3 class="text-2xl font-bold uppercase">Classic Hoodie</h3>
+                <h3 class="text-2xl font-semibold uppercase">Classic Hoodie</h3>
                 <p class="text-xl mb-2">₦45,000</p>
                 <select class="w-full p-2 mb-4 border-2 border-black bg-white">
                     <option>S</option><option>M</option><option>L</option><option>XL</option>
@@ -150,19 +150,19 @@
     <!-- Cart Drawer -->
     <div id="cart-drawer" class="cart-drawer">
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-3xl font-bold uppercase">Your Bag</h2>
-            <button onclick="toggleCart()" class="text-2xl font-bold">X</button>
+            <h2 class="text-3xl font-semibold uppercase">Your Bag</h2>
+            <button onclick="toggleCart()" class="text-2xl font-semibold">X</button>
         </div>
         <div id="cart-items" class="space-y-4 mb-8"></div>
         <div class="border-t-3 border-black pt-4">
-            <h3 class="text-2xl font-bold mb-4">Total: ₦<span id="cart-total">0</span></h3>
+            <h3 class="text-2xl font-semibold mb-4">Total: ₦<span id="cart-total">0</span></h3>
             <form id="checkout-form" class="space-y-3">
                 <input type="text" placeholder="Full Name" class="w-full p-2 border-2 border-black" required>
                 <input type="email" placeholder="Email" class="w-full p-2 border-2 border-black" required>
                 <input type="text" placeholder="Phone" class="w-full p-2 border-2 border-black" required>
                 <input type="text" placeholder="Address" class="w-full p-2 border-2 border-black" required>
                 <input type="text" placeholder="City" class="w-full p-2 border-2 border-black" required>
-                <button type="submit" class="w-full p-4 btn-raw font-black text-xl uppercase">Pay Now (Paystack Placeholder)</button>
+                <button type="submit" class="w-full p-4 btn-raw font-extrabold text-xl uppercase">Pay Now (Paystack Placeholder)</button>
             </form>
         </div>
     </div>
