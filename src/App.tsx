@@ -7,21 +7,14 @@ const API = 'https://api.github.com/repos/oluwadaraadedayo-creator/Afroskankin/c
 function App() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
-  const [logoUrl, setLogoUrl] = useState('');
   const [heroUrl, setHeroUrl] = useState('');
 
   useEffect(() => {
     fetch(API)
       .then((response) => response.ok ? response.json() : [])
       .then((files: Array<{ name: string; download_url: string }>) => {
-        const logo = files.find((file) =>
-          /\.png$/i.test(file.name) && /^3d6bdc23-/i.test(file.name)
-        ) ?? files.find((file) => /\.png$/i.test(file.name));
-
         const video = files.find((file) => /\.mp4$/i.test(file.name) && /models.?walking.?runway/i.test(file.name))
           ?? files.find((file) => /\.mp4$/i.test(file.name));
-
-        if (logo) setLogoUrl(logo.download_url);
         if (video) setHeroUrl(video.download_url);
       })
       .catch(() => undefined);
@@ -64,7 +57,7 @@ function App() {
     <div className="site">
       <nav className="nav">
         <a className="brand" href="#top">
-          {logoUrl ? <img src={logoUrl} alt="Paybac Iboro" /> : <span>PAYBAC IBORO</span>}
+          <img src="/Afroskankin/logo.png" alt="Paybac Iboro" />
         </a>
         <div className="nav-links">
           <a href="#shop">SHOP</a>
