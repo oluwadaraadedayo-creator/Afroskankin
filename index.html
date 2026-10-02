@@ -72,18 +72,21 @@
 </head>
 <body>
 
-   <!-- Hero Section -->
-<section class="w-full h-screen border-b-3 border-black">
-    <video
-        class="w-full h-full object-cover"
-        autoplay
-        muted
-        loop
-        playsinline
-    >
-        <source src="YOUR-VIDEO-FILENAME.mp4" type="video/mp4">
-    </video>
-</section>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-yellow-400 p-4 border-b-3 border-black flex justify-between items-center" style="background-color: #FEE600;">
+        <h1 class="text-2xl font-black italic">PAYBAC IBORO</h1>
+        <div class="flex gap-6 items-center">
+            <span class="font-bold cursor-pointer underline">SHOP</span>
+            <button onclick="toggleCart()" class="font-bold border-2 border-black px-4 py-1" id="cart-btn">CART (0)</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="w-full h-screen border-b-3 border-black">
+        <video id="hero-video" class="w-full h-full object-cover" autoplay muted loop playsinline>
+            Your browser does not support video playback.
+        </video>
+    </section>
 
     <!-- Merch Grid -->
     <section class="p-6 md:p-12 max-w-6xl mx-auto">
