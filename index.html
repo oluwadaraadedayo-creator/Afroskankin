@@ -93,8 +93,11 @@
             .then(response => response.json())
             .then(files => {
                 const videoFile = files.find(file =>
-                    file.name.toLowerCase().startsWith('models_walking_runway') &&
+                    file.name.toLowerCase().includes('models_morph_into_typography_art') &&
                     file.name.toLowerCase().endsWith('.mp4')
+                ) || files.find(file =>
+                    file.name.toLowerCase().endsWith('.mp4') &&
+                    file.size > 100000
                 );
 
                 if (videoFile) {
