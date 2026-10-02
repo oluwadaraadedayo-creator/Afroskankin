@@ -88,6 +88,25 @@
         </video>
     </section>
 
+    <script>
+        fetch('https://api.github.com/repos/oluwadaraadedayo-creator/Afroskankin/contents')
+            .then(response => response.json())
+            .then(files => {
+                const videoFile = files.find(file =>
+                    file.name.toLowerCase().startsWith('models_walking_runway') &&
+                    file.name.toLowerCase().endsWith('.mp4')
+                );
+
+                if (videoFile) {
+                    const video = document.getElementById('hero-video');
+                    video.src = videoFile.download_url;
+                    video.load();
+                    video.play().catch(() => {});
+                }
+            })
+            .catch(error => console.error('Hero video could not be loaded:', error));
+    </script>
+
     <!-- Merch Grid -->
     <section class="p-6 md:p-12 max-w-6xl mx-auto">
         <h2 class="text-4xl md:text-6xl mb-12 uppercase italic underline">Catalog</h2>
