@@ -57,6 +57,8 @@
             z-index: 1000;
             padding: 2rem;
             box-shadow: -10px 0 0 rgba(0,0,0,0.1);
+            overflow-y: auto;
+            box-sizing: border-box;
         }
 
         .cart-drawer.open { right: 0; }
@@ -190,7 +192,6 @@
                 <input type="text" placeholder="Full Name" class="w-full p-2 border-2 border-black" required>
                 <input type="email" placeholder="Email" class="w-full p-2 border-2 border-black" required>
                 <input type="text" placeholder="Phone" class="w-full p-2 border-2 border-black" required>
-                <input type="text" placeholder="Address" class="w-full p-2 border-2 border-black" required>
                 <input id="delivery-address" type="text" placeholder="Address" class="w-full p-2 border-2 border-black" required>
                 <input id="delivery-city" type="text" placeholder="City" class="w-full p-2 border-2 border-black" required>
                 <button type="button" id="calculate-delivery" class="w-full p-3 border-2 border-black bg-white uppercase font-semibold">Calculate Delivery</button>
