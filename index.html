@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#000">
-<title>PAYBAC IBORO — AFROSKANKIN</title>
+<title>PAYBAC IBORO — AFROSKANKIN | Music, Culture & Merch</title>
 <style>
 :root{--y:#FEE600;--g:#174E2A;--r:#E5262F;--k:#050505;--w:#F4F1E8}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--k);color:var(--w);font-family:Arial,Helvetica,sans-serif}a{color:inherit;text-decoration:none}button{font:inherit}
@@ -38,7 +38,13 @@
 
 <section class="feature"><div class="feature-copy"><div><div class="eyebrow">02 — The movement</div><h2>WEAR<br>THE<br>SOUND</h2></div><p>Not just merch. Pieces from the world of Paybac Iboro, designed to sit beside the music and carry the identity beyond the screen.</p></div><div class="feature-image"><img src="./3d6bdc23-b8c1-43bd-8d51-cc69e0d90a56.png_20261001074207.jpg" alt="AFROSKANKIN campaign visual"></div></section>
 
-<section class="section gallery" id="gallery"><div class="gallery-head"><div><div class="eyebrow">03 — Gallery</div><h2 class="headline" style="margin-bottom:0">THE<br>ARCHIVE</h2></div><div class="eyebrow">LAGOS / NIGERIA</div></div><div class="gallery-grid"><div class="tile"><span>AFRO<br>SKANKIN</span></div><div class="tile"><span>PAYBAC</span></div><div class="tile"><span>IBORO</span></div><div class="tile"><span>RAW<br>ENERGY</span></div><div class="tile"><span>MOVE<br>LOUD</span></div></div></section>
+<section class="section" id="influences"><div class="eyebrow">03 — Musical influences</div><h2 class="headline">THE<br>SOUND<br>BEHIND IT.</h2><div class="influence-grid"><div class="influence-big">AFRO<br>RAP.<br>ALT.<br>STREET.</div><div class="influence-copy"><span>PAYBAC IBORO / AFROSKANKIN</span><br><br>A collision of Nigerian energy, hip-hop, alternative sounds and street culture. The music and visual world are built to feel connected, not separated.</div></div></section>
+
+<section class="release" id="music"><div class="release-art"><div class="release-stamp">NEW<br>RELEASE</div><div class="release-name">AFRO<br>SKANKIN</div></div><div class="release-copy"><div><div class="eyebrow" style="color:#000">04 — Featured release</div><h2>LISTEN<br>NOW.</h2><p>The featured release lives here as the main entry point into the music. Add the official streaming destination to each button when the artist links are ready.</p></div><div class="stream-grid"><a href="#" target="_blank" rel="noopener">SPOTIFY ↗</a><a href="#" target="_blank" rel="noopener">APPLE MUSIC ↗</a><a href="#" target="_blank" rel="noopener">YOUTUBE ↗</a><a href="#" target="_blank" rel="noopener">ALL PLATFORMS ↗</a></div></div></section>
+
+<section class="section gallery" id="gallery"><div class="gallery-head"><div><div class="eyebrow">05 — Photos</div><h2 class="headline" style="margin-bottom:0">THE<br>ARCHIVE</h2></div><div class="eyebrow">LAGOS / NIGERIA</div></div><div class="photo-grid"><div class="photo photo-main"><span>AFRO<br>SKANKIN</span></div><div class="photo photo-red"><span>PAYBAC</span></div><div class="photo photo-paper"><span>IBORO</span></div><div class="photo photo-green"><span>RAW<br>ENERGY</span></div><div class="photo photo-black"><span>MOVE<br>LOUD</span></div></div></section>
+
+<section class="section videos" id="videos"><div class="gallery-head"><div><div class="eyebrow">06 — Videos</div><h2 class="headline" style="margin-bottom:0">WATCH<br>THE<br>MOVEMENT.</h2></div><div class="eyebrow">VISUAL ARCHIVE</div></div><div class="video-feature"><video id="secondVideo" muted loop playsinline controls></video><div class="video-caption"><b>AFROSKANKIN / VISUAL 001</b><span>RUNWAY FILM</span></div></div><div class="video-list"><div><span>001</span><b>Models morph into typography</b><small>VISUAL</small></div><div><span>002</span><b>Models walking runway</b><small>CAMPAIGN</small></div></div><a class="see-more" href="#videos">SEE MORE →</a></section>
 
 <section class="section shop" id="shop"><div class="shop-top"><div><div class="eyebrow">04 — Merch</div><h2 class="headline">THE<br>DROP</h2></div><div class="eyebrow">3 pieces / now available</div></div><div class="products">
 <article class="product"><div class="visual"><strong>SIGNATURE<br>TEE</strong></div><div class="info"><h3>Signature Tee</h3><p>₦25,000</p><select id="tee"><option>S</option><option>M</option><option>L</option><option>XL</option></select><button onclick="add('Signature Tee',25000,document.getElementById('tee').value)">Add to Cart</button></div></article>
@@ -53,7 +59,7 @@
 
 <script>
 const repo='oluwadaraadedayo-creator/Afroskankin';let cart=[];let fee=0;
-fetch('https://api.github.com/repos/'+repo+'/contents/').then(r=>r.json()).then(files=>{const f=files.find(x=>x.name.toLowerCase().includes('models_walking_runway')&&x.name.toLowerCase().endsWith('.mp4'));if(f){const v=document.getElementById('heroVideo');v.src=f.download_url;v.play().catch(()=>{})}}).catch(()=>{});
+fetch('https://api.github.com/repos/'+repo+'/contents/').then(r=>r.json()).then(files=>{const runway=files.find(x=>x.name.toLowerCase().includes('models_walking_runway')&&x.name.toLowerCase().endsWith('.mp4'));const visual=files.find(x=>x.name.toLowerCase().includes('models_morph_into_typography')&&x.name.toLowerCase().endsWith('.mp4'));if(runway){const v=document.getElementById('heroVideo');v.src=runway.download_url;v.play().catch(()=>{})}if(visual){const v2=document.getElementById('secondVideo');v2.src=visual.download_url;v2.load()}}).catch(()=>{});
 function toggle(){document.getElementById('cart').classList.toggle('open');document.getElementById('overlay').classList.toggle('open')}
 document.getElementById('bagBtn').onclick=toggle;document.getElementById('overlay').onclick=toggle;
 function add(name,price,size){cart.push({name,price,size});render();document.getElementById('cart').classList.add('open');document.getElementById('overlay').classList.add('open')}
