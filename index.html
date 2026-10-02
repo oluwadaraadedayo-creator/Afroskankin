@@ -215,23 +215,28 @@
         function updateCartUI() {
             const container = document.getElementById('cart-items');
             const countEl = document.getElementById('cart-btn');
-            
-            container.innerHTML = '';
-            let total = 0;
+            const itemsTotalEl = document.getElementById('items-total');
+            const deliveryFeeEl = document.getElementById('delivery-fee');
+            const grandTotalEl = document.getElementById('order-grand-total');
 
-            cart.forEach((item, index) => {
-                total += item.price;
+            container.innerHTML = '';
+
+            const itemsTotal = cart.reduce((sum, item) => sum + Number(item.price), 0);
+            const grandTotal = itemsTotal + Number(deliveryFee || 0);
+
+            cart.forEach((item) => {
                 container.innerHTML += `
                     <div class="flex justify-between border-b-2 border-black pb-2">
                         <span>${item.name}</span>
-                        <span>₦${item.price.toLocaleString()}</span>
+                        <span>₦${Number(item.price).toLocaleString()}</span>
                     </div>
                 `;
             });
 
-            document.getElementById('items-total').innerText = total.toLocaleString();
-            document.getElementById('order-grand-total').innerText = (total + deliveryFee).toLocaleString();
-            countEl.innerText = `CART (${cart.length})`;
+            itemsTotalEl.textContent = itemsTotal.toLocaleString();
+            deliveryFeeEl.textContent = Number(deliveryFee || 0).toLocaleString();
+            grandTotalEl.textContent = grandTotal.toLocaleString();
+            countEl.textContent = `CART (${cart.length})`;
         }
 
         function calculateDeliveryFee(distanceKm) {
@@ -294,8 +299,12 @@
             updateCartUI();
         }
 
+        document.getElementById('delivery-address').addEventListener('input', calculateDelivery);
+        document.getElementById('delivery-city').addEventListener('input', calculateDelivery);
         document.getElementById('delivery-address').addEventListener('blur', calculateDelivery);
         document.getElementById('delivery-city').addEventListener('blur', calculateDelivery);
+
+        updateCartUI();
 
     </script>
 </body>
