@@ -214,7 +214,6 @@
 
         function updateCartUI() {
             const container = document.getElementById('cart-items');
-            const totalEl = document.getElementById('cart-total');
             const countEl = document.getElementById('cart-btn');
             
             container.innerHTML = '';
@@ -230,7 +229,6 @@
                 `;
             });
 
-            totalEl.innerText = total.toLocaleString();
             document.getElementById('items-total').innerText = total.toLocaleString();
             document.getElementById('order-grand-total').innerText = (total + deliveryFee).toLocaleString();
             countEl.innerText = `CART (${cart.length})`;
