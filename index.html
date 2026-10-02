@@ -181,12 +181,10 @@
         </div>
         <div id="cart-items" class="space-y-4 mb-8"></div>
         <div class="border-t-3 border-black pt-4">
-            <h3 class="text-2xl font-semibold mb-4">Total: ₦<span id="cart-total">0</span></h3>
                 <div class="border-2 border-black p-3 mb-3 bg-white">
                     <div class="flex justify-between font-semibold"><span>Items Total</span><span>₦<span id="items-total">0</span></span></div>
                     <div class="flex justify-between font-semibold mt-2"><span>Dispatch</span><span>₦<span id="delivery-fee">0</span></span></div>
                     <div class="flex justify-between font-semibold text-xl mt-2 border-t-2 border-black pt-2"><span>Total</span><span>₦<span id="order-grand-total">0</span></span></div>
-                    <p id="delivery-status" class="text-sm mt-2"></p>
                 </div>
                 <form id="checkout-form" class="space-y-3">
                 <input type="text" placeholder="Full Name" class="w-full p-2 border-2 border-black" required>
@@ -194,7 +192,6 @@
                 <input type="text" placeholder="Phone" class="w-full p-2 border-2 border-black" required>
                 <input id="delivery-address" type="text" placeholder="Address" class="w-full p-2 border-2 border-black" required>
                 <input id="delivery-city" type="text" placeholder="City" class="w-full p-2 border-2 border-black" required>
-                <button type="button" id="calculate-delivery" class="w-full p-3 border-2 border-black bg-white uppercase font-semibold">Calculate Delivery</button>
                 <button type="submit" id="pay-now" class="w-full p-4 btn-raw font-extrabold text-xl uppercase">Pay Now (Paystack Placeholder)</button>
             </form>
         </div>
@@ -242,19 +239,15 @@
         async function calculateDelivery() {
             const address = document.getElementById('delivery-address').value.trim();
             const city = document.getElementById('delivery-city').value.trim();
-            const status = document.getElementById('delivery-status');
-            const distanceEl = document.getElementById('delivery-distance');
             const feeEl = document.getElementById('delivery-fee');
-            const button = document.getElementById('calculate-delivery');
 
             if (!address || !city) {
-                status.innerText = 'Enter your delivery address and city first.';
+                deliveryFee = 0;
+                deliveryDistanceKm = null;
+                feeEl.innerText = '0';
+                updateCartUI();
                 return;
             }
-
-            button.disabled = true;
-            button.innerText = 'Calculating...';
-            status.innerText = '';
 
             try {
                 const response = await fetch(DELIVERY_API_URL, {
