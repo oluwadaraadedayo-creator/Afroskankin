@@ -236,7 +236,7 @@
                             <div>${item.name}</div>
                             <div>₦${Number(item.price).toLocaleString()}</div>
                         </div>
-                        <button type="button" onclick="removeFromCart(${index})" class="border-2 border-black px-2 py-1 font-semibold" aria-label="Remove ${item.name}">REMOVE</button>
+                        <button type="button" data-remove-index="${index}" class="remove-cart-item border-2 border-black px-2 py-1 font-semibold" aria-label="Remove ${item.name}">REMOVE</button>
                     </div>
                 `;
             });
@@ -306,6 +306,16 @@
             feeEl.innerText = deliveryFee.toLocaleString();
             updateCartUI();
         }
+
+        document.getElementById('cart-items').addEventListener('click', function(event) {
+            const removeButton = event.target.closest('.remove-cart-item');
+            if (!removeButton) return;
+            event.preventDefault();
+            const index = Number(removeButton.dataset.removeIndex);
+            if (!Number.isInteger(index) || index < 0 || index >= cart.length) return;
+            cart.splice(index, 1);
+            updateCartUI();
+        });
 
         document.getElementById('delivery-address').addEventListener('input', calculateDelivery);
         document.getElementById('delivery-city').addEventListener('input', calculateDelivery);
