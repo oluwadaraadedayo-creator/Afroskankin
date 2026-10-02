@@ -69,6 +69,32 @@
 
         .product-card:hover { transform: translateY(-5px); }
 
+        /* Hero: show the complete video on desktop, keep mobile full-screen */
+        .hero-section {
+            width: 100%;
+            height: 100vh;
+            min-height: 0;
+            background: var(--yellow);
+            border-bottom: 3px solid var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        @media (max-width: 767px) {
+            .hero-video {
+                object-fit: cover;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -83,8 +109,8 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="w-full h-screen border-b-3 border-black">
-        <video id="hero-video" class="w-full h-full object-cover" autoplay muted loop playsinline>
+    <section class="hero-section">
+        <video id="hero-video" class="hero-video" autoplay muted loop playsinline>
             Your browser does not support video playback.
         </video>
     </section>
