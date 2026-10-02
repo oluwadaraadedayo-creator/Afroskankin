@@ -1,457 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#FEE600">
-<title>PAYBAC IBORO | AFROSKANKIN</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#000">
+<title>PAYBAC IBORO — AFROSKANKIN</title>
 <style>
-:root{
-  --yellow:#FEE600;
-  --green:#185C32;
-  --red:#E9232D;
-  --black:#050505;
-  --paper:#F7F4EA;
-  --white:#fff;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  background:var(--yellow);
-  color:var(--black);
-  font-family:Arial,Helvetica,sans-serif;
-  overflow-x:hidden;
-}
-button,input,select{font:inherit}
-a{color:inherit;text-decoration:none}
-img{max-width:100%}
-::selection{background:var(--black);color:var(--yellow)}
-
-.site-nav{
-  position:sticky;top:0;z-index:100;
-  display:flex;align-items:center;justify-content:space-between;
-  min-height:76px;padding:10px 22px;
-  background:var(--yellow);border-bottom:3px solid var(--black);
-}
-.logo{height:54px;width:auto;display:block}
-.nav-links{display:flex;align-items:center;gap:26px;font-size:13px;font-weight:700;letter-spacing:.08em}
-.nav-links a{padding:8px 0;border-bottom:2px solid transparent}
-.nav-links a:hover{border-color:var(--black)}
-.cart-trigger{
-  border:2px solid var(--black);background:transparent;padding:9px 13px;
-  cursor:pointer;font-weight:700;font-size:12px;letter-spacing:.05em;
-}
-.cart-trigger:hover{background:var(--black);color:var(--yellow)}
-
-.hero{
-  position:relative;height:calc(100vh - 76px);min-height:620px;
-  background:var(--yellow);overflow:hidden;border-bottom:3px solid var(--black);
-}
-.hero video{width:100%;height:100%;display:block;object-fit:contain;background:var(--yellow)}
-.hero-copy{
-  position:absolute;left:24px;bottom:24px;z-index:2;
-  display:flex;align-items:flex-end;justify-content:space-between;width:calc(100% - 48px);
-  pointer-events:none;
-}
-.hero-title{
-  margin:0;font-size:clamp(58px,12vw,180px);line-height:.72;
-  font-weight:800;letter-spacing:-.075em;text-transform:uppercase;
-}
-.hero-tag{
-  max-width:270px;margin:0 0 4px 20px;padding:10px 12px;
-  background:var(--black);color:var(--yellow);
-  font-size:11px;line-height:1.35;font-weight:700;text-transform:uppercase;
-}
-.marquee{
-  border-bottom:3px solid var(--black);overflow:hidden;background:var(--green);color:var(--yellow);
-  white-space:nowrap;font-size:15px;font-weight:700;letter-spacing:.08em;
-}
-.marquee-track{display:inline-block;padding:13px 0;animation:scroll 22s linear infinite}
-@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-.section{padding:92px 5vw;border-bottom:3px solid var(--black)}
-.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:48px}
-.kicker{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
-.display{
-  margin:8px 0 0;font-size:clamp(48px,8vw,120px);line-height:.8;
-  letter-spacing:-.07em;font-weight:800;text-transform:uppercase;
-}
-.intro-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:7vw;align-items:end}
-.intro-copy{font-size:clamp(24px,3.3vw,48px);line-height:.98;letter-spacing:-.04em;font-weight:600;max-width:900px}
-.intro-note{border-left:3px solid var(--black);padding-left:18px;font-size:14px;line-height:1.5;max-width:340px}
-.green-panel{background:var(--green);color:var(--yellow)}
-.red-panel{background:var(--red);color:var(--black)}
-
-.editorial{display:grid;grid-template-columns:1fr 1fr;min-height:620px;border-bottom:3px solid var(--black)}
-.editorial-copy{padding:70px 5vw;display:flex;flex-direction:column;justify-content:space-between}
-.editorial-title{font-size:clamp(55px,8vw,125px);line-height:.78;letter-spacing:-.07em;font-weight:800;text-transform:uppercase;margin:0}
-.editorial-image{
-  min-height:620px;background:var(--black);position:relative;overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-}
-.editorial-image img{width:100%;height:100%;object-fit:cover;opacity:.94}
-.image-label{
-  position:absolute;left:18px;bottom:18px;background:var(--yellow);
-  border:2px solid var(--black);padding:8px 10px;font-size:11px;font-weight:700;text-transform:uppercase;
-}
-
-.gallery-grid{display:grid;grid-template-columns:1.4fr .8fr .8fr;gap:12px}
-.gallery-tile{min-height:300px;border:3px solid var(--black);position:relative;overflow:hidden;background:var(--paper)}
-.gallery-tile.large{min-height:520px}
-.gallery-tile .tile-word{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  text-align:center;font-size:clamp(42px,7vw,100px);line-height:.78;font-weight:800;
-  letter-spacing:-.08em;text-transform:uppercase;padding:20px;
-}
-.gallery-tile:nth-child(1){background:var(--green);color:var(--yellow)}
-.gallery-tile:nth-child(2){background:var(--red)}
-.gallery-tile:nth-child(3){background:var(--black);color:var(--yellow)}
-.gallery-tile:nth-child(4){background:var(--paper)}
-.gallery-tile:nth-child(5){background:var(--yellow)}
-
-.shop{background:var(--paper)}
-.category-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px}
-.category{border:2px solid var(--black);padding:9px 13px;font-size:11px;font-weight:700;text-transform:uppercase;background:transparent}
-.category.active,.category:hover{background:var(--black);color:var(--yellow)}
-.products{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.product{border:3px solid var(--black);background:var(--white);display:flex;flex-direction:column}
-.product-visual{height:390px;display:flex;align-items:center;justify-content:center;padding:25px;position:relative;overflow:hidden}
-.product:nth-child(1) .product-visual{background:var(--yellow)}
-.product:nth-child(2) .product-visual{background:var(--green);color:var(--yellow)}
-.product:nth-child(3) .product-visual{background:var(--red)}
-.product-word{font-size:clamp(55px,7vw,105px);line-height:.72;letter-spacing:-.08em;font-weight:800;text-align:center;text-transform:uppercase;transform:rotate(-7deg)}
-.product-meta{padding:18px;border-top:3px solid var(--black)}
-.product-meta h3{margin:0 0 7px;font-size:22px;text-transform:uppercase;letter-spacing:-.03em}
-.price{font-size:17px;font-weight:700;margin-bottom:15px}
-.size{width:100%;padding:10px;border:2px solid var(--black);background:var(--white);margin-bottom:10px}
-.add{
-  width:100%;padding:12px;border:2px solid var(--black);background:var(--yellow);
-  cursor:pointer;font-size:12px;font-weight:700;text-transform:uppercase;
-}
-.add:hover{background:var(--black);color:var(--yellow)}
-
-.contact{display:grid;grid-template-columns:1fr 1fr;gap:8vw;background:var(--black);color:var(--yellow)}
-.contact .display{color:var(--yellow)}
-.contact-copy{font-size:clamp(22px,3vw,42px);line-height:1;letter-spacing:-.04em;font-weight:600}
-.contact-links{display:grid;gap:8px;margin-top:30px}
-.contact-links a{border-bottom:2px solid var(--yellow);padding:10px 0;font-size:13px;font-weight:700;text-transform:uppercase}
-.footer{background:var(--yellow);padding:18px 5vw;display:flex;justify-content:space-between;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-
-.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:110;display:none}
-.cart-overlay.open{display:block}
-.cart-drawer{
-  position:fixed;top:0;right:-430px;z-index:120;width:min(430px,100%);
-  height:100vh;background:var(--yellow);border-left:3px solid var(--black);
-  transition:right .3s ease;display:flex;flex-direction:column;padding:22px;
-}
-.cart-drawer.open{right:0}
-.cart-top{display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--black);padding-bottom:15px}
-.cart-top h2{margin:0;font-size:26px;text-transform:uppercase;letter-spacing:-.04em}
-.close-cart{border:2px solid var(--black);background:transparent;padding:7px 10px;cursor:pointer;font-weight:700}
-.cart-items{flex:1;overflow:auto;padding:18px 0}
-.cart-empty{font-size:14px;line-height:1.4}
-.cart-line{display:grid;grid-template-columns:1fr auto;gap:12px;padding:14px 0;border-bottom:2px solid var(--black)}
-.cart-line-name{font-size:14px;font-weight:700;text-transform:uppercase}
-.cart-line-price{font-size:13px;margin-top:4px}
-.remove{border:2px solid var(--black);background:transparent;padding:5px 7px;font-size:9px;font-weight:700;cursor:pointer;height:max-content}
-.remove:hover{background:var(--red)}
-.summary{border-top:3px solid var(--black);padding-top:18px}
-.summary-row{display:flex;justify-content:space-between;font-size:14px;font-weight:700;margin-bottom:10px}
-.summary-total{border-top:2px solid var(--black);padding-top:12px;font-size:20px}
-.checkout{display:grid;gap:9px;margin-top:18px}
-.checkout input{width:100%;padding:11px;border:2px solid var(--black);background:var(--white);outline:none}
-.checkout input:focus{box-shadow:4px 4px 0 var(--green)}
-.pay{border:2px solid var(--black);background:var(--black);color:var(--yellow);padding:13px;font-size:12px;font-weight:700;text-transform:uppercase;cursor:pointer}
-.pay:hover{background:var(--green)}
-
-@media(max-width:800px){
-  .site-nav{min-height:68px;padding:8px 14px}.logo{height:47px}.nav-links a:not(.keep){display:none}
-  .nav-links{gap:10px}.hero{height:calc(100vh - 68px);min-height:500px}.hero-copy{left:15px;bottom:15px;width:calc(100% - 30px)}
-  .hero-title{font-size:clamp(55px,18vw,110px)}.hero-tag{display:none}
-  .section{padding:65px 18px}.intro-grid,.editorial,.contact{grid-template-columns:1fr}
-  .editorial-copy{min-height:500px;padding:55px 18px}.editorial-image{min-height:460px}
-  .gallery-grid{grid-template-columns:1fr 1fr}.gallery-tile.large{grid-row:span 2;min-height:612px}.gallery-tile{min-height:300px}
-  .products{grid-template-columns:1fr}.product-visual{height:430px}
-  .footer{padding:15px 18px;display:block}.footer span{display:block;margin:4px 0}
-}
-@media(max-width:520px){
-  .gallery-grid{grid-template-columns:1fr}.gallery-tile.large{grid-row:auto;min-height:430px}.gallery-tile{min-height:260px}
-  .display{font-size:50px}.editorial-title{font-size:58px}.hero video{object-fit:cover}
-}
+:root{--y:#FEE600;--g:#174E2A;--r:#E5262F;--k:#050505;--w:#F4F1E8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--k);color:var(--w);font-family:Arial,Helvetica,sans-serif}a{color:inherit;text-decoration:none}button{font:inherit}
+.top{position:fixed;z-index:50;top:0;left:0;right:0;height:70px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(#000,transparent);mix-blend-mode:normal}.top img{height:44px;width:auto}.menu{display:flex;gap:24px;align-items:center;font-size:11px;font-weight:700;letter-spacing:.12em}.menu a:hover{color:var(--y)}.bag{border:1px solid var(--w);background:transparent;color:var(--w);padding:9px 12px;cursor:pointer}.bag:hover{background:var(--y);border-color:var(--y);color:#000}
+.hero{height:100vh;min-height:650px;position:relative;overflow:hidden;background:#000}.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05)}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 45%,rgba(0,0,0,.65))}.hero-title{position:absolute;z-index:2;left:18px;bottom:25px;margin:0;color:var(--y);font-size:clamp(70px,15vw,230px);line-height:.72;letter-spacing:-.09em;font-weight:800;text-transform:uppercase}.hero-meta{position:absolute;z-index:3;right:22px;bottom:28px;width:180px;font-size:10px;line-height:1.45;text-transform:uppercase;font-weight:700}.hero-meta span{display:block;border-top:1px solid var(--w);padding-top:8px;margin-top:9px}
+.band{background:var(--y);color:#000;border-top:2px solid #000;border-bottom:2px solid #000;overflow:hidden;white-space:nowrap;font-size:14px;font-weight:800;letter-spacing:.06em}.band div{padding:11px 0;display:inline-block;animation:run 18s linear infinite}@keyframes run{to{transform:translateX(-50%)}}
+.section{padding:105px 5vw;border-bottom:1px solid #333}.eyebrow{font-size:10px;letter-spacing:.14em;font-weight:700;text-transform:uppercase;color:var(--y)}.headline{font-size:clamp(60px,10vw,150px);line-height:.75;letter-spacing:-.09em;margin:12px 0 55px;font-weight:800;text-transform:uppercase}.bio{display:grid;grid-template-columns:1fr 1fr;gap:8vw}.bio p{font-size:clamp(25px,4vw,58px);line-height:.96;letter-spacing:-.045em;margin:0;font-weight:600}.bio aside{border-left:2px solid var(--y);padding-left:20px;font-size:14px;line-height:1.55;max-width:430px}.bio aside b{color:var(--y)}
+.feature{display:grid;grid-template-columns:1fr 1fr;min-height:720px}.feature-copy{padding:90px 5vw;background:var(--g);color:var(--y);display:flex;flex-direction:column;justify-content:space-between}.feature-copy h2{font-size:clamp(65px,10vw,155px);line-height:.7;letter-spacing:-.09em;margin:0;font-weight:800}.feature-copy p{max-width:360px;font-size:14px;line-height:1.45}.feature-image{background:var(--r);overflow:hidden}.feature-image img{width:100%;height:100%;object-fit:cover;display:block;mix-blend-mode:multiply}
+.gallery{padding-bottom:70px}.gallery-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:35px}.gallery-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:310px 310px;gap:8px}.tile{position:relative;overflow:hidden;border:1px solid #333;background:var(--g)}.tile:nth-child(1){grid-row:span 2;background:var(--y);color:#000}.tile:nth-child(2){background:var(--r)}.tile:nth-child(3){background:#ddd;color:#000}.tile:nth-child(4){background:#111}.tile:nth-child(5){background:var(--g)}.tile span{position:absolute;left:14px;bottom:10px;font-size:clamp(28px,4vw,65px);line-height:.78;letter-spacing:-.07em;font-weight:800;text-transform:uppercase}.tile:first-child span{font-size:clamp(55px,9vw,130px)}
+.shop{background:var(--w);color:#000}.shop .eyebrow{color:var(--g)}.shop-top{display:flex;justify-content:space-between;align-items:end}.products{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.product{background:#fff;border:2px solid #000}.visual{height:390px;display:flex;align-items:center;justify-content:center;overflow:hidden}.product:nth-child(1) .visual{background:var(--y)}.product:nth-child(2) .visual{background:var(--g);color:var(--y)}.product:nth-child(3) .visual{background:var(--r)}.visual strong{font-size:clamp(45px,6vw,90px);line-height:.72;letter-spacing:-.08em;text-align:center;transform:rotate(-8deg)}.info{padding:16px;border-top:2px solid #000}.info h3{margin:0 0 5px;font-size:19px;text-transform:uppercase}.info p{margin:0 0 14px;font-size:13px}.info select,.info button{width:100%;height:42px;border:2px solid #000;background:#fff;margin-top:7px}.info button{background:#000;color:var(--y);font-weight:700;text-transform:uppercase;cursor:pointer}.info button:hover{background:var(--g)}
+.contact{display:grid;grid-template-columns:1.3fr .7fr;gap:8vw;background:var(--y);color:#000}.contact h2{font-size:clamp(70px,12vw,180px);line-height:.68;letter-spacing:-.09em;margin:15px 0 0}.contact-links{display:grid;align-content:end;gap:0}.contact-links a{border-top:2px solid #000;padding:13px 0;font-size:13px;font-weight:700;text-transform:uppercase}.footer{padding:18px 20px;display:flex;justify-content:space-between;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#aaa}
+.overlay{display:none;position:fixed;z-index:100;inset:0;background:rgba(0,0,0,.65)}.overlay.open{display:block}.cart{position:fixed;z-index:110;right:-440px;top:0;width:min(440px,100%);height:100vh;background:var(--y);color:#000;padding:20px;transition:right .3s;display:flex;flex-direction:column}.cart.open{right:0}.cart-head{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #000;padding-bottom:14px}.cart-head h2{margin:0;font-size:25px}.close{border:2px solid #000;background:transparent;padding:7px;cursor:pointer;font-weight:700}.items{flex:1;overflow:auto}.line{padding:14px 0;border-bottom:1px solid #000;display:flex;justify-content:space-between;gap:10px}.line b{font-size:13px;text-transform:uppercase}.line small{display:block;margin-top:4px}.remove{border:1px solid #000;background:transparent;height:27px;padding:0 7px;font-size:9px;font-weight:700}.sum{border-top:2px solid #000;padding-top:15px}.row{display:flex;justify-content:space-between;margin:8px 0;font-size:13px;font-weight:700}.total{font-size:20px;border-top:1px solid #000;padding-top:12px}.form{display:grid;gap:8px;margin-top:14px}.form input{height:42px;border:2px solid #000;padding:9px;background:#fff}.pay{height:44px;background:#000;color:var(--y);border:0;font-weight:700;text-transform:uppercase}
+@media(max-width:800px){.menu a{display:none}.hero-title{font-size:20vw;left:14px}.hero-meta{right:14px;bottom:20px}.bio,.feature,.contact{grid-template-columns:1fr}.feature-copy{min-height:500px;padding:60px 5vw}.feature-image{height:500px}.gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:300px 220px 220px}.tile:nth-child(1){grid-row:span 1;grid-column:span 2}.products{grid-template-columns:1fr}.visual{height:420px}.section{padding:75px 18px}.contact-links{margin-top:50px}.footer{display:block;line-height:1.8}}
 </style>
 </head>
-<body id="top">
+<body>
+<header class="top"><a href="#home"><img src="./logo.png" alt="Paybac Iboro"></a><nav class="menu"><a href="#bio">BIO</a><a href="#gallery">GALLERY</a><a href="#shop">MERCH</a><a href="#contact">CONTACT</a><button class="bag" id="bagBtn">CART (0)</button></nav></header>
 
-<header class="site-nav">
-  <a href="#top"><img class="logo" src="./logo.png" alt="Paybac Iboro"></a>
-  <nav class="nav-links">
-    <a href="#world">WORLD</a>
-    <a href="#gallery">GALLERY</a>
-    <a href="#shop">SHOP</a>
-    <button class="cart-trigger" id="cart-btn" onclick="toggleCart()">CART (0)</button>
-  </nav>
-</header>
+<section class="hero" id="home"><video id="heroVideo" autoplay muted loop playsinline></video><h1 class="hero-title">PAYBAC<br>IBORO</h1><div class="hero-meta">AFROSKANKIN<br>Music / Culture / Movement<span>01 — 2026</span></div></section>
+<div class="band"><div>AFROSKANKIN / PAYBAC IBORO / LAGOS / MUSIC / MERCH / CULTURE / AFROSKANKIN / PAYBAC IBORO / LAGOS / MUSIC / MERCH / CULTURE / </div></div>
 
-<main>
-<section class="hero">
-  <video id="hero-video" autoplay muted loop playsinline preload="metadata"></video>
-  <div class="hero-copy">
-    <h1 class="hero-title">AFRO<br>SKANKIN</h1>
-    <p class="hero-tag">PAYBAC IBORO<br>Culture in motion. Lagos to everywhere.</p>
-  </div>
-</section>
+<section class="section" id="bio"><div class="eyebrow">01 — Bio & identity</div><h2 class="headline">A SOUND.<br>A WORLD.</h2><div class="bio"><p>PAYBAC IBORO is the creative universe behind AFROSKANKIN, bringing music, fashion and visual culture into one raw Lagos language.</p><aside><b>AFROSKANKIN</b><br><br>A space for records, clothes, images and ideas. The work stays close to the street, the studio and the people who make the culture move.</aside></div></section>
 
-<div class="marquee"><div class="marquee-track">
-  PAYBAC IBORO &nbsp; / &nbsp; AFROSKANKIN &nbsp; / &nbsp; MADE FOR THE CULTURE &nbsp; / &nbsp; PAYBAC IBORO &nbsp; / &nbsp; AFROSKANKIN &nbsp; / &nbsp; MADE FOR THE CULTURE &nbsp; / &nbsp;
-</div></div>
+<section class="feature"><div class="feature-copy"><div><div class="eyebrow">02 — The movement</div><h2>WEAR<br>THE<br>SOUND</h2></div><p>Not just merch. Pieces from the world of Paybac Iboro, designed to sit beside the music and carry the identity beyond the screen.</p></div><div class="feature-image"><img src="./3d6bdc23-b8c1-43bd-8d51-cc69e0d90a56.png_20261001074207.jpg" alt="AFROSKANKIN campaign visual"></div></section>
 
-<section id="world" class="section">
-  <div class="section-head">
-    <div><div class="kicker">01 / The world</div><h2 class="display">RAW<br>BY DESIGN</h2></div>
-    <div class="kicker">Lagos, Nigeria</div>
-  </div>
-  <div class="intro-grid">
-    <p class="intro-copy">AFROSKANKIN is a visual and cultural language built around music, movement, fashion and the everyday energy of Lagos.</p>
-    <p class="intro-note">No over-explaining. No polished-away edges. Just strong identity, loud colour and pieces designed to live in the real world.</p>
-  </div>
-</section>
+<section class="section gallery" id="gallery"><div class="gallery-head"><div><div class="eyebrow">03 — Gallery</div><h2 class="headline" style="margin-bottom:0">THE<br>ARCHIVE</h2></div><div class="eyebrow">LAGOS / NIGERIA</div></div><div class="gallery-grid"><div class="tile"><span>AFRO<br>SKANKIN</span></div><div class="tile"><span>PAYBAC</span></div><div class="tile"><span>IBORO</span></div><div class="tile"><span>RAW<br>ENERGY</span></div><div class="tile"><span>MOVE<br>LOUD</span></div></div></section>
 
-<section class="editorial">
-  <div class="editorial-copy green-panel">
-    <div>
-      <div class="kicker">02 / Paybac Iboro</div>
-      <h2 class="editorial-title">WEAR<br>THE<br>ENERGY</h2>
-    </div>
-    <div style="font-size:13px;line-height:1.45;max-width:330px">A collection of garments and objects connected to the AFROSKANKIN universe. Built to feel direct, expressive and unmistakably ours.</div>
-  </div>
-  <div class="editorial-image">
-    <img src="./3d6bdc23-b8c1-43bd-8d51-cc69e0d90a56.png_20261001074207.jpg" alt="AFROSKANKIN visual">
-    <span class="image-label">AFROSKANKIN / 001</span>
-  </div>
-</section>
+<section class="section shop" id="shop"><div class="shop-top"><div><div class="eyebrow">04 — Merch</div><h2 class="headline">THE<br>DROP</h2></div><div class="eyebrow">3 pieces / now available</div></div><div class="products">
+<article class="product"><div class="visual"><strong>SIGNATURE<br>TEE</strong></div><div class="info"><h3>Signature Tee</h3><p>₦25,000</p><select id="tee"><option>S</option><option>M</option><option>L</option><option>XL</option></select><button onclick="add('Signature Tee',25000,document.getElementById('tee').value)">Add to Cart</button></div></article>
+<article class="product"><div class="visual"><strong>CLASSIC<br>HOODIE</strong></div><div class="info"><h3>Classic Hoodie</h3><p>₦45,000</p><select id="hoodie"><option>S</option><option>M</option><option>L</option><option>XL</option></select><button onclick="add('Classic Hoodie',45000,document.getElementById('hoodie').value)">Add to Cart</button></div></article>
+<article class="product"><div class="visual"><strong>IBORO<br>CAP</strong></div><div class="info"><h3>Embroidered Cap</h3><p>₦18,000</p><select id="cap"><option>One Size</option></select><button onclick="add('Embroidered Cap',18000,document.getElementById('cap').value)">Add to Cart</button></div></article>
+</div></section>
 
-<section id="gallery" class="section">
-  <div class="section-head">
-    <div><div class="kicker">03 / Visual archive</div><h2 class="display">THE<br>ARCHIVE</h2></div>
-    <div class="kicker">Music / Fashion / Movement</div>
-  </div>
-  <div class="gallery-grid">
-    <div class="gallery-tile large"><div class="tile-word">AFRO<br>SKANKIN</div></div>
-    <div class="gallery-tile"><div class="tile-word">PAY<br>BAC</div></div>
-    <div class="gallery-tile"><div class="tile-word">IBORO</div></div>
-    <div class="gallery-tile"><div class="tile-word">LAGOS<br>ENERGY</div></div>
-    <div class="gallery-tile"><div class="tile-word">MOVE<br>LOUD</div></div>
-  </div>
-</section>
+<section class="section contact" id="contact"><div><div class="eyebrow" style="color:#000">05 — Contact</div><h2>STAY<br>IN THE<br>LOOP</h2></div><div class="contact-links"><a href="mailto:hello@afroskankin.com">Email</a><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">YouTube</a><a href="#home">Back to top ↑</a></div></section>
+<footer class="footer"><span>PAYBAC IBORO / AFROSKANKIN</span><span>© 2026</span></footer>
 
-<section id="shop" class="section shop">
-  <div class="section-head">
-    <div><div class="kicker">04 / Merch</div><h2 class="display">SHOP<br>THE DROP</h2></div>
-    <div class="kicker">Limited pieces / Available now</div>
-  </div>
-  <div class="category-row">
-    <button class="category active">ALL</button>
-    <button class="category">TEES</button>
-    <button class="category">HOODIES</button>
-    <button class="category">HEADWEAR</button>
-  </div>
-  <div class="products">
-    <article class="product">
-      <div class="product-visual"><div class="product-word">SIGNATURE<br>TEE</div></div>
-      <div class="product-meta">
-        <h3>Signature Tee</h3><div class="price">₦25,000</div>
-        <select id="tee-size" class="size"><option>S</option><option>M</option><option>L</option><option>XL</option></select>
-        <button class="add" onclick="addToCart('Signature Tee',25000,document.getElementById('tee-size').value)">Add to Cart</button>
-      </div>
-    </article>
-    <article class="product">
-      <div class="product-visual"><div class="product-word">CLASSIC<br>HOODIE</div></div>
-      <div class="product-meta">
-        <h3>Classic Hoodie</h3><div class="price">₦45,000</div>
-        <select id="hoodie-size" class="size"><option>S</option><option>M</option><option>L</option><option>XL</option></select>
-        <button class="add" onclick="addToCart('Classic Hoodie',45000,document.getElementById('hoodie-size').value)">Add to Cart</button>
-      </div>
-    </article>
-    <article class="product">
-      <div class="product-visual"><div class="product-word">IBORO<br>CAP</div></div>
-      <div class="product-meta">
-        <h3>Embroidered Cap</h3><div class="price">₦18,000</div>
-        <select id="cap-size" class="size"><option>One Size</option></select>
-        <button class="add" onclick="addToCart('Embroidered Cap',18000,document.getElementById('cap-size').value)">Add to Cart</button>
-      </div>
-    </article>
-  </div>
-</section>
-
-<section class="section contact" id="contact">
-  <div>
-    <div class="kicker">05 / Contact</div>
-    <h2 class="display">STAY<br>CONNECTED</h2>
-  </div>
-  <div>
-    <p class="contact-copy">For drops, collaborations, music and everything in between.</p>
-    <div class="contact-links">
-      <a href="mailto:hello@afroskankin.com">Email</a>
-      <a href="#" aria-label="Instagram">Instagram</a>
-      <a href="#" aria-label="TikTok">TikTok</a>
-      <a href="#" aria-label="YouTube">YouTube</a>
-    </div>
-  </div>
-</section>
-</main>
-
-<footer class="footer">
-  <span>PAYBAC IBORO / AFROSKANKIN</span>
-  <span>© 2026 ALL RIGHTS RESERVED</span>
-  <span><a href="#top">BACK TO TOP ↑</a></span>
-</footer>
-
-<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
-<aside class="cart-drawer" id="cart-drawer" aria-label="Shopping cart">
-  <div class="cart-top">
-    <h2>Your Bag</h2>
-    <button class="close-cart" onclick="toggleCart()">CLOSE</button>
-  </div>
-  <div class="cart-items" id="cart-items"></div>
-  <div class="summary">
-    <div class="summary-row"><span>Items Total</span><span>₦<span id="items-total">0</span></span></div>
-    <div class="summary-row"><span>Dispatch</span><span>₦<span id="delivery-fee">0</span></span></div>
-    <div class="summary-row summary-total"><span>Total</span><span>₦<span id="order-grand-total">0</span></span></div>
-    <form class="checkout" id="checkout-form">
-      <input id="checkout-name" type="text" placeholder="Full Name" required>
-      <input id="checkout-email" type="email" placeholder="Email" required>
-      <input id="checkout-phone" type="text" placeholder="Phone" required>
-      <input id="delivery-address" type="text" placeholder="Address" required>
-      <input id="delivery-city" type="text" placeholder="City" required>
-      <button class="pay" type="submit">Pay Now</button>
-    </form>
-  </div>
-</aside>
+<div class="overlay" id="overlay"></div><aside class="cart" id="cart"><div class="cart-head"><h2>Your Bag</h2><button class="close" onclick="toggle()">CLOSE</button></div><div class="items" id="items"></div><div class="sum"><div class="row"><span>Items Total</span><span>₦<span id="itemsTotal">0</span></span></div><div class="row"><span>Dispatch</span><span>₦<span id="dispatch">0</span></span></div><div class="row total"><span>Total</span><span>₦<span id="grand">0</span></span></div><form class="form" id="checkout"><input placeholder="Full Name" required><input type="email" placeholder="Email" required><input placeholder="Phone" required><input id="address" placeholder="Address" required><input id="city" placeholder="City" required><button class="pay">Pay Now</button></form></div></aside>
 
 <script>
-const REPO = 'oluwadaraadedayo-creator/Afroskankin';
-const DELIVERY_API_URL = 'https://afroskankin-delivery-api.netlify.app/api/delivery-quote';
-const ORIGIN = '31 Alhaji Mosobolaje Street off Ago Palace Way Okota Isolo, Lagos, Nigeria';
-let cart = [];
-let deliveryFee = 0;
-let deliveryDistanceKm = null;
-let deliveryTimer = null;
-
-async function loadHeroVideo(){
-  try{
-    const response = await fetch('https://api.github.com/repos/' + REPO + '/contents/');
-    const files = await response.json();
-    const videoFile = files.find(file =>
-      file.name.toLowerCase().includes('models_walking_runway') &&
-      file.name.toLowerCase().endsWith('.mp4')
-    );
-    if(videoFile){
-      const video = document.getElementById('hero-video');
-      video.src = videoFile.download_url;
-      video.load();
-      video.play().catch(()=>{});
-    }
-  }catch(error){console.error('Hero video could not be loaded:',error)}
-}
-loadHeroVideo();
-
-function toggleCart(){
-  document.getElementById('cart-drawer').classList.toggle('open');
-  document.getElementById('cart-overlay').classList.toggle('open');
-  document.body.style.overflow = document.getElementById('cart-drawer').classList.contains('open') ? 'hidden' : '';
-}
-
-function addToCart(name,price,size){
-  cart.push({name,price,size});
-  updateCartUI();
-  document.getElementById('cart-drawer').classList.add('open');
-  document.getElementById('cart-overlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-
-function updateCartUI(){
-  const container=document.getElementById('cart-items');
-  const itemsTotal=cart.reduce((sum,item)=>sum+Number(item.price),0);
-  const grandTotal=itemsTotal+Number(deliveryFee||0);
-  document.getElementById('cart-btn').textContent='CART ('+cart.length+')';
-  document.getElementById('items-total').textContent=itemsTotal.toLocaleString();
-  document.getElementById('delivery-fee').textContent=Number(deliveryFee||0).toLocaleString();
-  document.getElementById('order-grand-total').textContent=grandTotal.toLocaleString();
-
-  if(!cart.length){
-    container.innerHTML='<p class="cart-empty">Your bag is empty. Add a piece from the drop.</p>';
-    return;
-  }
-  container.innerHTML=cart.map((item,index)=>`
-    <div class="cart-line">
-      <div><div class="cart-line-name">${item.name}</div><div class="cart-line-price">${item.size} · ₦${Number(item.price).toLocaleString()}</div></div>
-      <button class="remove" data-index="${index}">REMOVE</button>
-    </div>`).join('');
-}
-
-document.getElementById('cart-items').addEventListener('click',e=>{
-  const button=e.target.closest('.remove');
-  if(!button)return;
-  const index=Number(button.dataset.index);
-  if(Number.isInteger(index)){cart.splice(index,1);updateCartUI();}
-});
-
-function calculateDeliveryFee(distanceKm){
-  if(distanceKm<=5)return 4000;
-  if(distanceKm<=10)return 8000;
-  if(distanceKm<=15)return 12000;
-  if(distanceKm<=20)return 18000;
-  return 18000 + Math.ceil((distanceKm-20)/0.5)*1000;
-}
-
-async function calculateDelivery(){
-  const address=document.getElementById('delivery-address').value.trim();
-  const city=document.getElementById('delivery-city').value.trim();
-  if(!address || !city){deliveryFee=0;deliveryDistanceKm=null;updateCartUI();return;}
-  const fullAddress=address+', '+city+', Nigeria';
-  try{
-    const response=await fetch(DELIVERY_API_URL,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({address:fullAddress})
-    });
-    const data=await response.json();
-    if(!response.ok)throw new Error(data.error||'Backend unavailable');
-    deliveryFee=Number(data.deliveryFee)||0;
-    deliveryDistanceKm=Number(data.distanceKm)||null;
-  }catch(error){
-    try{
-      const origin=await fetch('https://photon.komoot.io/api/?q='+encodeURIComponent(ORIGIN)+'&limit=1').then(r=>r.json());
-      const destination=await fetch('https://photon.komoot.io/api/?q='+encodeURIComponent(fullAddress)+'&limit=1').then(r=>r.json());
-      const a=origin?.features?.[0]?.geometry?.coordinates;
-      const b=destination?.features?.[0]?.geometry?.coordinates;
-      if(!a||!b)throw new Error('Address not found');
-      const route=await fetch('https://router.project-osrm.org/route/v1/driving/'+a[0]+','+a[1]+';'+b[0]+','+b[1]+'?overview=false').then(r=>r.json());
-      const km=route?.routes?.[0]?.distance/1000;
-      if(!Number.isFinite(km))throw new Error('Route not found');
-      deliveryDistanceKm=Number(km.toFixed(2));
-      deliveryFee=calculateDeliveryFee(km);
-    }catch(fallbackError){deliveryFee=0;deliveryDistanceKm=null;}
-  }
-  updateCartUI();
-}
-
-['delivery-address','delivery-city'].forEach(id=>{
-  document.getElementById(id).addEventListener('blur',()=>{
-    clearTimeout(deliveryTimer);
-    deliveryTimer=setTimeout(calculateDelivery,250);
-  });
-});
-
-document.getElementById('checkout-form').addEventListener('submit',e=>{
-  e.preventDefault();
-  if(!cart.length){alert('Your bag is empty.');return;}
-  alert('Paystack checkout is ready to be connected. Your order total is ₦'+(cart.reduce((s,i)=>s+Number(i.price),0)+Number(deliveryFee||0)).toLocaleString()+'.');
-});
-
-updateCartUI();
+const repo='oluwadaraadedayo-creator/Afroskankin';let cart=[];let fee=0;
+fetch('https://api.github.com/repos/'+repo+'/contents/').then(r=>r.json()).then(files=>{const f=files.find(x=>x.name.toLowerCase().includes('models_walking_runway')&&x.name.toLowerCase().endsWith('.mp4'));if(f){const v=document.getElementById('heroVideo');v.src=f.download_url;v.play().catch(()=>{})}}).catch(()=>{});
+function toggle(){document.getElementById('cart').classList.toggle('open');document.getElementById('overlay').classList.toggle('open')}
+document.getElementById('bagBtn').onclick=toggle;document.getElementById('overlay').onclick=toggle;
+function add(name,price,size){cart.push({name,price,size});render();document.getElementById('cart').classList.add('open');document.getElementById('overlay').classList.add('open')}
+function render(){const total=cart.reduce((s,x)=>s+x.price,0);document.getElementById('bagBtn').textContent='CART ('+cart.length+')';document.getElementById('itemsTotal').textContent=total.toLocaleString();document.getElementById('dispatch').textContent=fee.toLocaleString();document.getElementById('grand').textContent=(total+fee).toLocaleString();document.getElementById('items').innerHTML=cart.length?cart.map((x,i)=>'<div class="line"><div><b>'+x.name+'</b><small>'+x.size+' · ₦'+x.price.toLocaleString()+'</small></div><button class="remove" onclick="removeItem('+i+')">REMOVE</button></div>').join(''):'<p>Your bag is empty.</p>'}
+function removeItem(i){cart.splice(i,1);render()}
+function delivery(distance){if(distance<=5)return 4000;if(distance<=10)return 8000;if(distance<=15)return 12000;if(distance<=20)return 18000;return 18000+Math.ceil((distance-20)/.5)*1000}
+async function quote(){const a=document.getElementById('address').value.trim(),c=document.getElementById('city').value.trim();if(!a||!c){fee=0;render();return}try{const r=await fetch('https://afroskankin-delivery-api.netlify.app/api/delivery-quote',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({address:a+', '+c+', Nigeria'})});const d=await r.json();if(!r.ok)throw 0;fee=d.deliveryFee||0;render()}catch(e){fee=0;render()}}
+['address','city'].forEach(id=>document.getElementById(id).addEventListener('blur',quote));
+document.getElementById('checkout').onsubmit=e=>{e.preventDefault();if(!cart.length)return alert('Your bag is empty.');alert('Paystack checkout will be connected here.')};render();
 </script>
-</body>
-</html>
+</body></html>
