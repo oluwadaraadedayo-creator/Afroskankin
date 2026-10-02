@@ -148,7 +148,7 @@
                 <select class="w-full p-2 mb-4 border-2 border-black bg-white">
                     <option>S</option><option>M</option><option>L</option><option>XL</option>
                 </select>
-                <button onclick="addToCart('Signature Tee', 25000)" class="w-full p-3 btn-raw uppercase font-semibold">Add to Cart</button>
+                <button onclick="addToCart('Signature Tee', 25000)" class="w-full p-2 btn-raw uppercase text-sm font-semibold">Add to Cart</button>
             </div>
             <!-- Product 2 -->
             <div class="product-card p-3">
@@ -192,7 +192,7 @@
                 <input type="text" placeholder="Phone" class="w-full p-2 border-2 border-black" required>
                 <input id="delivery-address" type="text" placeholder="Address" class="w-full p-2 border-2 border-black" required>
                 <input id="delivery-city" type="text" placeholder="City" class="w-full p-2 border-2 border-black" required>
-                <button type="submit" id="pay-now" class="w-full p-4 btn-raw font-extrabold text-xl uppercase">Pay Now (Paystack Placeholder)</button>
+                <button type="submit" id="pay-now" class="w-full p-3 btn-raw font-extrabold text-lg uppercase">Pay Now (Paystack Placeholder)</button>
             </form>
         </div>
     </div>
@@ -236,7 +236,7 @@
                             <div>${item.name}</div>
                             <div>₦${Number(item.price).toLocaleString()}</div>
                         </div>
-                        <button type="button" data-remove-index="${index}" class="remove-cart-item border-2 border-black px-2 py-1 font-semibold" aria-label="Remove ${item.name}">REMOVE</button>
+                        <button type="button" data-remove-index="${index}" class="remove-cart-item border-2 border-black px-1.5 py-0.5 text-xs font-semibold" aria-label="Remove ${item.name}">REMOVE</button>
                     </div>
                 `;
             });
