@@ -212,6 +212,11 @@
             updateCartUI();
         }
 
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
         function updateCartUI() {
             const container = document.getElementById('cart-items');
             const countEl = document.getElementById('cart-btn');
@@ -224,11 +229,14 @@
             const itemsTotal = cart.reduce((sum, item) => sum + Number(item.price), 0);
             const grandTotal = itemsTotal + Number(deliveryFee || 0);
 
-            cart.forEach((item) => {
+            cart.forEach((item, index) => {
                 container.innerHTML += `
-                    <div class="flex justify-between border-b-2 border-black pb-2">
-                        <span>${item.name}</span>
-                        <span>₦${Number(item.price).toLocaleString()}</span>
+                    <div class="flex justify-between items-center border-b-2 border-black pb-2 gap-3">
+                        <div class="flex-1">
+                            <div>${item.name}</div>
+                            <div>₦${Number(item.price).toLocaleString()}</div>
+                        </div>
+                        <button type="button" onclick="removeFromCart(${index})" class="border-2 border-black px-2 py-1 font-semibold" aria-label="Remove ${item.name}">REMOVE</button>
                     </div>
                 `;
             });
