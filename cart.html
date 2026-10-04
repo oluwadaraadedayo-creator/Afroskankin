@@ -266,10 +266,70 @@ function render(){
 }
 
 function checkout(){
- if(!cart.length){alert('Your cart is empty.');return}
- if(!selectedShipping){alert('Please select a shipment location.');return}
- if(!deliveryAddress){alert('Please add your delivery address.');toggleAddress();return}
- alert('Paystack checkout will be connected here.');
+ if(!cart.length){
+   alert('Your cart is empty.');
+   return;
+ }
+
+ if(!selectedShipping){
+   alert('Please select a shipment location.');
+   return;
+ }
+
+ if(!deliveryAddress){
+   alert('Please add your delivery address.');
+   toggleAddress();
+   return;
+ }
+
+ const email = prompt('Enter your email address:');
+
+ if(!email){
+   return;
+ }
+
+ const subtotal = cart.reduce((s,x) =>
+   s + Number(x.price || 0) * (x.qty || 1), 0
+ );
+
+ const total = subtotal + shippingPrice();
+
+ const paystack = new PaystackPop();
+
+ paystack.newTransaction({
+   key: PAYSTACK_PUBLIC_KEY,
+   email: email,
+   amount: total * 100,
+   currency: 'NGN',
+
+   firstName: deliveryAddress.fullName,
+   phone: deliveryAddress.phone,
+
+   metadata: {
+     delivery_address: deliveryAddress.address,
+     city: deliveryAddress.city,
+     shipping_location: selectedShipping
+   },
+
+   onSuccess: function(transaction){
+     alert('Payment successful! Reference: ' + transaction.reference);
+
+     localStorage.removeItem('afroskankinCart');
+     localStorage.removeItem('afroskankinShipping');
+     localStorage.removeItem('afroskankinAddress');
+
+     window.location.href = 'index.html';
+   },
+
+   onCancel: function(){
+     alert('Payment was cancelled.');
+   },
+
+   onError: function(error){
+     alert('Payment could not be completed. Please try again.');
+     console.error(error);
+   }
+ });
 }
 
 render();
