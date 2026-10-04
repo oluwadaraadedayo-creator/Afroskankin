@@ -265,71 +265,75 @@ function render(){
  '</div>';
 }
 
-function checkout(){
- if(!cart.length){
-   alert('Your cart is empty.');
-   return;
- }
+async function checkout(){
+  if(!cart.length){
+    alert('Your cart is empty.');
+    return;
+  }
 
- if(!selectedShipping){
-   alert('Please select a shipment location.');
-   return;
- }
+  if(!selectedShipping){
+    alert('Please select a shipment location.');
+    return;
+  }
 
- if(!deliveryAddress){
-   alert('Please add your delivery address.');
-   toggleAddress();
-   return;
- }
+  if(!deliveryAddress){
+    alert('Please add your delivery address.');
+    toggleAddress();
+    return;
+  }
 
- const email = prompt('Enter your email address:');
+  const email = prompt('Enter your email address:');
 
- if(!email){
-   return;
- }
+  if(!email){
+    return;
+  }
 
- const subtotal = cart.reduce((s,x) =>
-   s + Number(x.price || 0) * (x.qty || 1), 0
- );
+  try {
+    const response = await fetch(
+     'https://afroskankin.netlify.app/.netlify/functions/initialize-payment',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
 
- const total = subtotal + shippingPrice();
+          items: cart.map(item => ({
+            id: item.id,
+            quantity: item.qty || 1
+          })),
 
- const paystack = new PaystackPop();
+          shippingLocation: selectedShipping,
 
- paystack.newTransaction({
-   key: PAYSTACK_PUBLIC_KEY,
-   email: email,
-   amount: total * 100,
-   currency: 'NGN',
+          customer: {
+            fullName: deliveryAddress.fullName,
+            phone: deliveryAddress.phone,
+            address: deliveryAddress.address,
+            city: deliveryAddress.city
+          }
+        })
+      }
+    );
 
-   firstName: deliveryAddress.fullName,
-   phone: deliveryAddress.phone,
+    const data = await response.json();
 
-   metadata: {
-     delivery_address: deliveryAddress.address,
-     city: deliveryAddress.city,
-     shipping_location: selectedShipping
-   },
+    if(!response.ok){
+      throw new Error(data.error || 'Unable to initialize payment.');
+    }
 
-   onSuccess: function(transaction){
-     alert('Payment successful! Reference: ' + transaction.reference);
+    const paystack = new PaystackPop();
 
-     localStorage.removeItem('afroskankinCart');
-     localStorage.removeItem('afroskankinShipping');
-     localStorage.removeItem('afroskankinAddress');
+    paystack.resumeTransaction(data.access_code);
 
-     window.location.href = 'index.html';
-   },
+  } catch(error) {
+    console.error('Payment initialization error:', error);
 
-   onCancel: function(){
-     alert('Payment was cancelled.');
-   },
-
-   onError: function(error){
-     alert('Payment could not be completed. Please try again.');
-     console.error(error);
-   }
- });
+    alert(
+      error.message ||
+      'Payment could not be started. Please try again.'
+    );
+  }
 }
 
 render();
