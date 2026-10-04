@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PRODUCT | AFROSKANKIN</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+:root{--y:#FEE600;--k:#050505;--w:#F4F1E8;--g:#808080}
+*{box-sizing:border-box}
+body{margin:0;background:var(--y);color:#000;font-family:'Anton',Arial,Helvetica,sans-serif}
+a{color:inherit;text-decoration:none}
+button,input,select{font-family:'Anton',Arial,Helvetica,sans-serif}
+.top{width:100vw;height:118px;padding:0;margin:0;display:flex;align-items:flex-start;justify-content:center;background:var(--g);box-sizing:border-box}
+.top-inner{width:100vw;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:space-between;background:var(--g)}
+.brand-center{height:70px;width:100vw;display:flex;align-items:center;justify-content:center;background:var(--g)}
+.top img{height:44px;width:auto}
+.menu{width:100vw;height:48px;margin:0;padding:0;display:flex;align-items:center;justify-content:center;gap:24px;font-size:14px;font-weight:700;letter-spacing:.12em;background:var(--k);color:var(--w)}
+.menu a:hover{color:var(--y)}
+.product-page{padding:70px 5vw 110px;min-height:calc(100vh - 118px)}
+.product-wrap{max-width:1380px;margin:0 auto}
+.back{display:inline-block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid #000;padding-bottom:6px;margin-bottom:45px}
+.product-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(360px,.85fr);gap:70px;align-items:start}
+.product-image{min-height:650px;background:var(--k);color:var(--y);display:flex;align-items:center;justify-content:center;text-align:center;padding:50px}
+.product-image span{font-size:clamp(70px,9vw,150px);line-height:.78;letter-spacing:-.06em;text-transform:uppercase}
+.product-kicker{font-size:11px;letter-spacing:.16em;margin-bottom:15px;text-transform:uppercase}
+.product-title{font-size:clamp(55px,7vw,105px);font-weight:400;line-height:.82;letter-spacing:-.07em;text-transform:uppercase;margin:0 0 22px}
+.product-price{font-size:28px;margin-bottom:32px}
+.product-description{font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;max-width:520px;margin-bottom:35px}
+.option-label{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.size-select{width:100%;height:48px;background:var(--w);border:2px solid #000;padding:0 12px;font-size:12px;margin-bottom:18px}
+.quantity{display:flex;align-items:center;border:2px solid #000;width:max-content;height:48px;margin-bottom:18px}
+.quantity button{width:45px;height:44px;border:0;background:transparent;font-size:17px;cursor:pointer}
+.quantity span{width:50px;text-align:center;font-size:13px}
+.add-product{width:100%;height:54px;background:var(--k);color:var(--y);border:0;font-size:13px;text-transform:uppercase;cursor:pointer}
+.add-product:hover{background:#222}
+.add-product.is-added{background:var(--w);color:#000;border:2px solid #000}
+.product-note{font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.5;margin-top:18px}
+@media(max-width:850px){.product-grid{grid-template-columns:1fr;gap:40px}.product-image{min-height:480px}.product-title{font-size:18vw}.product-page{padding:45px 18px 80px}}
+</style>
+</head>
+<body>
+<header class="top">
+<div class="top-inner">
+<a class="brand-center" href="index.html#home"><img src="./logo.png?v=20261004-2" alt="PayBac Iboro"></a>
+<nav class="menu">
+<a href="index.html#home">HOME</a>
+<a href="index.html#gallery">GALLERY</a>
+<a href="index.html#shop">MERCH</a>
+<a href="cart.html">CART</a>
+<a href="index.html#contact">CONTACT</a>
+</nav>
+</div>
+</header>
+
+<main class="product-page">
+<div class="product-wrap">
+<a class="back" href="index.html#shop">← Back to Merch</a>
+<div class="product-grid">
+<div class="product-image"><span id="productVisual">AFROSKANKIN</span></div>
+<div>
+<div class="product-kicker" id="productType">AFROSKANKIN</div>
+<h1 class="product-title" id="productName">PRODUCT</h1>
+<div class="product-price" id="productPrice">₦0</div>
+<p class="product-description" id="productDescription">Official AFROSKANKIN merchandise by PayBac Iboro.</p>
+<div id="sizeWrap">
+<label class="option-label" for="productSize">Size</label>
+<select class="size-select" id="productSize"></select>
+</div>
+<label class="option-label">Quantity</label>
+<div class="quantity"><button type="button" onclick="changeQty(-1)">−</button><span id="quantity">1</span><button type="button" onclick="changeQty(1)">+</button></div>
+<button class="add-product" id="addButton" type="button" onclick="addProduct()">ADD TO CART</button>
+<div class="product-note">Your selected item will be added to your AFROSKANKIN cart. You can review shipment and delivery options in the cart.</div>
+</div>
+</div>
+</div>
+</main>
+
+<script>
+const params=new URLSearchParams(location.search);
+const name=params.get('name')||'AFROSKANKIN PRODUCT';
+const price=Number(params.get('price')||0);
+const type=params.get('type')||'Merch';
+const requestedSize=params.get('size')||'One Size';
+const productData={
+ 'Signature Tee':{description:'The AFROSKANKIN signature tee. A clean wearable piece built around the AFROSKANKIN identity.',visual:'THE\nAFRO\nSKANKIN\nTEE',sizes:['S','M','L','XL']},
+ 'Classic Hoodie':{description:'The Iboro classic hoodie. Heavy AFROSKANKIN energy with a simple everyday silhouette.',visual:'IBORO\nCLASSIC\nHOODIE',sizes:['S','M','L','XL']},
+ 'Embroidered Cap':{description:'The AFROSKANKIN embroidered cap. A simple finishing piece for the AFROSKANKIN collection.',visual:'AFROSKANKIN\nIBORO\nCAP',sizes:['One Size']}
+};
+const data=productData[name]||{description:'Official AFROSKANKIN merchandise by PayBac Iboro.',visual:name.toUpperCase(),sizes:['One Size']};
+document.title=name.toUpperCase()+' | AFROSKANKIN';
+document.getElementById('productName').textContent=name;
+document.getElementById('productPrice').textContent='₦'+price.toLocaleString();
+document.getElementById('productType').textContent=type;
+document.getElementById('productDescription').textContent=data.description;
+document.getElementById('productVisual').innerHTML=data.visual.replace(/\n/g,'<br>');
+const sizeSelect=document.getElementById('productSize');
+data.sizes.forEach(size=>{const o=document.createElement('option');o.value=size;o.textContent=size;if(size===requestedSize)o.selected=true;sizeSelect.appendChild(o)});
+let quantity=1;
+function changeQty(delta){quantity=Math.max(1,quantity+delta);document.getElementById('quantity').textContent=quantity}
+function addProduct(){
+ const size=sizeSelect.value;
+ const saved=JSON.parse(localStorage.getItem('afroskankinCart')||'[]');
+ const existing=saved.find(x=>x.name===name&&x.size===size);
+ if(existing){existing.qty=(existing.qty||1)+quantity}else{saved.push({name,price,size,qty:quantity,label:name.toUpperCase(),type})}
+ localStorage.setItem('afroskankinCart',JSON.stringify(saved));
+ const btn=document.getElementById('addButton');
+ btn.textContent='VIEW CART';btn.classList.add('is-added');btn.onclick=()=>location.href='cart.html';
+}
+</script>
+</body>
+</html>
