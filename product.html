@@ -6,8 +6,9 @@
 <title>PRODUCT | AFROSKANKIN</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-:root{--y:#FEE600;--k:#050505;--w:#F4F1E8;--g:#808080}
+:root{--y:#FEE600;--k:#050505;--w:#F4F1E8;--g:#808080;--line:#111}
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{margin:0;background:var(--y);color:#000;font-family:'Anton',Arial,Helvetica,sans-serif}
 a{color:inherit;text-decoration:none}
 button,input,select{font-family:'Anton',Arial,Helvetica,sans-serif}
@@ -17,26 +18,65 @@ button,input,select{font-family:'Anton',Arial,Helvetica,sans-serif}
 .top img{height:44px;width:auto}
 .menu{width:100vw;height:48px;margin:0;padding:0;display:flex;align-items:center;justify-content:center;gap:24px;font-size:14px;font-weight:700;letter-spacing:.12em;background:var(--k);color:var(--w)}
 .menu a:hover{color:var(--y)}
-.product-page{padding:70px 5vw 110px;min-height:calc(100vh - 118px)}
+.product-page{padding:48px 5vw 100px;min-height:calc(100vh - 118px)}
 .product-wrap{max-width:1380px;margin:0 auto}
-.back{display:inline-block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid #000;padding-bottom:6px;margin-bottom:45px}
-.product-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(360px,.85fr);gap:70px;align-items:start}
-.product-image{min-height:650px;background:var(--k);color:var(--y);display:flex;align-items:center;justify-content:center;text-align:center;padding:50px}
-.product-image span{font-size:clamp(70px,9vw,150px);line-height:.78;letter-spacing:-.06em;text-transform:uppercase}
-.product-kicker{font-size:11px;letter-spacing:.16em;margin-bottom:15px;text-transform:uppercase}
-.product-title{font-size:clamp(55px,7vw,105px);font-weight:400;line-height:.82;letter-spacing:-.07em;text-transform:uppercase;margin:0 0 22px}
-.product-price{font-size:28px;margin-bottom:32px}
-.product-description{font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;max-width:520px;margin-bottom:35px}
+.breadcrumb{font-family:Arial,Helvetica,sans-serif;font-size:12px;margin-bottom:35px}
+.breadcrumb span{opacity:.55;margin:0 7px}
+.product-nav{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #000;padding-bottom:18px;margin-bottom:38px;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+.product-nav a:hover{color:#555}
+.product-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(390px,.75fr);gap:75px;align-items:start}
+.gallery{position:relative}
+.product-image{min-height:680px;background:var(--k);color:var(--y);display:flex;align-items:center;justify-content:center;text-align:center;padding:50px;overflow:hidden}
+.product-image span{font-size:clamp(70px,8.5vw,145px);line-height:.78;letter-spacing:-.06em;text-transform:uppercase}
+.gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border:1px solid var(--y);background:var(--k);color:var(--y);font-size:18px;cursor:pointer}
+.gallery-arrow:hover{background:var(--y);color:#000}
+.gallery-prev{left:18px}.gallery-next{right:18px}
+.thumbs{display:flex;gap:10px;margin-top:12px}
+.thumb{width:76px;height:76px;background:#000;color:var(--y);display:flex;align-items:center;justify-content:center;font-size:10px;text-align:center;border:2px solid transparent;cursor:pointer}
+.thumb.active{border-color:#000}
+.product-type{font-size:11px;letter-spacing:.16em;margin-bottom:12px;text-transform:uppercase}
+.product-title{font-size:clamp(55px,6vw,98px);font-weight:400;line-height:.82;letter-spacing:-.07em;text-transform:uppercase;margin:0 0 20px}
+.product-price{font-size:27px;margin-bottom:30px}
+.product-description{font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.65;max-width:540px;margin:0 0 30px}
+.option{margin-bottom:18px}
 .option-label{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
-.size-select{width:100%;height:48px;background:var(--w);border:2px solid #000;padding:0 12px;font-size:12px;margin-bottom:18px}
+.select{width:100%;height:48px;background:var(--w);border:2px solid #000;padding:0 12px;font-size:12px}
+.quantity-label{margin-top:22px}
 .quantity{display:flex;align-items:center;border:2px solid #000;width:max-content;height:48px;margin-bottom:18px}
 .quantity button{width:45px;height:44px;border:0;background:transparent;font-size:17px;cursor:pointer}
 .quantity span{width:50px;text-align:center;font-size:13px}
 .add-product{width:100%;height:54px;background:var(--k);color:var(--y);border:0;font-size:13px;text-transform:uppercase;cursor:pointer}
 .add-product:hover{background:#222}
 .add-product.is-added{background:var(--w);color:#000;border:2px solid #000}
-.product-note{font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.5;margin-top:18px}
-@media(max-width:850px){.product-grid{grid-template-columns:1fr;gap:40px}.product-image{min-height:480px}.product-title{font-size:18vw}.product-page{padding:45px 18px 80px}}
+.meta{font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.8;margin-top:20px}
+.meta strong{font-family:'Anton',Arial,Helvetica,sans-serif;font-weight:400}
+.details{margin-top:70px;border-top:2px solid #000}
+.detail-tabs{display:flex;gap:28px;border-bottom:1px solid #000}
+.detail-tab{border:0;background:transparent;padding:18px 0;font-size:12px;cursor:pointer;text-transform:uppercase}
+.detail-tab.active{border-bottom:3px solid #000}
+.detail-panel{padding:28px 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.7;max-width:850px}
+.detail-panel[hidden]{display:none}
+.related{margin-top:75px}
+.section-title{font-size:48px;font-weight:400;letter-spacing:-.05em;margin:0 0 30px;text-transform:uppercase}
+.related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.related-card{display:block}
+.related-visual{height:300px;background:var(--k);color:var(--y);display:flex;align-items:center;justify-content:center;text-align:center;padding:20px}
+.related-visual span{font-size:35px;line-height:.82;text-transform:uppercase}
+.related-type{font-size:10px;letter-spacing:.1em;margin-top:14px;text-transform:uppercase}
+.related-name{font-size:19px;margin-top:7px;text-transform:uppercase}
+.related-price{font-size:14px;margin-top:8px}
+.related-action{font-family:'Anton',Arial,Helvetica,sans-serif;font-size:10px;text-transform:uppercase;text-decoration:underline;margin-top:10px;display:inline-block}
+.site-footer{background:#000;color:var(--w);padding:65px 5vw 35px;margin-top:90px}
+.footer-inner{max-width:1380px;margin:0 auto;text-align:center}
+.footer-title{font-size:55px;font-weight:400;line-height:.9;margin:0 0 30px}
+.footer-contact{display:flex;justify-content:center;gap:35px;flex-wrap:wrap;font-family:Arial,Helvetica,sans-serif;font-size:12px}
+.footer-contact a{display:flex;align-items:center;gap:9px}
+.footer-socials{display:flex;justify-content:center;gap:18px;margin:28px 0}
+.footer-socials img{width:22px;height:22px}
+.footer-copy{font-family:Arial,Helvetica,sans-serif;font-size:10px;opacity:.7;margin-top:25px}
+.footer-top{display:block;text-align:center;margin-top:25px;font-size:20px}
+@media(max-width:900px){.product-grid{grid-template-columns:1fr;gap:40px}.product-image{min-height:500px}.related-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.product-page{padding:35px 18px 70px}.product-title{font-size:18vw}.product-nav{font-size:9px}.related-grid{grid-template-columns:1fr 1fr}.related-visual{height:220px}.footer-title{font-size:14vw}.detail-tabs{gap:15px;overflow:auto;white-space:nowrap}}
 </style>
 </head>
 <body>
@@ -44,37 +84,72 @@ button,input,select{font-family:'Anton',Arial,Helvetica,sans-serif}
 <div class="top-inner">
 <a class="brand-center" href="index.html#home"><img src="./logo.png?v=20261004-2" alt="PayBac Iboro"></a>
 <nav class="menu">
-<a href="index.html#home">HOME</a>
-<a href="index.html#gallery">GALLERY</a>
-<a href="index.html#shop">MERCH</a>
-<a href="cart.html">CART</a>
-<a href="index.html#contact">CONTACT</a>
+<a href="index.html#home">HOME</a><a href="index.html#gallery">GALLERY</a><a href="index.html#shop">MERCH</a><a href="cart.html">CART</a><a href="index.html#contact">CONTACT</a>
 </nav>
 </div>
 </header>
 
 <main class="product-page">
 <div class="product-wrap">
-<a class="back" href="index.html#shop">← Back to Merch</a>
+<div class="breadcrumb"><a href="index.html">Home</a><span>/</span><a href="index.html#shop">Merch</a><span>/</span><strong id="crumbName">Product</strong></div>
+<div class="product-nav"><a id="prevProduct" href="#">← Previous</a><a id="nextProduct" href="#">Next →</a></div>
+
 <div class="product-grid">
+<div class="gallery">
 <div class="product-image"><span id="productVisual">AFROSKANKIN</span></div>
-<div>
-<div class="product-kicker" id="productType">AFROSKANKIN</div>
+<button class="gallery-arrow gallery-prev" type="button" onclick="changeGallery(-1)">‹</button>
+<button class="gallery-arrow gallery-next" type="button" onclick="changeGallery(1)">›</button>
+<div class="thumbs"><button class="thumb active" type="button" onclick="setGallery(0)">VIEW 01</button><button class="thumb" type="button" onclick="setGallery(1)">VIEW 02</button><button class="thumb" type="button" onclick="setGallery(2)">VIEW 03</button></div>
+</div>
+
+<div class="product-info">
+<div class="product-type" id="productType">SHIRTS</div>
 <h1 class="product-title" id="productName">PRODUCT</h1>
 <div class="product-price" id="productPrice">₦0</div>
 <p class="product-description" id="productDescription">Official AFROSKANKIN merchandise by PayBac Iboro.</p>
-<div id="sizeWrap">
-<label class="option-label" for="productSize">Size</label>
-<select class="size-select" id="productSize"></select>
-</div>
-<label class="option-label">Quantity</label>
+
+<div class="option" id="sizeOption"><label class="option-label" for="productSize">Size</label><select class="select" id="productSize"></select></div>
+<div class="option" id="colorOption"><label class="option-label" for="productColor">Color</label><select class="select" id="productColor"></select></div>
+
+<label class="option-label quantity-label">Quantity</label>
 <div class="quantity"><button type="button" onclick="changeQty(-1)">−</button><span id="quantity">1</span><button type="button" onclick="changeQty(1)">+</button></div>
 <button class="add-product" id="addButton" type="button" onclick="addProduct()">ADD TO CART</button>
-<div class="product-note">Your selected item will be added to your AFROSKANKIN cart. You can review shipment and delivery options in the cart.</div>
+
+<div class="meta">
+<div>SKU: <strong id="sku">N/A</strong></div>
+<div>Category: <strong id="category">Merch</strong></div>
+<div>Tag: <strong id="tag">AFROSKANKIN</strong></div>
 </div>
 </div>
+</div>
+
+<section class="details">
+<div class="detail-tabs">
+<button class="detail-tab active" type="button" onclick="showTab('description',this)">Description</button>
+<button class="detail-tab" type="button" onclick="showTab('additional',this)">Additional Information</button>
+<button class="detail-tab" type="button" onclick="showTab('reviews',this)">Reviews (0)</button>
+</div>
+<div class="detail-panel" id="descriptionPanel"></div>
+<div class="detail-panel" id="additionalPanel" hidden></div>
+<div class="detail-panel" id="reviewsPanel" hidden>No reviews yet. Be the first to review this product after your purchase.</div>
+</section>
+
+<section class="related">
+<h2 class="section-title">Related Products</h2>
+<div class="related-grid" id="relatedGrid"></div>
+</section>
 </div>
 </main>
+
+<footer class="site-footer">
+<div class="footer-inner">
+<h2 class="footer-title">CONNECT WITH ME</h2>
+<div class="footer-contact"><a href="mailto:paybachanson@gmail.com">✉ PAYBACHANSON@GMAIL.COM</a><a href="tel:+2347035615754">⌕ +2347035615754</a></div>
+<div class="footer-socials"><a href="https://www.instagram.com/lookatpaybac/" target="_blank"><img src="https://cdn.simpleicons.org/instagram/FFFFFF" alt="Instagram"></a><a href="https://x.com/LookatPayBac" target="_blank"><img src="https://cdn.simpleicons.org/x/FFFFFF" alt="X"></a><a href="https://www.threads.net/@LookatPayBac" target="_blank"><img src="https://cdn.simpleicons.org/threads/FFFFFF" alt="Threads"></a></div>
+<div class="footer-copy">© 2026 MAINLAND BOYZ</div>
+</div>
+<a class="footer-top" href="#top">⌃</a>
+</footer>
 
 <script>
 const params=new URLSearchParams(location.search);
@@ -82,30 +157,57 @@ const name=params.get('name')||'AFROSKANKIN PRODUCT';
 const price=Number(params.get('price')||0);
 const type=params.get('type')||'Merch';
 const requestedSize=params.get('size')||'One Size';
-const productData={
- 'Signature Tee':{description:'The AFROSKANKIN signature tee. A clean wearable piece built around the AFROSKANKIN identity.',visual:'THE\nAFRO\nSKANKIN\nTEE',sizes:['S','M','L','XL']},
- 'Classic Hoodie':{description:'The Iboro classic hoodie. Heavy AFROSKANKIN energy with a simple everyday silhouette.',visual:'IBORO\nCLASSIC\nHOODIE',sizes:['S','M','L','XL']},
- 'Embroidered Cap':{description:'The AFROSKANKIN embroidered cap. A simple finishing piece for the AFROSKANKIN collection.',visual:'AFROSKANKIN\nIBORO\nCAP',sizes:['One Size']}
+
+const products={
+ 'Signature Tee':{category:'Shirts',tag:'AFROSKANKIN, TEE',sku:'N/A',description:'The AFROSKANKIN signature tee is a wearable expression of the PayBac Iboro world. Built around the AFROSKANKIN identity with a bold, minimal graphic treatment.',additional:'100% cotton. Available in S, M, L and XL. Designed for everyday wear.',visual:'THE\nAFRO\nSKANKIN\nTEE',sizes:['S','M','L','XL'],colors:['Black','Yellow','White']},
+ 'Classic Hoodie':{category:'Hoodies',tag:'AFROSKANKIN, IBORO',sku:'N/A',description:'The Iboro Classic Hoodie brings the AFROSKANKIN identity into a heavyweight everyday layer with a clean graphic treatment.',additional:'Heavyweight hoodie. Available in S, M, L and XL.',visual:'IBORO\nCLASSIC\nHOODIE',sizes:['S','M','L','XL'],colors:['Black','Yellow']},
+ 'Embroidered Cap':{category:'Caps',tag:'AFROSKANKIN, CAP',sku:'N/A',description:'The AFROSKANKIN embroidered cap is a simple finishing piece built around the Iboro identity.',additional:'Adjustable one-size fit. Embroidered AFROSKANKIN branding.',visual:'AFROSKANKIN\nIBORO\nCAP',sizes:['One Size'],colors:['Black','Yellow']},
+ 'AFROSKANKIN Book':{category:'Books',tag:'AFROSKANKIN, BOOK',sku:'N/A',description:'The AFROSKANKIN book is part of the official PayBac Iboro merch collection.',additional:'One size. Official AFROSKANKIN merchandise.',visual:'AFROSKANKIN\nBOOK',sizes:['One Size'],colors:['Black']}
 };
-const data=productData[name]||{description:'Official AFROSKANKIN merchandise by PayBac Iboro.',visual:name.toUpperCase(),sizes:['One Size']};
+const data=products[name]||{category:type,tag:'AFROSKANKIN',sku:'N/A',description:'Official AFROSKANKIN merchandise by PayBac Iboro.',additional:'Official AFROSKANKIN merchandise.',visual:name.toUpperCase(),sizes:['One Size'],colors:['Black']};
+
+let quantity=1, galleryIndex=0;
 document.title=name.toUpperCase()+' | AFROSKANKIN';
+document.getElementById('crumbName').textContent=name;
 document.getElementById('productName').textContent=name;
-document.getElementById('productPrice').textContent='₦'+price.toLocaleString();
-document.getElementById('productType').textContent=type;
+document.getElementById('productPrice').textContent='₦'+price.toLocaleString()+'.00';
+document.getElementById('productType').textContent=data.category;
 document.getElementById('productDescription').textContent=data.description;
+document.getElementById('descriptionPanel').textContent=data.description;
+document.getElementById('additionalPanel').textContent=data.additional;
+document.getElementById('sku').textContent=data.sku;
+document.getElementById('category').textContent=data.category;
+document.getElementById('tag').textContent=data.tag;
 document.getElementById('productVisual').innerHTML=data.visual.replace(/\n/g,'<br>');
+
 const sizeSelect=document.getElementById('productSize');
 data.sizes.forEach(size=>{const o=document.createElement('option');o.value=size;o.textContent=size;if(size===requestedSize)o.selected=true;sizeSelect.appendChild(o)});
-let quantity=1;
+const colorSelect=document.getElementById('productColor');
+data.colors.forEach(color=>{const o=document.createElement('option');o.value=color;o.textContent=color;colorSelect.appendChild(o)});
+
+const order=['Signature Tee','Classic Hoodie','Embroidered Cap','AFROSKANKIN Book'];
+const currentIndex=Math.max(0,order.indexOf(name));
+const prev=order[(currentIndex-1+order.length)%order.length],next=order[(currentIndex+1)%order.length];
+function productUrl(n){const p=products[n]||{};const prices={'Signature Tee':25000,'Classic Hoodie':45000,'Embroidered Cap':18000,'AFROSKANKIN Book':10000};return 'product.html?name='+encodeURIComponent(n)+'&price='+prices[n]+'&type='+encodeURIComponent(p.category||'Merch')+'&size='+encodeURIComponent((p.sizes||['One Size'])[0])}
+document.getElementById('prevProduct').href=productUrl(prev);
+document.getElementById('nextProduct').href=productUrl(next);
+
 function changeQty(delta){quantity=Math.max(1,quantity+delta);document.getElementById('quantity').textContent=quantity}
+function setGallery(index){galleryIndex=(index+3)%3;document.querySelectorAll('.thumb').forEach((x,i)=>x.classList.toggle('active',i===galleryIndex))}
+function changeGallery(delta){setGallery(galleryIndex+delta)}
 function addProduct(){
- const size=sizeSelect.value;
+ const size=sizeSelect.value,color=colorSelect.value;
  const saved=JSON.parse(localStorage.getItem('afroskankinCart')||'[]');
- const existing=saved.find(x=>x.name===name&&x.size===size);
- if(existing){existing.qty=(existing.qty||1)+quantity}else{saved.push({name,price,size,qty:quantity,label:name.toUpperCase(),type})}
+ const keySize=size+' / '+color;
+ const existing=saved.find(x=>x.name===name&&x.size===keySize);
+ if(existing){existing.qty=(existing.qty||1)+quantity}else{saved.push({name,price,size:keySize,qty:quantity,label:name.toUpperCase(),type:data.category,color})}
  localStorage.setItem('afroskankinCart',JSON.stringify(saved));
- const btn=document.getElementById('addButton');
- btn.textContent='VIEW CART';btn.classList.add('is-added');btn.onclick=()=>location.href='cart.html';
+ const btn=document.getElementById('addButton');btn.textContent='VIEW CART';btn.classList.add('is-added');btn.onclick=()=>location.href='cart.html';
+}
+function showTab(id,button){
+ document.querySelectorAll('.detail-panel').forEach(p=>p.hidden=p.id!==id+'Panel');
+ document.querySelectorAll('.detail-tab').forEach(b=>b.classList.remove('active'));
+ button.classList.add('active');
 }
 </script>
 </body>
