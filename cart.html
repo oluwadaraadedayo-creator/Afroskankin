@@ -40,14 +40,32 @@ button,input{font-family:'Anton',Arial,Helvetica,sans-serif}
 .remove{display:block;border:0;background:transparent;text-decoration:underline;text-transform:uppercase;font-size:10px;padding:0;margin:13px 0 0 auto;cursor:pointer}
 .remove:hover{background:#000;color:var(--y)}
 .summary{background:var(--k);color:var(--y);padding:30px;align-self:start;position:sticky;top:20px}
-.summary h2{font-size:27px;font-weight:400;margin:0 0 30px;text-transform:uppercase}
+.summary h2{font-size:27px;font-weight:400;margin:0 0 25px;text-transform:uppercase}
+.coupon-row{display:grid;grid-template-columns:1fr auto;gap:8px;margin:0 0 10px}
+.coupon-row input{min-width:0;height:43px;border:2px solid var(--y);background:var(--w);color:#000;padding:9px 11px;font-size:12px;outline:none}
+.coupon-row button,.update-cart{height:43px;background:transparent;border:2px solid var(--y);color:var(--y);padding:0 15px;cursor:pointer;text-transform:uppercase;font-size:11px}
+.coupon-row button:hover,.update-cart:hover{background:var(--y);color:#000}
+.update-cart{width:100%;margin:0 0 24px}
+.shipping{border-top:1px solid #555;padding-top:20px;margin-top:5px}
+.shipping h3{font-size:18px;font-weight:400;margin:0 0 14px;text-transform:uppercase}
+.shipping-option{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #555;font-family:Arial,Helvetica,sans-serif}
+.shipping-option input{width:17px;height:17px;margin:2px 0 0;accent-color:var(--y);flex:0 0 auto}
+.shipping-option label{font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.35;color:var(--w);cursor:pointer}
+.shipping-option strong{display:block;font-family:'Anton',Arial,Helvetica,sans-serif;font-size:13px;color:var(--y);font-weight:400;margin-bottom:3px}
+.address-box{margin-top:18px;border:1px solid #555;padding:14px}
+.address-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:7px}
+.address-value{font-family:Arial,Helvetica,sans-serif;color:var(--w);font-size:11px;line-height:1.4;min-height:18px}
+.change-address{margin-top:12px;height:35px;background:transparent;border:1px solid var(--y);color:var(--y);padding:0 12px;cursor:pointer;text-transform:uppercase;font-size:10px}
+.change-address:hover{background:var(--y);color:#000}
+.address-form{display:none;gap:8px;margin-top:12px}
+.address-form.open{display:grid}
+.address-form input{width:100%;height:40px;border:1px solid var(--y);background:var(--w);color:#000;padding:8px;font-family:Arial,Helvetica,sans-serif;font-size:11px;outline:none}
 .sum-row{display:flex;justify-content:space-between;gap:20px;border-top:1px solid #555;padding:14px 0;font-size:13px}
 .sum-total{font-size:25px;border-top:2px solid var(--y);margin-top:4px;padding-top:16px}
-.checkout{display:grid;gap:9px;margin-top:24px}
-.checkout input{width:100%;height:45px;border:2px solid var(--y);background:var(--w);color:#000;padding:9px 11px;font-size:12px;outline:none}
-.checkout input:focus{background:#fff}
-.pay{height:48px;background:var(--y);border:0;color:#000;cursor:pointer;text-transform:uppercase;font-size:12px;margin-top:2px}
+.checkout{display:grid;gap:9px;margin-top:20px}
+.pay{height:50px;background:var(--y);border:0;color:#000;cursor:pointer;text-transform:uppercase;font-size:13px;margin-top:2px}
 .pay:hover{background:var(--w)}
+.checkout-note{font-family:Arial,Helvetica,sans-serif;color:#aaa;font-size:10px;line-height:1.4;margin-top:8px}
 .continue{display:block;margin-top:19px;text-align:center;border-bottom:1px solid var(--y);padding-bottom:7px;font-size:10px;text-transform:uppercase}
 .empty{text-align:center;padding:80px 20px;border-top:2px solid #000;border-bottom:1px solid #000}
 .empty h2{font-size:38px;font-weight:400;margin:0 0 14px}
@@ -116,6 +134,68 @@ function money(n){return '₦'+Number(n||0).toLocaleString()}
 function change(i,d){cart[i].qty=Math.max(1,(cart[i].qty||1)+d);save();render()}
 function removeItem(i){cart.splice(i,1);save();render()}
 
+const shippingRates=[
+ {name:'Lekki',time:'within 3-5 Business days',price:9000},
+ {name:'Ajah',time:'within 3-5 Business days',price:8000},
+ {name:'Sangotedo',time:'within 3-5 Business days',price:8000},
+ {name:'Ibeju/Epe',time:'within 3-5 Business days',price:15000},
+ {name:'Shomolu, Bariga, Surulere, Mushin',time:'within 3-5 Business days',price:5000},
+ {name:'Ikeja, Ketu, Mile12, Gbagada, Oworoshoki',time:'within 3-5 Business days',price:6000},
+ {name:'Ogba, Agege, Egbeda, Apapa',time:'within 3-5 Business days',price:6000},
+ {name:'Abule Egba, Fagba, Ayobo, Igando, Alakija',time:'within 3-5 Business days',price:7000},
+ {name:'Ipaja, Ikotun, Ijegun, Festac, Mile 2, Ojodu Berger, Magodo',time:'within 3-5 Business days',price:5000},
+ {name:'Abule Ado, LASU, Iba, Alaba',time:'within 3-5 Business days',price:6000},
+ {name:'Ago Palace',time:'within 3-5 Business days',price:2000}
+];
+
+let selectedShipping=localStorage.getItem('afroskankinShipping')||'';
+let deliveryAddress=JSON.parse(localStorage.getItem('afroskankinAddress')||'null');
+
+function saveAddress(data){
+ deliveryAddress=data;
+ localStorage.setItem('afroskankinAddress',JSON.stringify(data));
+}
+
+function shippingPrice(){
+ const selected=shippingRates.find(x=>x.name===selectedShipping);
+ return selected?selected.price:0;
+}
+
+function selectShipping(name){
+ selectedShipping=name;
+ localStorage.setItem('afroskankinShipping',name);
+ render();
+}
+
+function toggleAddress(){
+ const form=document.getElementById('addressForm');
+ if(form) form.classList.toggle('open');
+}
+
+function saveNewAddress(e){
+ e.preventDefault();
+ const form=e.currentTarget;
+ saveAddress({
+   fullName:form.fullName.value.trim(),
+   phone:form.phone.value.trim(),
+   address:form.address.value.trim(),
+   city:form.city.value.trim()
+ });
+ form.classList.remove('open');
+ render();
+}
+
+function applyCoupon(){
+ const input=document.getElementById('couponCode');
+ if(!input||!input.value.trim()){alert('Enter a coupon code.');return}
+ alert('This coupon code is not available yet.');
+}
+
+function updateCart(){
+ save();
+ render();
+}
+
 function render(){
  const root=document.getElementById('cartContent');
  if(!cart.length){
@@ -124,6 +204,11 @@ function render(){
  }
 
  const subtotal=cart.reduce((s,x)=>s+Number(x.price||0)*(x.qty||1),0);
+ const dispatch=shippingPrice();
+ const total=subtotal+dispatch;
+ const addressText=deliveryAddress
+   ? (deliveryAddress.fullName+' · '+deliveryAddress.phone+'<br>'+deliveryAddress.address+', '+deliveryAddress.city)
+   : 'No delivery address selected.';
 
  root.innerHTML='<div class="cart-layout">'+
  '<section class="cart-items">'+
@@ -142,25 +227,45 @@ function render(){
  '</section>'+
  '<aside class="summary">'+
  '<h2>Order Summary</h2>'+
- '<div class="sum-row"><span>Subtotal</span><span>'+money(subtotal)+'</span></div>'+
- '<div class="sum-row"><span>Dispatch</span><span>Calculated at checkout</span></div>'+
- '<div class="sum-row sum-total"><span>Total</span><span>'+money(subtotal)+'</span></div>'+
- '<form class="checkout" onsubmit="checkout(event)">'+
- '<input placeholder="Full Name" required>'+
- '<input type="email" placeholder="Email" required>'+
- '<input placeholder="Phone" required>'+
- '<input placeholder="Address" required>'+
- '<input placeholder="City" required>'+
- '<button class="pay">PAY NOW</button>'+
+ '<div class="coupon-row"><input id="couponCode" placeholder="Coupon code"><button type="button" onclick="applyCoupon()">Apply Coupon</button></div>'+
+ '<button class="update-cart" type="button" onclick="updateCart()">Update Cart</button>'+
+ '<div class="shipping">'+
+ '<h3>Shipment</h3>'+
+ shippingRates.map((x)=>
+ '<div class="shipping-option">'+
+ '<input type="radio" name="shipping" id="ship-'+shippingRates.indexOf(x)+'" '+(selectedShipping===x.name?'checked':'')+' onchange="selectShipping(\''+x.name.replace(/'/g,"\\'")+'\')">'+
+ '<label for="ship-'+shippingRates.indexOf(x)+'"><strong>'+x.name+' · '+money(x.price)+'</strong>'+x.time+'</label>'+
+ '</div>'
+ ).join('')+
+ '<div class="address-box">'+
+ '<div class="address-label">Delivery Address</div>'+
+ '<div class="address-value">'+addressText+'</div>'+
+ '<button class="change-address" type="button" onclick="toggleAddress()">Change Address</button>'+
+ '<form class="address-form" id="addressForm" onsubmit="saveNewAddress(event)">'+
+ '<input name="fullName" placeholder="Full Name" value="'+(deliveryAddress?.fullName||'')+'" required>'+
+ '<input name="phone" placeholder="Phone" value="'+(deliveryAddress?.phone||'')+'" required>'+
+ '<input name="address" placeholder="Address" value="'+(deliveryAddress?.address||'')+'" required>'+
+ '<input name="city" placeholder="City" value="'+(deliveryAddress?.city||'')+'" required>'+
+ '<button class="change-address" type="submit">Save Address</button>'+
  '</form>'+
+ '</div>'+
+ '</div>'+
+ '<div class="sum-row"><span>Subtotal</span><span>'+money(subtotal)+'</span></div>'+
+ '<div class="sum-row"><span>Shipment</span><span>'+(dispatch?money(dispatch):'Select location')+'</span></div>'+
+ '<div class="sum-row sum-total"><span>Total</span><span>'+money(total)+'</span></div>'+
+ '<div class="checkout">'+
+ '<button class="pay" type="button" onclick="checkout()">PROCEED TO CHECKOUT</button>'+
+ '<div class="checkout-note">Select a shipment location and delivery address before proceeding.</div>'+
+ '</div>'+
  '<a class="continue" href="index.html#shop">Continue Shopping</a>'+
  '</aside>'+
  '</div>';
 }
 
-function checkout(e){
- e.preventDefault();
+function checkout(){
  if(!cart.length){alert('Your cart is empty.');return}
+ if(!selectedShipping){alert('Please select a shipment location.');return}
+ if(!deliveryAddress){alert('Please add your delivery address.');toggleAddress();return}
  alert('Paystack checkout will be connected here.');
 }
 
