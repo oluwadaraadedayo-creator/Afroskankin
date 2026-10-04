@@ -157,8 +157,6 @@ const name=params.get('name')||'AFROSKANKIN PRODUCT';
 const price=Number(params.get('price')||0);
 const type=params.get('type')||'Merch';
 const requestedSize=params.get('size')||'One Size';
-const currency=params.get('currency')||'NGN';
-
 const products={
  'Signature Tee':{category:'Shirts',tag:'AFROSKANKIN, TEE',sku:'N/A',description:'The AFROSKANKIN signature tee is a wearable expression of the PayBac Iboro world. Built around the AFROSKANKIN identity with a bold, minimal graphic treatment.',additional:'100% cotton. Available in S, M, L and XL. Designed for everyday wear.',visual:'THE\nAFRO\nSKANKIN\nTEE',sizes:['S','M','L','XL'],colors:['Black','Yellow','White']},
  'Classic Hoodie':{category:'Hoodies',tag:'AFROSKANKIN, IBORO',sku:'N/A',description:'The Iboro Classic Hoodie brings the AFROSKANKIN identity into a heavyweight everyday layer with a clean graphic treatment.',additional:'Heavyweight hoodie. Available in S, M, L and XL.',visual:'IBORO\nCLASSIC\nHOODIE',sizes:['S','M','L','XL'],colors:['Black','Yellow']},
@@ -167,12 +165,11 @@ const products={
  'AFROSKANKIN Vinyl':{category:'Vinyl',tag:'AFROSKANKIN, VINYL',sku:'N/A',description:'The official AFROSKANKIN vinyl release.',additional:'Official AFROSKANKIN merchandise.',visual:'AFROSKANKIN\nVINYL',sizes:['One Size'],colors:['Black']}
 };
 const data=products[name]||{category:type,tag:'AFROSKANKIN',sku:'N/A',description:'Official AFROSKANKIN merchandise by PayBac Iboro.',additional:'Official AFROSKANKIN merchandise.',visual:name.toUpperCase(),sizes:['One Size'],colors:['Black']};
-
-let quantity=1, galleryIndex=0;
+let quantity=1,galleryIndex=0;
 document.title=name.toUpperCase()+' | AFROSKANKIN';
 document.getElementById('crumbName').textContent=name;
 document.getElementById('productName').textContent=name;
-document.getElementById('productPrice').textContent=(currency==='USD'?'
+document.getElementById('productPrice').textContent='₦'+price.toLocaleString()+'.00';
 document.getElementById('productType').textContent=data.category;
 document.getElementById('productDescription').textContent=data.description;
 document.getElementById('descriptionPanel').textContent=data.description;
@@ -181,77 +178,21 @@ document.getElementById('sku').textContent=data.sku;
 document.getElementById('category').textContent=data.category;
 document.getElementById('tag').textContent=data.tag;
 document.getElementById('productVisual').innerHTML=data.visual.replace(/\n/g,'<br>');
-
 const sizeSelect=document.getElementById('productSize');
 data.sizes.forEach(size=>{const o=document.createElement('option');o.value=size;o.textContent=size;if(size===requestedSize)o.selected=true;sizeSelect.appendChild(o)});
 const colorSelect=document.getElementById('productColor');
 data.colors.forEach(color=>{const o=document.createElement('option');o.value=color;o.textContent=color;colorSelect.appendChild(o)});
-
 const order=['Signature Tee','Classic Hoodie','Embroidered Cap','AFROSKANKIN Vinyl','AFROSKANKIN Book'];
 const currentIndex=Math.max(0,order.indexOf(name));
 const prev=order[(currentIndex-1+order.length)%order.length],next=order[(currentIndex+1)%order.length];
-function productUrl(n){const p=products[n]||{};const prices={'Signature Tee':15000,'Classic Hoodie':50000,'Embroidered Cap':15000,'AFROSKANKIN Vinyl':50,'AFROSKANKIN Book':0};const currencies={'AFROSKANKIN Vinyl':'USD'};return 'product.html?name='+encodeURIComponent(n)+'&price='+prices[n]+'&type='+encodeURIComponent(p.category||'Merch')+'&size='+encodeURIComponent((p.sizes||['One Size'])[0])+'&currency='+encodeURIComponent(currencies[n]||'NGN')}
+function productUrl(n){const p=products[n]||{};const prices={'Signature Tee':15000,'Classic Hoodie':50000,'Embroidered Cap':15000,'AFROSKANKIN Vinyl':70000,'AFROSKANKIN Book':0};return 'product.html?name='+encodeURIComponent(n)+'&price='+prices[n]+'&type='+encodeURIComponent(p.category||'Merch')+'&size='+encodeURIComponent((p.sizes||['One Size'])[0])}
 document.getElementById('prevProduct').href=productUrl(prev);
 document.getElementById('nextProduct').href=productUrl(next);
-
 function changeQty(delta){quantity=Math.max(1,quantity+delta);document.getElementById('quantity').textContent=quantity}
 function setGallery(index){galleryIndex=(index+3)%3;document.querySelectorAll('.thumb').forEach((x,i)=>x.classList.toggle('active',i===galleryIndex))}
 function changeGallery(delta){setGallery(galleryIndex+delta)}
-function addProduct(){
- const size=sizeSelect.value,color=colorSelect.value;
- const saved=JSON.parse(localStorage.getItem('afroskankinCart')||'[]');
- const keySize=size+' / '+color;
- const existing=saved.find(x=>x.name===name&&x.size===keySize);
- if(existing){existing.qty=(existing.qty||1)+quantity}else{saved.push({name,price,size:keySize,qty:quantity,label:name.toUpperCase(),type:data.category,color})}
- localStorage.setItem('afroskankinCart',JSON.stringify(saved));
- const btn=document.getElementById('addButton');btn.textContent='VIEW CART';btn.classList.add('is-added');btn.onclick=()=>location.href='cart.html';
-}
-function showTab(id,button){
- document.querySelectorAll('.detail-panel').forEach(p=>p.hidden=p.id!==id+'Panel');
- document.querySelectorAll('.detail-tab').forEach(b=>b.classList.remove('active'));
- button.classList.add('active');
-}
-</script>
-</body>
-</html>:'₦')+price.toLocaleString()+'.00';
-document.getElementById('productType').textContent=data.category;
-document.getElementById('productDescription').textContent=data.description;
-document.getElementById('descriptionPanel').textContent=data.description;
-document.getElementById('additionalPanel').textContent=data.additional;
-document.getElementById('sku').textContent=data.sku;
-document.getElementById('category').textContent=data.category;
-document.getElementById('tag').textContent=data.tag;
-document.getElementById('productVisual').innerHTML=data.visual.replace(/\n/g,'<br>');
-
-const sizeSelect=document.getElementById('productSize');
-data.sizes.forEach(size=>{const o=document.createElement('option');o.value=size;o.textContent=size;if(size===requestedSize)o.selected=true;sizeSelect.appendChild(o)});
-const colorSelect=document.getElementById('productColor');
-data.colors.forEach(color=>{const o=document.createElement('option');o.value=color;o.textContent=color;colorSelect.appendChild(o)});
-
-const order=['Signature Tee','Classic Hoodie','Embroidered Cap','AFROSKANKIN Book'];
-const currentIndex=Math.max(0,order.indexOf(name));
-const prev=order[(currentIndex-1+order.length)%order.length],next=order[(currentIndex+1)%order.length];
-function productUrl(n){const p=products[n]||{};const prices={'Signature Tee':25000,'Classic Hoodie':45000,'Embroidered Cap':18000,'AFROSKANKIN Book':10000};return 'product.html?name='+encodeURIComponent(n)+'&price='+prices[n]+'&type='+encodeURIComponent(p.category||'Merch')+'&size='+encodeURIComponent((p.sizes||['One Size'])[0])}
-document.getElementById('prevProduct').href=productUrl(prev);
-document.getElementById('nextProduct').href=productUrl(next);
-
-function changeQty(delta){quantity=Math.max(1,quantity+delta);document.getElementById('quantity').textContent=quantity}
-function setGallery(index){galleryIndex=(index+3)%3;document.querySelectorAll('.thumb').forEach((x,i)=>x.classList.toggle('active',i===galleryIndex))}
-function changeGallery(delta){setGallery(galleryIndex+delta)}
-function addProduct(){
- const size=sizeSelect.value,color=colorSelect.value;
- const saved=JSON.parse(localStorage.getItem('afroskankinCart')||'[]');
- const keySize=size+' / '+color;
- const existing=saved.find(x=>x.name===name&&x.size===keySize);
- if(existing){existing.qty=(existing.qty||1)+quantity}else{saved.push({name,price,size:keySize,qty:quantity,label:name.toUpperCase(),type:data.category,color})}
- localStorage.setItem('afroskankinCart',JSON.stringify(saved));
- const btn=document.getElementById('addButton');btn.textContent='VIEW CART';btn.classList.add('is-added');btn.onclick=()=>location.href='cart.html';
-}
-function showTab(id,button){
- document.querySelectorAll('.detail-panel').forEach(p=>p.hidden=p.id!==id+'Panel');
- document.querySelectorAll('.detail-tab').forEach(b=>b.classList.remove('active'));
- button.classList.add('active');
-}
+function addProduct(){const size=sizeSelect.value,color=colorSelect.value;const saved=JSON.parse(localStorage.getItem('afroskankinCart')||'[]');const keySize=size+' / '+color;const existing=saved.find(x=>x.name===name&&x.size===keySize);if(existing){existing.qty=(existing.qty||1)+quantity}else{saved.push({name,price,size:keySize,qty:quantity,label:name.toUpperCase(),type:data.category,color})}localStorage.setItem('afroskankinCart',JSON.stringify(saved));const btn=document.getElementById('addButton');btn.textContent='VIEW CART';btn.classList.add('is-added');btn.onclick=()=>location.href='cart.html'}
+function showTab(id,button){document.querySelectorAll('.detail-panel').forEach(p=>p.hidden=p.id!==id+'Panel');document.querySelectorAll('.detail-tab').forEach(b=>b.classList.remove('active'));button.classList.add('active')}
 </script>
 </body>
 </html>
