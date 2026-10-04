@@ -135,14 +135,14 @@
 const repo='oluwadaraadedayo-creator/Afroskankin';let cart=[];let fee=0;
 fetch('https://api.github.com/repos/'+repo+'/contents/').then(r=>r.json()).then(files=>{const runway=files.find(x=>x.name.toLowerCase().includes('models_walking_runway')&&x.name.toLowerCase().endsWith('.mp4'));const visual=files.find(x=>x.name.toLowerCase().includes('models_morph_into_typography')&&x.name.toLowerCase().endsWith('.mp4'));if(runway){const v=document.getElementById('heroVideo');if(v){v.src=runway.download_url;v.play().catch(()=>{})}}if(visual){const v2=document.getElementById('secondVideo');v2.src=visual.download_url;v2.load()}}).catch(()=>{});
 function toggle(){document.getElementById('cart').classList.toggle('open');document.getElementById('overlay').classList.toggle('open')}
-document.getElementById('bagBtn').onclick=toggle;document.getElementById('overlay').onclick=toggle;
-function add(name,price,size){cart.push({name,price,size});render();document.getElementById('cart').classList.add('open');document.getElementById('overlay').classList.add('open')}
+document.getElementById('bagBtn').onclick=()=>{location.href='cart.html'};document.getElementById('overlay').onclick=toggle;
+function add(name,price,size){const saved=JSON.parse(localStorage.getItem('afroskankinCart')||'[]');const existing=saved.find(x=>x.name===name&&x.size===size);if(existing){existing.qty=(existing.qty||1)+1}else{saved.push({name,price,size,qty:1,label:name.toUpperCase()})}localStorage.setItem('afroskankinCart',JSON.stringify(saved));location.href='cart.html'}
 function render(){const total=cart.reduce((s,x)=>s+x.price,0);document.getElementById('bagBtn').textContent='CART ('+cart.length+')';document.getElementById('itemsTotal').textContent=total.toLocaleString();document.getElementById('dispatch').textContent=fee.toLocaleString();document.getElementById('grand').textContent=(total+fee).toLocaleString();document.getElementById('items').innerHTML=cart.length?cart.map((x,i)=>'<div class="line"><div><b>'+x.name+'</b><small>'+x.size+' · ₦'+x.price.toLocaleString()+'</small></div><button class="remove" onclick="removeItem('+i+')">REMOVE</button></div>').join(''):'<p>Your bag is empty.</p>'}
 function removeItem(i){cart.splice(i,1);render()}
 function delivery(distance){if(distance<=5)return 4000;if(distance<=10)return 8000;if(distance<=15)return 12000;if(distance<=20)return 18000;return 18000+Math.ceil((distance-20)/.5)*1000}
 async function quote(){const a=document.getElementById('address').value.trim(),c=document.getElementById('city').value.trim();if(!a||!c){fee=0;render();return}try{const r=await fetch('https://afroskankin-delivery-api.netlify.app/api/delivery-quote',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({address:a+', '+c+', Nigeria'})});const d=await r.json();if(!r.ok)throw 0;fee=d.deliveryFee||0;render()}catch(e){fee=0;render()}}
 ['address','city'].forEach(id=>document.getElementById(id).addEventListener('blur',quote));
-document.getElementById('checkout').onsubmit=e=>{e.preventDefault();if(!cart.length)return alert('Your bag is empty.');alert('Paystack checkout will be connected here.')};
+document.getElementById('checkout').onsubmit=e=>{e.preventDefault();if(!cart.length)return alert('Your bag is empty.');location.href='cart.html'};
 const shopTabs=document.querySelectorAll('.shop-tab'),products=document.querySelectorAll('.product');
 function showCategory(category){
   shopTabs.forEach(tab=>tab.classList.toggle('active',tab.dataset.category===category));
