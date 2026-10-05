@@ -178,16 +178,13 @@ function toggleAddress(){
 function saveNewAddress(e){
  e.preventDefault();
  const form=e.currentTarget;
- saveAddress({
-   fullName:form.fullName.value.trim(),
-   phone:form.phone.value.trim(),
-   address:form.address.value.trim(),
-   city:form.city.value.trim()
- });
- form.classList.remove('open');
- render();
-}
-
+saveAddress({
+  email: form.email.value.trim(),
+  fullName: form.fullName.value.trim(),
+  phone: form.phone.value.trim(),
+  address: form.address.value.trim(),
+  city: form.city.value.trim()
+});
 function applyCoupon(){
  const input=document.getElementById('couponCode');
  if(!input||!input.value.trim()){alert('Enter a coupon code.');return}
@@ -244,13 +241,14 @@ function render(){
  '<div class="address-label">Delivery Address</div>'+
  '<div class="address-value">'+addressText+'</div>'+
  '<button class="change-address" type="button" onclick="toggleAddress()">Change Address</button>'+
- '<form class="address-form" id="addressForm" onsubmit="saveNewAddress(event)">'+
- '<input name="fullName" placeholder="Full Name" value="'+(deliveryAddress?.fullName||'')+'" required>'+
- '<input name="phone" placeholder="Phone" value="'+(deliveryAddress?.phone||'')+'" required>'+
- '<input name="address" placeholder="Address" value="'+(deliveryAddress?.address||'')+'" required>'+
- '<input name="city" placeholder="City" value="'+(deliveryAddress?.city||'')+'" required>'+
- '<button class="change-address" type="submit">Save Address</button>'+
- '</form>'+
+'<form class="address-form" id="addressForm" onsubmit="saveNewAddress(event)">'+
+'<input name="email" type="email" placeholder="Email Address" value="'+(deliveryAddress?.email||'')+'" required>'+
+'<input name="fullName" placeholder="Full Name" value="'+(deliveryAddress?.fullName||'')+'" required>'+
+'<input name="phone" placeholder="Phone" value="'+(deliveryAddress?.phone||'')+'" required>'+
+'<input name="address" placeholder="Address" value="'+(deliveryAddress?.address||'')+'" required>'+
+'<input name="city" placeholder="City" value="'+(deliveryAddress?.city||'')+'" required>'+
+'<button class="change-address" type="submit">Save Address</button>'+
+'</form>'+
  '</div>'+
  '</div>'+
  '<div class="sum-row"><span>Subtotal</span><span>'+money(subtotal)+'</span></div>'+
@@ -282,11 +280,19 @@ async function checkout(){
     return;
   }
 
-  const email = prompt('Enter your email address:');
+  const email = deliveryAddress?.email;
 
-  if(!email){
-    return;
-  }
+if(!email){
+  alert('Please enter your email address.');
+  toggleAddress();
+  return;
+}
+
+const subtotal = cart.reduce((s,x) =>
+  s + Number(x.price || 0) * (x.qty || 1), 0
+);
+
+const total = subtotal + shippingPrice();
 
   try {
     const response = await fetch(
