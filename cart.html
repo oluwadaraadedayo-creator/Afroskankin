@@ -176,15 +176,21 @@ function toggleAddress(){
 }
 
 function saveNewAddress(e){
- e.preventDefault();
- const form=e.currentTarget;
-saveAddress({
-  email: form.email.value.trim(),
-  fullName: form.fullName.value.trim(),
-  phone: form.phone.value.trim(),
-  address: form.address.value.trim(),
-  city: form.city.value.trim()
-});
+  e.preventDefault();
+
+  const form = e.currentTarget;
+
+  saveAddress({
+    email: form.email.value.trim(),
+    fullName: form.fullName.value.trim(),
+    phone: form.phone.value.trim(),
+    address: form.address.value.trim(),
+    city: form.city.value.trim()
+  });
+
+  form.classList.remove('open');
+  render();
+}
 function applyCoupon(){
  const input=document.getElementById('couponCode');
  if(!input||!input.value.trim()){alert('Enter a coupon code.');return}
@@ -302,23 +308,18 @@ const total = subtotal + shippingPrice();
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          email: email,
+       body: JSON.stringify({
+  email: email,
+  amount: total * 100,
 
-          items: cart.map(item => ({
-            id: item.id,
-            quantity: item.qty || 1
-          })),
-
-          shippingLocation: selectedShipping,
-
-          customer: {
-            fullName: deliveryAddress.fullName,
-            phone: deliveryAddress.phone,
-            address: deliveryAddress.address,
-            city: deliveryAddress.city
-          }
-        })
+  metadata: {
+    delivery_address: deliveryAddress.address,
+    city: deliveryAddress.city,
+    shipping_location: selectedShipping,
+    full_name: deliveryAddress.fullName,
+    phone: deliveryAddress.phone
+  }
+})
       }
     );
 
