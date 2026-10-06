@@ -95,24 +95,28 @@
   </div>
   <div class="products">
     <article class="product" data-category="tees">
-      <div class="visual product-image-visual"><img src="./signature-tee.webp?v=20261006-2" alt="AFROSKANKIN Signature Tee"></div>
-      <div class="info"><h3>Signature Tee</h3><p>₦15,000.00</p><select id="tee"><option>S</option><option>M</option><option>L</option><option>XL</option></select><button type="button" onclick="viewProduct('Signature Tee',15000,'Shirt','tee')">VIEW PRODUCT</button></div>
+      <div class="visual product-image-visual"><img src="./signature-tee.webp?v=20261007-1" alt="AFROSKANKIN Signature Tee"></div>
+      <div class="info"><h3>Signature Tee</h3><p>₦15,000.00</p><select id="tee"><option>S</option><option>M</option><option>L</option><option>XL</option></select><button type="button" onclick="viewProduct('Signature Tee',15000,'Shirt','tee','first')">VIEW PRODUCT</button></div>
     </article>
     <article class="product" data-category="tees">
-      <div class="visual product-image-visual"><img src="./Afroskankin%20Graphic%20Tee%20Portrait.png?v=20261006-2" alt="AFROSKANKIN Graphic Tee"></div>
-      <div class="info"><h3>Signature Tee</h3><p>₦15,000.00</p><select id="tee-graphic"><option>S</option><option>M</option><option>L</option><option>XL</option></select><button type="button" onclick="viewProduct('Signature Tee',15000,'Shirt','tee-graphic')">VIEW PRODUCT</button></div>
+      <div class="visual product-image-visual"><img src="./Afroskankin%20Graphic%20Tee%20Portrait.png?v=20261007-1" alt="AFROSKANKIN Graphic Tee"></div>
+      <div class="info"><h3>Signature Tee</h3><p>₦15,000.00</p><select id="tee-graphic"><option>S</option><option>M</option><option>L</option><option>XL</option></select><button type="button" onclick="viewProduct('Signature Tee',15000,'Shirt','tee-graphic','second')">VIEW PRODUCT</button></div>
     </article>
     <article class="product" data-category="hoodies">
-      <div class="visual product-image-visual"><img src="./Afroskankin%20West%20African%20Goat%20Hoodie%20Portrait.png?v=20261006-2" alt="Iboro Classic Hoodie"></div>
-      <div class="info"><h3>Classic Hoodie</h3><p>₦50,000.00</p><select id="hoodie"><option>S</option><option>M</option><option>L</option><option>XL</option></select><button type="button" onclick="viewProduct('Classic Hoodie',50000,'Hoodie','hoodie')">VIEW PRODUCT</button></div>
+      <div class="visual product-image-visual"><img src="./Afroskankin%20West%20African%20Goat%20Hoodie%20Portrait.png?v=20261007-1" alt="Iboro Classic Hoodie"></div>
+      <div class="info"><h3>Classic Hoodie</h3><p>₦50,000.00</p><select id="hoodie"><option>S</option><option>M</option><option>L</option><option>XL</option></select><button type="button" onclick="viewProduct('Classic Hoodie',50000,'Hoodie','hoodie','hoodie')">VIEW PRODUCT</button></div>
     </article>
     <article class="product" data-category="caps">
-      <div class="visual product-image-visual"><img src="./WhatsApp%20Image%202026-10-05%20at%2003.42.28.jpeg?v=20261006-2" alt="Afroskankin Iboro Cap"></div>
-      <div class="info"><h3>Embroidered Cap</h3><p>₦15,000.00</p><select id="cap"><option>One Size</option></select><button type="button" onclick="viewProduct('Embroidered Cap',15000,'Cap','cap')">VIEW PRODUCT</button></div>
+      <div class="visual product-image-visual"><img src="./WhatsApp%20Image%202026-10-05%20at%2003.42.28.jpeg?v=20261007-1" alt="Afroskankin Iboro Cap"></div>
+      <div class="info"><h3>Embroidered Cap</h3><p>₦15,000.00</p><select id="cap"><option>One Size</option></select><button type="button" onclick="viewProduct('Embroidered Cap',15000,'Cap','cap','cap')">VIEW PRODUCT</button></div>
+    </article>
+    <article class="product" data-category="tees">
+      <div class="visual product-image-visual"><img src="./Afroskankin%20Star%20Graphic%20Portrait.png?v=20261007-1" alt="AFROSKANKIN Star Graphic Tee"></div>
+      <div class="info"><h3>Signature Tee</h3><p>₦15,000.00</p><select id="tee-star"><option>S</option><option>M</option><option>L</option><option>XL</option></select><button type="button" onclick="viewProduct('Signature Tee',15000,'Shirt','tee-star','star')">VIEW PRODUCT</button></div>
     </article>
     <article class="product" data-category="vinyl">
       <div class="visual"><strong>AFROSKANKIN<br>VINYL</strong></div>
-      <div class="info"><h3>AFROSKANKIN Vinyl</h3><p>₦70,000.00</p><button type="button" onclick="viewProduct('AFROSKANKIN Vinyl',70000,'Vinyl','vinyl')">VIEW PRODUCT</button></div>
+      <div class="info"><h3>AFROSKANKIN Vinyl</h3><p>₦70,000.00</p><button type="button" disabled>COMING SOON</button></div>
     </article>
     <article class="product" data-category="cds">
       <div class="visual"><strong>AFROSKANKIN<br>CD</strong></div>
@@ -120,7 +124,7 @@
     </article>
     <article class="product" data-category="books">
       <div class="visual"><strong>AFROSKANKIN<br>BOOK</strong></div>
-      <div class="info"><h3>AFROSKANKIN Book</h3><p>FREE</p><button type="button" class="merch-action" data-name="AFROSKANKIN Book" data-price="0" data-size="One Size" onclick="handleMerchAction(this)">ADD TO CART</button></div>
+      <div class="info"><h3>AFROSKANKIN Book</h3><p>COMING SOON</p><button type="button" disabled>COMING SOON</button></div>
     </article>
   </div>
 </section>
@@ -165,7 +169,7 @@ fetch('https://api.github.com/repos/'+repo+'/contents/').then(r=>r.json()).then(
 function toggle(){document.getElementById('cart').classList.toggle('open');document.getElementById('overlay').classList.toggle('open')}
 document.getElementById('bagBtn').onclick=()=>{location.href='cart.html'};document.getElementById('overlay').onclick=toggle;
 function add(name,price,size){const saved=JSON.parse(localStorage.getItem('afroskankinCart')||'[]');const existing=saved.find(x=>x.name===name&&x.size===size);if(existing){existing.qty=(existing.qty||1)+1}else{saved.push({name,price,size,qty:1,label:name.toUpperCase()})}localStorage.setItem('afroskankinCart',JSON.stringify(saved));cart=saved;updateMerchButtons();render()}
-function viewProduct(name,price,type,selectorId,currency='NGN'){const size=document.getElementById(selectorId)?.value||'One Size';location.href='product.html?name='+encodeURIComponent(name)+'&price='+price+'&type='+encodeURIComponent(type)+'&size='+encodeURIComponent(size)+'&currency='+encodeURIComponent(currency)}
+function viewProduct(name,price,type,selectorId,variant='first',currency='NGN'){const size=document.getElementById(selectorId)?.value||'One Size';location.href='product.html?name='+encodeURIComponent(name)+'&price='+price+'&type='+encodeURIComponent(type)+'&size='+encodeURIComponent(size)+'&variant='+encodeURIComponent(variant)+'&currency='+encodeURIComponent(currency)}
 function handleMerchAction(btn){if(btn.classList.contains('is-in-cart')){location.href='cart.html';return}add(btn.dataset.name,Number(btn.dataset.price),btn.dataset.size);btn.classList.add('is-in-cart');btn.textContent='VIEW CART'}
 function updateMerchButtons(){document.querySelectorAll('.merch-action').forEach(btn=>{const saved=JSON.parse(localStorage.getItem('afroskankinCart')||'[]');const inCart=saved.some(x=>x.name===btn.dataset.name&&x.size===btn.dataset.size);btn.classList.toggle('is-in-cart',inCart);btn.textContent=inCart?'VIEW CART':'ADD TO CART'})}
 function render(){const total=cart.reduce((s,x)=>s+x.price,0);document.getElementById('bagBtn').textContent='CART ('+cart.length+')';document.getElementById('itemsTotal').textContent=total.toLocaleString();document.getElementById('dispatch').textContent=fee.toLocaleString();document.getElementById('grand').textContent=(total+fee).toLocaleString();document.getElementById('items').innerHTML=cart.length?cart.map((x,i)=>'<div class="line"><div><b>'+x.name+'</b><small>'+x.size+' · ₦'+x.price.toLocaleString()+'</small></div><button class="remove" onclick="removeItem('+i+')">REMOVE</button></div>').join(''):'<p>Your bag is empty.</p>'}
