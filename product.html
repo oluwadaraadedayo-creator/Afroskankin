@@ -26,7 +26,7 @@ button,input,select{font-family:'Anton',Arial,Helvetica,sans-serif}
 .product-nav a:hover{color:#555}
 .product-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(390px,.75fr);gap:75px;align-items:start}
 .gallery{position:relative}
-.product-image{min-height:680px;background:var(--k);color:var(--y);display:flex;align-items:center;justify-content:center;text-align:center;padding:50px;overflow:hidden}
+.product-image{min-height:680px;background:var(--w);color:var(--y);display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;overflow:hidden}.product-image img{display:none;width:100%;height:100%;object-fit:contain}.product-image.image-active img{display:block}.product-image.image-active #productVisual{display:none}
 .product-image span{font-size:clamp(70px,8.5vw,145px);line-height:.78;letter-spacing:-.06em;text-transform:uppercase}
 .gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border:1px solid var(--y);background:var(--k);color:var(--y);font-size:18px;cursor:pointer}
 .gallery-arrow:hover{background:var(--y);color:#000}
@@ -96,7 +96,7 @@ button,input,select{font-family:'Anton',Arial,Helvetica,sans-serif}
 
 <div class="product-grid">
 <div class="gallery">
-<div class="product-image"><span id="productVisual">AFROSKANKIN</span></div>
+<div class="product-image" id="mainProductImage"><img id="productImage" src="" alt=""><span id="productVisual">AFROSKANKIN</span></div>
 <button class="gallery-arrow gallery-prev" type="button" onclick="changeGallery(-1)">‹</button>
 <button class="gallery-arrow gallery-next" type="button" onclick="changeGallery(1)">›</button>
 <div class="thumbs"><button class="thumb active" type="button" onclick="setGallery(0)">VIEW 01</button><button class="thumb" type="button" onclick="setGallery(1)">VIEW 02</button><button class="thumb" type="button" onclick="setGallery(2)">VIEW 03</button></div>
@@ -178,6 +178,12 @@ document.getElementById('sku').textContent=data.sku;
 document.getElementById('category').textContent=data.category;
 document.getElementById('tag').textContent=data.tag;
 document.getElementById('productVisual').innerHTML=data.visual.replace(/\n/g,'<br>');
+if(data.image){
+  const image=document.getElementById('productImage');
+  image.src=data.image+'?v=20261006-1';
+  image.alt=name;
+  document.getElementById('mainProductImage').classList.add('image-active');
+}
 const sizeSelect=document.getElementById('productSize');
 data.sizes.forEach(size=>{const o=document.createElement('option');o.value=size;o.textContent=size;if(size===requestedSize)o.selected=true;sizeSelect.appendChild(o)});
 const colorSelect=document.getElementById('productColor');
