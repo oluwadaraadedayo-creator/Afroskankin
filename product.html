@@ -28,7 +28,7 @@ button,input,select{font-family:'Anton',Arial,Helvetica,sans-serif}
 .gallery{position:relative}
 .product-image{min-height:680px;background:var(--w);color:var(--y);display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;overflow:hidden}.product-image img{display:none;width:100%;height:100%;object-fit:contain}.product-image.image-active img{display:block}.product-image.image-active #productVisual{display:none}
 .product-image span{font-size:clamp(70px,8.5vw,145px);line-height:.78;letter-spacing:-.06em;text-transform:uppercase}
-.gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border:1px solid var(--y);background:var(--k);color:var(--y);font-size:18px;cursor:pointer}
+.gallery-arrow{display:none}
 .gallery-arrow:hover{background:var(--y);color:#000}
 .gallery-prev{left:18px}.gallery-next{right:18px}
 .thumbs{display:flex;gap:10px;margin-top:12px}
@@ -97,9 +97,7 @@ button,input,select{font-family:'Anton',Arial,Helvetica,sans-serif}
 <div class="product-grid">
 <div class="gallery">
 <div class="product-image" id="mainProductImage"><img id="productImage" src="" alt=""><span id="productVisual">AFROSKANKIN</span></div>
-<button class="gallery-arrow gallery-prev" type="button" onclick="changeGallery(-1)">‹</button>
-<button class="gallery-arrow gallery-next" type="button" onclick="changeGallery(1)">›</button>
-<div class="thumbs"><button class="thumb active" type="button" onclick="setGallery(0)">VIEW 01</button><button class="thumb" type="button" onclick="setGallery(1)">VIEW 02</button><button class="thumb" type="button" onclick="setGallery(2)">VIEW 03</button></div>
+<div class="thumbs"><button class="thumb active" id="view01" type="button" onclick="setGallery(0)">VIEW 01</button></div>
 </div>
 
 <div class="product-info">
@@ -157,14 +155,16 @@ const name=params.get('name')||'AFROSKANKIN PRODUCT';
 const price=Number(params.get('price')||0);
 const type=params.get('type')||'Merch';
 const requestedSize=params.get('size')||'One Size';
+const variant=params.get('variant')||'first';
 const products={
- 'Signature Tee':{category:'Shirts',tag:'AFROSKANKIN, TEE',sku:'N/A',description:'The AFROSKANKIN signature tee is a wearable expression of the PayBac Iboro world. Built around the AFROSKANKIN identity with a bold, minimal graphic treatment.',additional:'100% cotton. Available in S, M, L and XL. Designed for everyday wear.',visual:'THE\nAFRO\nSKANKIN\nTEE',image:'./Afroskankin%20Graphic%20Tee%20Portrait.png',sizes:['S','M','L','XL'],colors:['Black','Yellow','White']},
- 'Classic Hoodie':{category:'Hoodies',tag:'AFROSKANKIN, IBORO',sku:'N/A',description:'The Iboro Classic Hoodie brings the AFROSKANKIN identity into a heavyweight everyday layer with a clean graphic treatment.',additional:'Heavyweight hoodie. Available in S, M, L and XL.',visual:'IBORO\nCLASSIC\nHOODIE',image:'./Afroskankin%20West%20African%20Goat%20Hoodie%20Portrait.png',sizes:['S','M','L','XL'],colors:['Black','Yellow']},
- 'Embroidered Cap':{category:'Caps',tag:'AFROSKANKIN, CAP',sku:'N/A',description:'The AFROSKANKIN embroidered cap is a simple finishing piece built around the Iboro identity.',additional:'Adjustable one-size fit. Embroidered AFROSKANKIN branding.',visual:'AFROSKANKIN\nIBORO\nCAP',image:'./WhatsApp%20Image%202026-10-05%20at%2003.42.28.jpeg',sizes:['One Size'],colors:['Black','Yellow']},
+ 'Signature Tee':{category:'Shirts',tag:'AFROSKANKIN, TEE',sku:'N/A',description:'The AFROSKANKIN signature tee is a wearable expression of the PayBac Iboro world. Built around the AFROSKANKIN identity with a bold, minimal graphic treatment.',additional:'100% cotton. Available in S, M, L and XL. Designed for everyday wear.',visual:'THE\nAFRO\nSKANKIN\nTEE',image:'./signature-tee.webp',sizes:['S','M','L','XL'],colors:['Black','Yellow','White'],gallery:{first:'./West%20African%20Goat%20T-Shirt%20Model.png',second:'./West%20African%20Goat%20T-Shirt%20Portrait.png',star:'./West%20African%20Goat%20T-Shirt%20Back%20View.png'}},
+ 'Classic Hoodie':{category:'Hoodies',tag:'AFROSKANKIN, IBORO',sku:'N/A',description:'The Iboro Classic Hoodie brings the AFROSKANKIN identity into a heavyweight everyday layer with a clean graphic treatment.',additional:'Heavyweight hoodie. Available in S, M, L and XL.',visual:'IBORO\nCLASSIC\nHOODIE',image:'./Afroskankin%20West%20African%20Goat%20Hoodie%20Portrait.png',sizes:['S','M','L','XL'],colors:['Black','Yellow'],gallery:{hoodie:'./West%20African%20Goat%20Hoodie%20Back%20View.png'}},
+ 'Embroidered Cap':{category:'Caps',tag:'AFROSKANKIN, CAP',sku:'N/A',description:'The AFROSKANKIN embroidered cap is a simple finishing piece built around the Iboro identity.',additional:'Adjustable one-size fit. Embroidered AFROSKANKIN branding.',visual:'AFROSKANKIN\nIBORO\nCAP',image:'./WhatsApp%20Image%202026-10-05%20at%2003.42.28.jpeg',sizes:['One Size'],colors:['Black','Yellow'],gallery:{cap:'./WhatsApp%20Image%202026-10-05%20at%2003.42.28.jpeg'}},
  'AFROSKANKIN Book':{category:'Books',tag:'AFROSKANKIN, BOOK',sku:'N/A',description:'The AFROSKANKIN book is part of the official PayBac Iboro merch collection.',additional:'One size. Official AFROSKANKIN merchandise.',visual:'AFROSKANKIN\nBOOK',image:'./signature-tee.webp',sizes:['One Size'],colors:['Black']},
  'AFROSKANKIN Vinyl':{category:'Vinyl',tag:'AFROSKANKIN, VINYL',sku:'N/A',description:'The official AFROSKANKIN vinyl release.',additional:'Official AFROSKANKIN merchandise.',visual:'AFROSKANKIN\nVINYL',sizes:['One Size'],colors:['Black']}
 };
 const data=products[name]||{category:type,tag:'AFROSKANKIN',sku:'N/A',description:'Official AFROSKANKIN merchandise by PayBac Iboro.',additional:'Official AFROSKANKIN merchandise.',visual:name.toUpperCase(),sizes:['One Size'],colors:['Black']};
+const galleryImage=data.gallery?.[variant]||null;
 let quantity=1,galleryIndex=0;
 document.title=name.toUpperCase()+' | AFROSKANKIN';
 document.getElementById('crumbName').textContent=name;
@@ -180,10 +180,19 @@ document.getElementById('tag').textContent=data.tag;
 document.getElementById('productVisual').innerHTML=data.visual.replace(/\n/g,'<br>');
 if(data.image){
   const image=document.getElementById('productImage');
-  image.src=data.image+'?v=20261006-2';
+  image.src=data.image+'?v=20261007-1';
   image.alt=name;
   document.getElementById('mainProductImage').classList.add('image-active');
 }
+function setGallery(index){
+  if(index!==0||!galleryImage)return;
+  const image=document.getElementById('productImage');
+  image.src=galleryImage+'?v=20261007-1';
+  image.alt=name+' View 01';
+  document.getElementById('mainProductImage').classList.add('image-active');
+  document.getElementById('view01').classList.add('active');
+}
+function changeGallery(){}
 const sizeSelect=document.getElementById('productSize');
 data.sizes.forEach(size=>{const o=document.createElement('option');o.value=size;o.textContent=size;if(size===requestedSize)o.selected=true;sizeSelect.appendChild(o)});
 const colorSelect=document.getElementById('productColor');
@@ -195,9 +204,7 @@ function productUrl(n){const p=products[n]||{};const prices={'Signature Tee':150
 document.getElementById('prevProduct').href=productUrl(prev);
 document.getElementById('nextProduct').href=productUrl(next);
 function changeQty(delta){quantity=Math.max(1,quantity+delta);document.getElementById('quantity').textContent=quantity}
-function setGallery(index){galleryIndex=(index+3)%3;document.querySelectorAll('.thumb').forEach((x,i)=>x.classList.toggle('active',i===galleryIndex))}
-function changeGallery(delta){setGallery(galleryIndex+delta)}
-function addProduct(){const size=sizeSelect.value,color=colorSelect.value;const saved=JSON.parse(localStorage.getItem('afroskankinCart')||'[]');const keySize=size+' / '+color;const existing=saved.find(x=>x.name===name&&x.size===keySize);if(existing){existing.qty=(existing.qty||1)+quantity}else{saved.push({name,price,size:keySize,qty:quantity,label:name.toUpperCase(),type:data.category,color})}localStorage.setItem('afroskankinCart',JSON.stringify(saved));const btn=document.getElementById('addButton');btn.textContent='VIEW CART';btn.classList.add('is-added');btn.onclick=()=>location.href='cart.html'}
+function addProduct(){const size=sizeSelect.value,color=colorSelect.value;const saved=JSON.parse(localStorage.getItem('afroskankinCart')||'[]');const keySize=size+' / '+color;const existing=saved.find(x=>x.name===name&&x.size===keySize&&x.variant===variant);if(existing){existing.qty=(existing.qty||1)+quantity}else{saved.push({name,price,size:keySize,qty:quantity,label:name.toUpperCase(),type:data.category,color,variant})}localStorage.setItem('afroskankinCart',JSON.stringify(saved));const btn=document.getElementById('addButton');btn.textContent='VIEW CART';btn.classList.add('is-added');btn.onclick=()=>location.href='cart.html'}
 function showTab(id,button){document.querySelectorAll('.detail-panel').forEach(p=>p.hidden=p.id!==id+'Panel');document.querySelectorAll('.detail-tab').forEach(b=>b.classList.remove('active'));button.classList.add('active')}
 </script>
 </body>
