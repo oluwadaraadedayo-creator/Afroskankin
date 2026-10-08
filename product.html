@@ -216,9 +216,18 @@ const selectedColor=data.colors[0]||'White';
 const order=['Signature Tee','Classic Hoodie','Embroidered Cap','AFROSKANKIN Vinyl','AFROSKANKIN Book'];
 const currentIndex=Math.max(0,order.indexOf(name));
 const prev=order[(currentIndex-1+order.length)%order.length],next=order[(currentIndex+1)%order.length];
-function productUrl(n){const p=products[n]||{};const prices={'Signature Tee':15000,'Classic Hoodie':50000,'Embroidered Cap':15000,'AFROSKANKIN Vinyl':70000,'AFROSKANKIN Book':0};return 'product.html?name='+encodeURIComponent(n)+'&price='+prices[n]+'&type='+encodeURIComponent(p.category||'Merch')+'&size='+encodeURIComponent((p.sizes||['One Size'])[0])}
+const signatureTees=[
+ {variant:'first',name:'Signature Tee',label:'SIGNATURE TEE 01',image:'./Afroskankin%20Graphic%20Tee%20Portrait%20%281%29.png'},
+ {variant:'second',name:'Signature Tee',label:'SIGNATURE TEE 02',image:'./Afroskankin%20Graphic%20Tee%20Portrait.png'},
+ {variant:'star',name:'Signature Tee',label:'SIGNATURE TEE 03',image:'./Afroskankin%20Star%20Graphic%20Portrait.png'}
+];
+function productUrl(n,productVariant='first'){const p=products[n]||{};const prices={'Signature Tee':15000,'Classic Hoodie':50000,'Embroidered Cap':15000,'AFROSKANKIN Vinyl':70000,'AFROSKANKIN Book':0};return 'product.html?name='+encodeURIComponent(n)+'&price='+prices[n]+'&type='+encodeURIComponent(p.category||'Merch')+'&size='+encodeURIComponent((p.sizes||['One Size'])[0])+'&variant='+encodeURIComponent(productVariant)}
 document.getElementById('prevProduct').href=productUrl(prev);
 document.getElementById('nextProduct').href=productUrl(next);
+
+const relatedGrid=document.getElementById('relatedGrid');
+const relatedItems=signatureTees.filter(item=>!(name==='Signature Tee'&&item.variant===variant));
+relatedGrid.innerHTML=relatedItems.map(item=>'<a class="related-card" href="'+productUrl('Signature Tee',item.variant)+'"><div class="related-visual" style="background:#F4F1E8;overflow:hidden;padding:0"><img src="'+item.image+'" alt="'+item.label+'" style="width:100%;height:100%;object-fit:contain;display:block"></div><div class="related-type">SHIRTS</div><div class="related-name">'+item.label+'</div><div class="related-price">₦15,000.00</div><span class="related-action">VIEW PRODUCT</span></a>').join('');
 function changeQty(delta){quantity=Math.max(1,quantity+delta);document.getElementById('quantity').textContent=quantity}
 function addProduct(){const size=sizeSelect.value,color=selectedColor;const saved=JSON.parse(localStorage.getItem('afroskankinCart')||'[]');const keySize=size+' / '+color;const existing=saved.find(x=>x.name===name&&x.size===keySize&&x.variant===variant);if(existing){existing.qty=(existing.qty||1)+quantity}else{saved.push({name,price,size:keySize,qty:quantity,label:name.toUpperCase(),type:data.category,color,variant})}localStorage.setItem('afroskankinCart',JSON.stringify(saved));const btn=document.getElementById('addButton');btn.textContent='VIEW CART';btn.classList.add('is-added');btn.onclick=()=>location.href='cart.html'}
 function showTab(id,button){document.querySelectorAll('.detail-panel').forEach(p=>p.hidden=p.id!==id+'Panel');document.querySelectorAll('.detail-tab').forEach(b=>b.classList.remove('active'));button.classList.add('active')}
