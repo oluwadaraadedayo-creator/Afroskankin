@@ -214,6 +214,15 @@ document.getElementById('sku').textContent=data.sku;
 document.getElementById('category').textContent=data.category;
 document.getElementById('tag').textContent=data.tag;
 document.getElementById('productVisual').innerHTML=data.visual.replace(/\n/g,'<br>');
+const comingSoonProduct = document.getElementById('comingSoonProduct');
+if (name === 'AFROSKANKIN Vinyl') {
+  comingSoonProduct.style.display = 'flex';
+  document.getElementById('productImage').style.display = 'none';
+  document.getElementById('productVisual').style.display = 'none';
+  document.getElementById('view01').style.display = 'none';
+} else {
+  comingSoonProduct.style.display = 'none';
+}
 const mainImageSource = name === 'Signature Tee'
   ? ({
       first:'./Afroskankin%20Graphic%20Tee%20Portrait%20%281%29.png',
