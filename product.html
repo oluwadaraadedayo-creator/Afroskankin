@@ -215,7 +215,7 @@ document.getElementById('category').textContent=data.category;
 document.getElementById('tag').textContent=data.tag;
 document.getElementById('productVisual').innerHTML=data.visual.replace(/\n/g,'<br>');
 const comingSoonProduct = document.getElementById('comingSoonProduct');
-if (name === 'AFROSKANKIN Vinyl') {
+if (['AFROSKANKIN Vinyl', 'AFROSKANKIN CD', 'AFROSKANKIN Book'].includes(name)) {
   comingSoonProduct.style.display = 'flex';
   document.getElementById('productImage').style.display = 'none';
   document.getElementById('productVisual').style.display = 'none';
