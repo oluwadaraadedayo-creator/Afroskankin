@@ -188,7 +188,7 @@ const products={
  'AFROSKANKIN CD':{category:'CDs',tag:'AFROSKANKIN, CD',sku:'N/A',description:'The official AFROSKANKIN CD release.',additional:'Official AFROSKANKIN merchandise.',visual:'AFROSKANKIN\nCD',sizes:['One Size'],colors:['Black']}
 };
 const data=products[name]||{category:type,tag:'AFROSKANKIN',sku:'N/A',description:'Official AFROSKANKIN merchandise by PayBac Iboro.',additional:'Official AFROSKANKIN merchandise.',visual:name.toUpperCase(),sizes:['One Size'],colors:['Black']};
-const galleryImage=data.gallery?.[variant]||null;
+const galleryImage=data.gallery?.[variant] || (name === 'Classic Hoodie' ? data.gallery?.hoodie : null) || null;
 let quantity=1,galleryIndex=0;
 document.title=name.toUpperCase()+' | AFROSKANKIN';
 document.getElementById('crumbName').textContent=name;
@@ -222,8 +222,8 @@ const view01Image=document.getElementById('view01Image');
 const mainImageSrc=mainImageSource||'';
 
 const view01Src = name === 'Classic Hoodie'
-  ? './West%20African%20Goat%20Hoodie%20Back%20View.png'
-  : galleryImage;
+  ? (data.gallery?.hoodie || galleryImage)
+  : (galleryImage || null);
 
 function setGallery(){
   if(!view01Src)return;
@@ -248,6 +248,13 @@ if(view01Src){
   view01Image.style.display='block';
   view01.addEventListener('mouseenter',setGallery);
   view01.addEventListener('mouseleave',restoreMainImage);
+  view01.addEventListener('click',()=>{
+    if(view01.classList.contains('active')){
+      restoreMainImage();
+    }else{
+      setGallery();
+    }
+  });
 }else{
   view01.style.display='none';
 }
