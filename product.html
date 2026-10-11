@@ -99,7 +99,7 @@ button,input,select{font-family:'Anton',Arial,Helvetica,sans-serif}
 <body>
 <header class="top">
 <div class="top-inner">
-<a class="brand-center" href="index.html#home"><img src="./logo.png?v=20261004-2" alt="PayBac Iboro"></a>
+<a class="brand-center" href="index.html#home"><img src="./logo.webp?v=20261004-2" alt="PayBac Iboro"></a>
 <nav class="menu">
 <a href="index.html#home">HOME</a><a href="index.html#gallery">GALLERY</a><a href="index.html#shop">MERCH</a><a href="cart.html">CART</a><a href="index.html#contact">CONTACT</a>
 </nav>
@@ -180,7 +180,7 @@ const type=params.get('type')||'Merch';
 const requestedSize=params.get('size')||'One Size';
 const variant=params.get('variant')||'first';
 const products={
- 'Signature Tee':{category:'Shirts',tag:'AFROSKANKIN, TEE',sku:'N/A',description:'The AFROSKANKIN signature tee is a wearable expression of the PayBac Iboro world. Built around the AFROSKANKIN identity with a bold, minimal graphic treatment.',additional:'100% cotton. Available in S, M, L and XL. Designed for everyday wear.',visual:'THE\nAFRO\nSKANKIN\nTEE',image:'./Afroskankin%20Graphic%20Tee%20Portrait%20%281%29.png',sizes:['S','M','L','XL'],colors:['White','Black','Yellow'],gallery:{first:'./West%20African%20Goat%20T-Shirt%20Model.png',second:'./West%20African%20Goat%20T-Shirt%20Portrait.png',star:'./West%20African%20Goat%20T-Shirt%20Back%20View.png'}},
+ 'Signature Tee':{category:'Shirts',tag:'AFROSKANKIN, TEE',sku:'N/A',description:'The AFROSKANKIN signature tee is a wearable expression of the PayBac Iboro world. Built around the AFROSKANKIN identity with a bold, minimal graphic treatment.',additional:'100% cotton. Available in S, M, L and XL. Designed for everyday wear.',visual:'THE\nAFRO\nSKANKIN\nTEE',image:'./Afroskankin%20Graphic%20Tee%20Portrait%20%281%29.webp',sizes:['S','M','L','XL'],colors:['White','Black','Yellow'],gallery:{first:'./West%20African%20Goat%20T-Shirt%20Model.webp',second:'./West%20African%20Goat%20T-Shirt%20Portrait.webp',star:'./West%20African%20Goat%20T-Shirt%20Back%20View.webp'}},
  'Classic Hoodie': {
   category: 'Hoodies',
   tag: 'AFROSKANKIN, IBORO',
@@ -188,13 +188,13 @@ const products={
   description: 'The Iboro Classic Hoodie brings the AFROSKANKIN identity into a heavyweight everyday layer with a clean graphic treatment.',
   additional: 'Heavyweight hoodie. Available in S, M, L and XL.',
   visual: 'IBORO\nCLASSIC\nHOODIE',
-  image: './Afroskankin%20West%20African%20Goat%20Hoodie%20Portrait.png',
+  image: './Afroskankin%20West%20African%20Goat%20Hoodie%20Portrait.webp',
   sizes: ['S', 'M', 'L', 'XL'],
   colors: ['Black', 'Yellow'],
   gallery: {
-    hoodie: './West%20African%20Goat%20Hoodie%20Back%20View.png'
+    hoodie: './West%20African%20Goat%20Hoodie%20Back%20View.webp'
   }
-}, 'Embroidered Cap':{category:'Caps',tag:'AFROSKANKIN, CAP',sku:'N/A',description:'The AFROSKANKIN embroidered cap is a simple finishing piece built around the Iboro identity.',additional:'Adjustable one-size fit. Embroidered AFROSKANKIN branding.',visual:'AFROSKANKIN\nIBORO\nCAP',image:'./WhatsApp%20Image%202026-10-05%20at%2003.42.28.jpeg',sizes:['One Size'],colors:['Black','Yellow'],gallery:{cap:'./WhatsApp%20Image%202026-10-05%20at%2003.42.28.jpeg'}},
+}, 'Embroidered Cap':{category:'Caps',tag:'AFROSKANKIN, CAP',sku:'N/A',description:'The AFROSKANKIN embroidered cap is a simple finishing piece built around the Iboro identity.',additional:'Adjustable one-size fit. Embroidered AFROSKANKIN branding.',visual:'AFROSKANKIN\nIBORO\nCAP',image:'./WhatsApp%20Image%202026-10-05%20at%2003.42.28.webp',sizes:['One Size'],colors:['Black','Yellow'],gallery:{cap:'./WhatsApp%20Image%202026-10-05%20at%2003.42.28.webp'}},
  'AFROSKANKIN Book':{category:'Books',tag:'AFROSKANKIN, BOOK',sku:'N/A',description:'The AFROSKANKIN book is part of the official PayBac Iboro merch collection.',additional:'One size. Official AFROSKANKIN merchandise.',visual:'AFROSKANKIN\nBOOK',image:'./signature-tee.webp',sizes:['One Size'],colors:['Black']},
  'AFROSKANKIN Vinyl':{category:'Vinyl',tag:'AFROSKANKIN, VINYL',sku:'N/A',description:'The official AFROSKANKIN vinyl release.',additional:'Official AFROSKANKIN merchandise.',visual:'AFROSKANKIN\nVINYL',sizes:['One Size'],colors:['Black']},
  'AFROSKANKIN CD':{category:'CDs',tag:'AFROSKANKIN, CD',sku:'N/A',description:'The official AFROSKANKIN CD release.',additional:'Official AFROSKANKIN merchandise.',visual:'AFROSKANKIN\nCD',sizes:['One Size'],colors:['Black']}
@@ -225,9 +225,9 @@ if (['AFROSKANKIN Vinyl', 'AFROSKANKIN CD', 'AFROSKANKIN Book'].includes(name)) 
 }
 const mainImageSource = name === 'Signature Tee'
   ? ({
-      first:'./Afroskankin%20Graphic%20Tee%20Portrait%20%281%29.png',
-      second:'./Afroskankin%20Graphic%20Tee%20Portrait.png',
-      star:'./Afroskankin%20Star%20Graphic%20Portrait.png'
+      first:'./Afroskankin%20Graphic%20Tee%20Portrait%20%281%29.webp',
+      second:'./Afroskankin%20Graphic%20Tee%20Portrait.webp',
+      star:'./Afroskankin%20Star%20Graphic%20Portrait.webp'
     }[variant] || data.image)
   : data.image;
 
@@ -287,9 +287,9 @@ const order=['Signature Tee','Classic Hoodie','Embroidered Cap','AFROSKANKIN Vin
 const currentIndex=Math.max(0,order.indexOf(name));
 const prev=order[(currentIndex-1+order.length)%order.length],next=order[(currentIndex+1)%order.length];
 const signatureTees=[
- {variant:'first',name:'Signature Tee',label:'SIGNATURE TEE 01',image:'./Afroskankin%20Graphic%20Tee%20Portrait%20%281%29.png'},
- {variant:'second',name:'Signature Tee',label:'SIGNATURE TEE 02',image:'./Afroskankin%20Graphic%20Tee%20Portrait.png'},
- {variant:'star',name:'Signature Tee',label:'SIGNATURE TEE 03',image:'./Afroskankin%20Star%20Graphic%20Portrait.png'}
+ {variant:'first',name:'Signature Tee',label:'SIGNATURE TEE 01',image:'./Afroskankin%20Graphic%20Tee%20Portrait%20%281%29.webp'},
+ {variant:'second',name:'Signature Tee',label:'SIGNATURE TEE 02',image:'./Afroskankin%20Graphic%20Tee%20Portrait.webp'},
+ {variant:'star',name:'Signature Tee',label:'SIGNATURE TEE 03',image:'./Afroskankin%20Star%20Graphic%20Portrait.webp'}
 ];
 function productUrl(n,productVariant='first'){const p=products[n]||{};const prices={'Signature Tee':25000,'Classic Hoodie':50000,'Embroidered Cap':18000,'AFROSKANKIN Vinyl':70000,'AFROSKANKIN CD':10000,'AFROSKANKIN Book':10000};return 'product.html?name='+encodeURIComponent(n)+'&price='+prices[n]+'&type='+encodeURIComponent(p.category||'Merch')+'&size='+encodeURIComponent((p.sizes||['One Size'])[0])+'&variant='+encodeURIComponent(productVariant)}
 document.getElementById('prevProduct').href=productUrl(prev);

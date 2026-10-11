@@ -57,7 +57,7 @@ function App() {
     <div className="site">
       <nav className="nav">
         <a className="brand" href="#top">
-          <img src="/Afroskankin/logo.png" alt="Paybac Iboro" />
+          <img src="/Afroskankin/logo.webp" alt="Paybac Iboro" />
         </a>
         <div className="nav-links">
           <a href="#shop">SHOP</a>
