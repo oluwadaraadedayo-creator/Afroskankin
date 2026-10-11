@@ -283,17 +283,26 @@ function changeGallery(){}
 const sizeSelect=document.getElementById('productSize');
 data.sizes.forEach(size=>{const o=document.createElement('option');o.value=size;o.textContent=size;if(size===requestedSize)o.selected=true;sizeSelect.appendChild(o)});
 const selectedColor=data.colors[0]||'White';
-const order=['Signature Tee','Classic Hoodie','Embroidered Cap','AFROSKANKIN Vinyl','AFROSKANKIN CD','AFROSKANKIN Book'];
-const currentIndex=Math.max(0,order.indexOf(name));
-const prev=order[(currentIndex-1+order.length)%order.length],next=order[(currentIndex+1)%order.length];
 const signatureTees=[
  {variant:'first',name:'Signature Tee',label:'SIGNATURE TEE 01',image:'./Afroskankin%20Graphic%20Tee%20Portrait%20%281%29.webp'},
  {variant:'second',name:'Signature Tee',label:'SIGNATURE TEE 02',image:'./Afroskankin%20Graphic%20Tee%20Portrait.webp'},
  {variant:'star',name:'Signature Tee',label:'SIGNATURE TEE 03',image:'./Afroskankin%20Star%20Graphic%20Portrait.webp'}
 ];
-function productUrl(n,productVariant='first'){const p=products[n]||{};const prices={'Signature Tee':25000,'Classic Hoodie':50000,'Embroidered Cap':18000,'AFROSKANKIN Vinyl':70000,'AFROSKANKIN CD':10000,'AFROSKANKIN Book':10000};return 'product.html?name='+encodeURIComponent(n)+'&price='+prices[n]+'&type='+encodeURIComponent(p.category||'Merch')+'&size='+encodeURIComponent((p.sizes||['One Size'])[0])+'&variant='+encodeURIComponent(productVariant)}
-document.getElementById('prevProduct').href=productUrl(prev);
-document.getElementById('nextProduct').href=productUrl(next);
+function productUrl(n,productVariant='first'){const p=products[n]||{};const prices={'Signature Tee':25000,'Classic Hoodie':50000,'Embroidered Cap':18000,'AFROSKANKIN Vinyl':70000,'AFROSKANKIN CD':70000,'AFROSKANKIN Book':70000};return 'product.html?name='+encodeURIComponent(n)+'&price='+prices[n]+'&type='+encodeURIComponent(p.category||'Merch')+'&size='+encodeURIComponent((p.sizes||['One Size'])[0])+'&variant='+encodeURIComponent(productVariant)}
+const order=[
+ {name:'Signature Tee',variant:'first'},
+ {name:'Signature Tee',variant:'second'},
+ {name:'Classic Hoodie',variant:'first'},
+ {name:'Embroidered Cap',variant:'first'},
+ {name:'Signature Tee',variant:'star'},
+ {name:'AFROSKANKIN Vinyl',variant:'first'},
+ {name:'AFROSKANKIN CD',variant:'first'},
+ {name:'AFROSKANKIN Book',variant:'first'}
+];
+const currentIndex=Math.max(0,order.findIndex(item=>item.name===name && item.variant===variant));
+const prev=order[(currentIndex-1+order.length)%order.length],next=order[(currentIndex+1)%order.length];
+document.getElementById('prevProduct').href=productUrl(prev.name,prev.variant);
+document.getElementById('nextProduct').href=productUrl(next.name,next.variant);
 
 const relatedGrid=document.getElementById('relatedGrid');
 const relatedItems=signatureTees.filter(item=>!(name==='Signature Tee'&&item.variant===variant));
