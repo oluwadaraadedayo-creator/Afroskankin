@@ -301,36 +301,32 @@ const subtotal = cart.reduce((s,x) =>
 const total = subtotal + shippingPrice();
 
   try {
-    const response = await fetch(
-     'https://afroskankin-payment-backend.vercel.app/api/initialize-payment',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-     
-body: JSON.stringify({
-  email: email,
-
-  items: cart.map(item => ({
-    name: item.name,
-    qty: Number(item.qty || 1)
-  })),
-
-  shippingLocation: selectedShipping,
-
-  metadata: {
-    delivery_address: deliveryAddress.address,
-    city: deliveryAddress.city,
-    shipping_location: selectedShipping,
-    full_name: deliveryAddress.fullName,
-    phone: deliveryAddress.phone
-  }
-})
-
-})
+   
+const response = await fetch(
+  'https://afroskankin-payment-backend.vercel.app/api/initialize-payment',
+  {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email: email,
+      items: cart.map(item => ({
+        name: item.name,
+        qty: Number(item.qty || 1)
+      })),
+      shippingLocation: selectedShipping,
+      metadata: {
+        delivery_address: deliveryAddress.address,
+        city: deliveryAddress.city,
+        shipping_location: selectedShipping,
+        full_name: deliveryAddress.fullName,
+        phone: deliveryAddress.phone
       }
-    );
+    })
+  }
+);
+
 
     const data = await response.json();
 
