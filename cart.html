@@ -308,9 +308,16 @@ const total = subtotal + shippingPrice();
         headers: {
           'Content-Type': 'application/json'
         },
-       body: JSON.stringify({
+     
+body: JSON.stringify({
   email: email,
-  amount: total * 100,
+
+  items: cart.map(item => ({
+    name: item.name,
+    qty: Number(item.qty || 1)
+  })),
+
+  shippingLocation: selectedShipping,
 
   metadata: {
     delivery_address: deliveryAddress.address,
@@ -319,6 +326,8 @@ const total = subtotal + shippingPrice();
     full_name: deliveryAddress.fullName,
     phone: deliveryAddress.phone
   }
+})
+
 })
       }
     );
