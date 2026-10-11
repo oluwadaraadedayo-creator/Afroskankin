@@ -279,11 +279,18 @@ async function checkout(){
     return;
   }
 
-  if(!deliveryAddress){
-    alert('Please add your delivery address.');
-    toggleAddress();
-    return;
-  }
+ 
+if (
+  !deliveryAddress ||
+  !deliveryAddress.address ||
+  !deliveryAddress.city ||
+  !deliveryAddress.fullName ||
+  !deliveryAddress.phone
+) {
+  alert('Please complete all your delivery address details.');
+  toggleAddress();
+  return;
+}
 
   const email = deliveryAddress?.email;
 
