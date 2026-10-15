@@ -342,7 +342,44 @@ const response = await fetch(
 
     const paystack = new PaystackPop();
 
-    paystack.resumeTransaction(data.access_code);
+    paystack.resumeTransaction(data.access_code, {
+      onSuccess: async (transaction) => {
+        try {
+          const reference = transaction?.reference || data.reference;
+          const verifyResponse = await fetch(
+            'https://afroskankin-payment-backend.vercel.app/api/verify-payment',
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                reference,
+                order_id: data.order_id
+              })
+            }
+          );
+
+          const verification = await verifyResponse.json();
+
+          if (!verifyResponse.ok || verification.success !== true || verification.status !== 'PAID') {
+            console.error('Payment verification failed:', verification);
+            alert('We could not confirm your payment yet. Please do not pay again. Keep your payment reference: ' + reference + ' and contact support.');
+            return;
+          }
+
+          cart = [];
+          save();
+          localStorage.removeItem('afroskankinCart');
+          render();
+          alert('Payment confirmed. Your order number is ' + verification.order_id + '.');
+        } catch (verificationError) {
+          console.error('Payment verification request failed:', verificationError);
+          alert('We could not confirm your payment yet. Please do not pay again. Keep your payment reference: ' + (transaction?.reference || data.reference) + ' and contact support.');
+        }
+      },
+      onCancel: () => {
+        alert('Checkout was closed. If you completed a bank transfer, allow time for Paystack to confirm it before trying again.');
+      }
+    });
 
   } catch(error) {
     console.error('Payment initialization error:', error);
