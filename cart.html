@@ -114,6 +114,8 @@ button,input{font-family:'Anton',Arial,Helvetica,sans-serif}
 <script>
 
 const PAYSTACK_PUBLIC_KEY = "pk_test_7b823b49d66194e611220241403553ece6077f71";
+// Set this to a dedicated Vercel backend configured with Paystack TEST keys before testing checkout.
+const PAYMENT_API_BASE = "";
 const productDefaults={
  'AFROSKANKIN Vinyl':{type:'Vinyl',label:'AFROSKANKIN VINYL'},
  'Signature Tee':{type:'Shirt',label:'AFROSKANKIN SHIRT'},
@@ -269,6 +271,10 @@ function render(){
 }
 
 async function checkout(){
+  if(!PAYMENT_API_BASE){
+    alert('Testing checkout is paused until a separate Paystack test-mode backend is configured. No payment was started.');
+    return;
+  }
   if(!cart.length){
     alert('Your cart is empty.');
     return;
@@ -309,7 +315,7 @@ const total = subtotal + shippingPrice();
   try {
    
 const response = await fetch(
-  'https://afroskankin-payment-backend.vercel.app/api/initialize-payment',
+  `${PAYMENT_API_BASE}/initialize-payment`,
   {
     method: 'POST',
     headers: {
@@ -347,7 +353,7 @@ const response = await fetch(
         try {
           const reference = transaction?.reference || data.reference;
           const verifyResponse = await fetch(
-            'https://afroskankin-payment-backend.vercel.app/api/verify-payment',
+            `${PAYMENT_API_BASE}/verify-payment`,
             {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
