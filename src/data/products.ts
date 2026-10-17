@@ -28,13 +28,13 @@ export const products: Product[] = [
   {
     id: 'afroskankin-cd',
     name: 'AFROSKANKIN CD',
-    price: 70000,
+    price: 10000,
     description: 'The official AFROSKANKIN CD release.',
   },
   {
     id: 'afroskankin-book',
     name: 'AFROSKANKIN Book',
-    price: 70000,
+    price: 10000,
     description: 'The official AFROSKANKIN book.',
   },
 ];
