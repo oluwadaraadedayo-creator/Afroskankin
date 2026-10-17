@@ -113,7 +113,9 @@ button,input{font-family:'Anton',Arial,Helvetica,sans-serif}
 <script src="https://js.paystack.co/v2/inline.js"></script>
 <script>
 
-const PAYSTACK_PUBLIC_KEY = "pk_test_7b823b49d66194e611220241403553ece6077f71";
+// Production API endpoints. If Vercel shows a different production domain,
+// update this base URL to the exact deployed .vercel.app domain.
+const PAYMENT_API_BASE = "https://afroskankin-payment-backend.vercel.app/api";
 const productDefaults={
  'AFROSKANKIN Vinyl':{type:'Vinyl',label:'AFROSKANKIN VINYL'},
  'Signature Tee':{type:'Shirt',label:'AFROSKANKIN SHIRT'},
@@ -268,6 +270,40 @@ function render(){
  '</div>';
 }
 
+async function verifyPayment(reference, orderId){
+  const response = await fetch(`${PAYMENT_API_BASE}/verify-payment`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ reference, order_id: orderId })
+  });
+
+  const result = await response.json().catch(() => ({}));
+
+  if(!response.ok){
+    throw new Error(result.error || result.message || 'Payment could not be verified. Please contact support before trying again.');
+  }
+
+  const orderStatus = String(
+    result.order?.status ||
+    result.data?.order?.status ||
+    result.data?.status ||
+    result.status ||
+    ''
+  ).toUpperCase();
+
+  const verified =
+    result.verified === true ||
+    result.success === true ||
+    orderStatus === 'PAID' ||
+    orderStatus === 'SUCCESS';
+
+  if(!verified){
+    throw new Error(result.error || result.message || 'Payment is not yet confirmed. Do not pay again; contact support if this persists.');
+  }
+
+  return result;
+}
+
 async function checkout(){
   if(!cart.length){
     alert('Your cart is empty.');
@@ -279,81 +315,112 @@ async function checkout(){
     return;
   }
 
- 
-if (
-  !deliveryAddress ||
-  !deliveryAddress.address ||
-  !deliveryAddress.city ||
-  !deliveryAddress.fullName ||
-  !deliveryAddress.phone
-) {
-  alert('Please complete all your delivery address details.');
-  toggleAddress();
-  return;
-}
+  if(
+    !deliveryAddress ||
+    !deliveryAddress.address ||
+    !deliveryAddress.city ||
+    !deliveryAddress.fullName ||
+    !deliveryAddress.phone
+  ){
+    alert('Please complete all your delivery address details.');
+    toggleAddress();
+    return;
+  }
 
   const email = deliveryAddress?.email;
-
-if(!email){
-  alert('Please enter your email address.');
-  toggleAddress();
-  return;
-}
-
-const subtotal = cart.reduce((s,x) =>
-  s + Number(x.price || 0) * (x.qty || 1), 0
-);
-
-const total = subtotal + shippingPrice();
-
-  try {
-   
-const response = await fetch(
-  'https://vercel.com/oluwadaraadedayo-creator/afroskankin-payment-backend/F9vgqt66ZW7TJvGhTmzBh8D3A4hN',
-  {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      email: email,
-      items: cart.map(item => ({
-        name: item.name,
-        qty: Number(item.qty || 1)
-      })),
-      shippingLocation: selectedShipping,
-      metadata: {
-        delivery_address: deliveryAddress.address,
-        city: deliveryAddress.city,
-        shipping_location: selectedShipping,
-        full_name: deliveryAddress.fullName,
-        phone: deliveryAddress.phone
-      }
-    })
+  if(!email){
+    alert('Please enter your email address.');
+    toggleAddress();
+    return;
   }
-);
 
+  const checkoutButton = document.querySelector('.pay');
+  if(checkoutButton){
+    checkoutButton.disabled = true;
+    checkoutButton.textContent = 'PLEASE WAIT…';
+  }
 
-    const data = await response.json();
+  try{
+    const response = await fetch(`${PAYMENT_API_BASE}/initialize-payment`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        items: cart.map(item => ({
+          name: item.name,
+          qty: Number(item.qty || 1)
+        })),
+        shippingLocation: selectedShipping,
+        metadata: {
+          delivery_address: deliveryAddress.address,
+          city: deliveryAddress.city,
+          shipping_location: selectedShipping,
+          full_name: deliveryAddress.fullName,
+          phone: deliveryAddress.phone
+        }
+      })
+    });
+
+    const data = await response.json().catch(() => ({}));
 
     if(!response.ok){
-      throw new Error(data.error || 'Unable to initialize payment.');
+      throw new Error(data.error || data.message || 'Unable to initialize payment.');
+    }
+
+    const accessCode = data.access_code || data.data?.access_code;
+    const orderId = data.order_id || data.orderId || data.order?.order_id;
+
+    if(!accessCode){
+      throw new Error('The payment server did not return an access code. No payment was started.');
+    }
+    if(!orderId){
+      throw new Error('The payment server did not return an order ID. Checkout stopped to avoid an untrackable order.');
     }
 
     const paystack = new PaystackPop();
+    paystack.resumeTransaction(accessCode, {
+      onSuccess: async (transaction) => {
+        try{
+          if(!transaction?.reference){
+            throw new Error('Paystack did not return a transaction reference.');
+          }
 
-    paystack.resumeTransaction(data.access_code);
+          await verifyPayment(transaction.reference, orderId);
 
-  } catch(error) {
+          localStorage.removeItem('afroskankinCart');
+          localStorage.removeItem('afroskankinShipping');
+          cart = [];
+          selectedShipping = '';
+          render();
+
+          alert('Payment verified. Thank you for your order!');
+          window.location.href = 'index.html#shop';
+        }catch(verifyError){
+          console.error('Payment verification error:', verifyError);
+          alert(
+            (verifyError.message || 'We could not confirm your payment yet. Do not pay again.') +
+            '\nPaystack reference: ' + (transaction?.reference || 'not available')
+          );
+        }
+      },
+      onCancel: () => {
+        alert('Payment was cancelled. Your cart has been kept.');
+      },
+      onError: (error) => {
+        console.error('Paystack checkout error:', error);
+        alert(error?.message || 'Paystack could not load checkout. Please try again.');
+      }
+    });
+  }catch(error){
     console.error('Payment initialization error:', error);
-
-    alert(
-      error.message ||
-      'Payment could not be started. Please try again.'
-    );
+    alert(error.message || 'Payment could not be started. Please try again.');
+  }finally{
+    if(checkoutButton){
+      checkoutButton.disabled = false;
+      checkoutButton.textContent = 'PROCEED TO CHECKOUT';
+    }
   }
 }
-
 render();
 </script>
 </body>
