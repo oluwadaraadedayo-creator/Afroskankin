@@ -311,5 +311,29 @@ function changeQty(delta){quantity=Math.max(1,quantity+delta);document.getElemen
 function addProduct(){const size=sizeSelect.value,color=selectedColor;const saved=JSON.parse(localStorage.getItem('afroskankinCart')||'[]');const keySize=size+' / '+color;const existing=saved.find(x=>x.name===name&&x.size===keySize&&x.variant===variant);if(existing){existing.qty=(existing.qty||1)+quantity}else{saved.push({name,price,size:keySize,qty:quantity,label:name.toUpperCase(),type:data.category,color,variant})}localStorage.setItem('afroskankinCart',JSON.stringify(saved));const btn=document.getElementById('addButton');btn.textContent='VIEW CART';btn.classList.add('is-added');btn.onclick=()=>location.href='cart.html'}
 function showTab(id,button){document.querySelectorAll('.detail-panel').forEach(p=>p.hidden=p.id!==id+'Panel');document.querySelectorAll('.detail-tab').forEach(b=>b.classList.remove('active'));button.classList.add('active')}
 </script>
+
+<style id="selar-floating-widget-style">
+  .selar-floating-widget{
+    position:fixed;right:20px;bottom:22px;z-index:9999;
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    padding:14px 20px;border:2px solid #050505;border-radius:999px;
+    background:#FEE600;color:#050505;font:700 13px/1.1 Arial,Helvetica,sans-serif;
+    letter-spacing:.04em;text-decoration:none;box-shadow:0 5px 18px rgba(0,0,0,.3);
+    transition:transform .18s ease,box-shadow .18s ease;
+  }
+  .selar-floating-widget:hover,.selar-floating-widget:focus-visible{
+    color:#050505;transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.38);
+  }
+  .selar-floating-widget .selar-disc{font-size:20px;line-height:1}
+  @media(max-width:600px){
+    .selar-floating-widget{right:12px;bottom:14px;padding:12px 15px;font-size:11px;gap:7px}
+    .selar-floating-widget .selar-disc{font-size:18px}
+  }
+</style>
+<a class="selar-floating-widget" href="https://selar.com/c188q11887" target="_blank" rel="noopener noreferrer" aria-label="Buy the AFROSKANKIN album on Selar">
+  <span class="selar-disc" aria-hidden="true">💿</span>
+  <span>BUY ALBUM ON SELAR ↗</span>
+</a>
+
 </body>
 </html>
