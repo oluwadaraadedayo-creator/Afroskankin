@@ -288,7 +288,7 @@ const signatureTees=[
  {variant:'second',name:'Signature Tee',label:'SIGNATURE TEE 02',image:'./Afroskankin%20Graphic%20Tee%20Portrait.webp'},
  {variant:'star',name:'Signature Tee',label:'SIGNATURE TEE 03',image:'./Afroskankin%20Star%20Graphic%20Portrait.webp'}
 ];
-function productUrl(n,productVariant='first'){const p=products[n]||{};const prices={'Signature Tee':25000,'Classic Hoodie':50000,'Embroidered Cap':18000,'AFROSKANKIN Vinyl':70000,'AFROSKANKIN CD':70000,'AFROSKANKIN Book':70000};return 'product.html?name='+encodeURIComponent(n)+'&price='+prices[n]+'&type='+encodeURIComponent(p.category||'Merch')+'&size='+encodeURIComponent((p.sizes||['One Size'])[0])+'&variant='+encodeURIComponent(productVariant)}
+function productUrl(n,productVariant='first'){const p=products[n]||{};const prices={'Signature Tee':25000,'Classic Hoodie':50000,'Embroidered Cap':18000,'AFROSKANKIN Vinyl':70000,'AFROSKANKIN CD':10000,'AFROSKANKIN Book':10000};return 'product.html?name='+encodeURIComponent(n)+'&price='+prices[n]+'&type='+encodeURIComponent(p.category||'Merch')+'&size='+encodeURIComponent((p.sizes||['One Size'])[0])+'&variant='+encodeURIComponent(productVariant)}
 const order=[
  {name:'Signature Tee',variant:'first'},
  {name:'Signature Tee',variant:'second'},
