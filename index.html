@@ -219,4 +219,28 @@ shopTabs.forEach(tab=>{const label=tab.textContent.trim().toLowerCase();tab.data
 showCategory('all');
 render();
 </script>
+
+<style id="selar-floating-widget-style">
+  .selar-floating-widget{
+    position:fixed;right:20px;bottom:22px;z-index:9999;
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    padding:14px 20px;border:2px solid #050505;border-radius:999px;
+    background:#FEE600;color:#050505;font:700 13px/1.1 Arial,Helvetica,sans-serif;
+    letter-spacing:.04em;text-decoration:none;box-shadow:0 5px 18px rgba(0,0,0,.3);
+    transition:transform .18s ease,box-shadow .18s ease;
+  }
+  .selar-floating-widget:hover,.selar-floating-widget:focus-visible{
+    color:#050505;transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.38);
+  }
+  .selar-floating-widget .selar-disc{font-size:20px;line-height:1}
+  @media(max-width:600px){
+    .selar-floating-widget{right:12px;bottom:14px;padding:12px 15px;font-size:11px;gap:7px}
+    .selar-floating-widget .selar-disc{font-size:18px}
+  }
+</style>
+<a class="selar-floating-widget" href="https://selar.com/c188q11887" target="_blank" rel="noopener noreferrer" aria-label="Buy the AFROSKANKIN album on Selar">
+  <span class="selar-disc" aria-hidden="true">💿</span>
+  <span>BUY ALBUM ON SELAR ↗</span>
+</a>
+
 </body></html>
