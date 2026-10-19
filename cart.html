@@ -139,17 +139,17 @@ function change(i,d){cart[i].qty=Math.max(1,(cart[i].qty||1)+d);save();render()}
 function removeItem(i){cart.splice(i,1);save();render()}
 
 const shippingRates=[
- {name:'Lekki',time:'within 3-5 Business days',price:9000},
- {name:'Ajah',time:'within 3-5 Business days',price:8000},
- {name:'Sangotedo',time:'within 3-5 Business days',price:8000},
- {name:'Ibeju/Epe',time:'within 3-5 Business days',price:15000},
- {name:'Shomolu, Bariga, Surulere, Mushin',time:'within 3-5 Business days',price:5000},
- {name:'Ikeja, Ketu, Mile12, Gbagada, Oworoshoki',time:'within 3-5 Business days',price:6000},
- {name:'Ogba, Agege, Egbeda, Apapa',time:'within 3-5 Business days',price:6000},
- {name:'Abule Egba, Fagba, Ayobo, Igando, Alakija',time:'within 3-5 Business days',price:7000},
- {name:'Ipaja, Ikotun, Ijegun, Festac, Mile 2, Ojodu Berger, Magodo',time:'within 3-5 Business days',price:5000},
- {name:'Abule Ado, LASU, Iba, Alaba',time:'within 3-5 Business days',price:6000},
- {name:'Ago Palace',time:'within 3-5 Business days',price:2000}
+ {name:'Lekki',time:'within 8 days',price:9000},
+ {name:'Ajah',time:'within 8 days',price:8000},
+ {name:'Sangotedo',time:'within 8 days',price:8000},
+ {name:'Ibeju/Epe',time:'within 8 days',price:15000},
+ {name:'Shomolu, Bariga, Surulere, Mushin',time:'within 8 days',price:5000},
+ {name:'Ikeja, Ketu, Mile12, Gbagada, Oworoshoki',time:'within 8 days',price:6000},
+ {name:'Ogba, Agege, Egbeda, Apapa',time:'within 8 days',price:6000},
+ {name:'Abule Egba, Fagba, Ayobo, Igando, Alakija',time:'within 8 days',price:7000},
+ {name:'Ipaja, Ikotun, Ijegun, Festac, Mile 2, Ojodu Berger, Magodo',time:'within 8 days',price:5000},
+ {name:'Abule Ado, LASU, Iba, Alaba',time:'within 8 days',price:6000},
+ {name:'Ago Palace',time:'within 8 days',price:2000}
 ];
 
 let selectedShipping=localStorage.getItem('afroskankinShipping')||'';
