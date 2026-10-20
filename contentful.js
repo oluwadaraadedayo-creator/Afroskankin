@@ -80,6 +80,21 @@
     return entry?.fields || {};
   }
 
+  // Contentful Rich Text fields are JSON documents, not plain strings.
+  // Convert their text nodes to readable text before inserting them into the page.
+  function richTextToPlainText(value) {
+    if (value === null || value === undefined) return "";
+    if (typeof value === "string" || typeof value === "number") return String(value);
+    if (Array.isArray(value)) return value.map(richTextToPlainText).filter(Boolean).join(" ");
+    if (typeof value === "object") {
+      if (typeof value.value === "string") return value.value;
+      if (Array.isArray(value.content)) return value.content.map(richTextToPlainText).join("");
+      if (value.nodeType === "text" && typeof value.value === "string") return value.value;
+      return "";
+    }
+    return "";
+  }
+
   async function getSiteSettings() {
     const result = await getEntries(contentTypes.siteSettings, { limit: 1 });
     return result.items[0] || null;
@@ -121,7 +136,7 @@
     if (!entry) return;
     const fields = getFields(entry);
 
-    const bio = firstValue(fields, ["artistBio", "bio"]);
+    const bio = richTextToPlainText(firstValue(fields, ["artistBio", "bio"])).trim();
     const bioParagraph = document.querySelector("#bio p");
     if (bio && bioParagraph) bioParagraph.textContent = bio;
 
