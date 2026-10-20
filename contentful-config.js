@@ -1,5 +1,5 @@
 window.CONTENTFUL_CONFIG = {
-  spaceId: "YOUR_SPACE_ID",
+  spaceId: "9laaagyokzpq",
   deliveryToken: "MWIhZrIq-cLRZ8W8PWOX2AdAbqQ6OelrhxR-sLQT9wg",
   environment: "master"
 };
