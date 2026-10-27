@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/webp" href="./logo.webp?v=20261017">
 <meta name="theme-color" content="#000">
 <link rel="icon" type="image/webp" href="./logo.webp?v=20261023-1">
 <link rel="shortcut icon" href="./logo.webp?v=20261023-1">
@@ -11,9 +12,8 @@
 <title>PAYBAC IBORO — AFROSKANKIN | Music, Culture & Merch</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-@font-face{font-family:'AfroskankinCustom';src:url('./AFROSKANKINN.ttf?v=20261023-1') format('truetype');font-weight:100 900;font-style:normal;font-display:swap}
 :root{--y:#FEE600;--g:#174E2A;--r:#E5262F;--k:#050505;--w:#F4F1E8}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--k);color:var(--w);font-family:'AfroskankinCustom','Anton',Arial,Helvetica,sans-serif}a{color:inherit;text-decoration:none}button{font:inherit}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--k);color:var(--w);font-family:'Anton',Arial,Helvetica,sans-serif}a{color:inherit;text-decoration:none}button{font:inherit}
 .top{position:absolute;z-index:50;top:0;left:0;width:100vw;height:118px;padding:0;margin:0;display:flex;align-items:flex-start;justify-content:center;background:#808080 !important;mix-blend-mode:normal;box-sizing:border-box}.top-inner{width:100vw;height:100%;margin:0;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:0;background:#808080 !important;box-sizing:border-box}.brand-center{height:70px;width:100vw;margin:0;padding:0;display:flex;align-items:center;justify-content:center;background:#808080 !important;box-sizing:border-box}.top img{height:44px;width:auto}.menu{width:100vw;height:48px;margin:0;padding:0;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:24px;font-size:14px;font-weight:700;letter-spacing:.12em;background:#050505 !important;color:#f4f1e8;box-sizing:border-box}.menu a:hover{color:var(--y)}.bag{border:1px solid var(--w);background:transparent;color:var(--w);padding:9px 12px;cursor:pointer}.bag:hover{background:var(--y);border-color:var(--y);color:#000}.hero{height:100vh;min-height:650px;position:relative;overflow:hidden;background:#000}.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05)}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 45%,rgba(0,0,0,.65))}.hero-title{position:absolute;z-index:2;left:18px;bottom:25px;margin:0;color:var(--y);font-size:clamp(70px,15vw,230px);line-height:.72;letter-spacing:-.09em;font-weight:400;text-transform:uppercase}.hero-meta{position:absolute;z-index:3;right:22px;bottom:28px;width:180px;font-size:10px;line-height:1.45;text-transform:uppercase;font-weight:700}.hero-meta span{display:block;border-top:1px solid var(--w);padding-top:8px;margin-top:9px}
 .band{background:var(--y);color:#000;border-top:2px solid #000;border-bottom:2px solid #000;overflow:hidden;white-space:nowrap;font-size:14px;font-weight:400;letter-spacing:.06em}.band div{padding:11px 0;display:block;width:max-content;min-width:200%;animation:run 18s linear infinite}@keyframes run{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .section{padding:105px 5vw;border-bottom:1px solid #333}.eyebrow{font-size:10px;letter-spacing:.14em;font-weight:700;text-transform:uppercase;color:var(--y)}.headline{font-size:clamp(60px,10vw,150px);line-height:.88;letter-spacing:-.08em;margin:12px 0 55px;font-weight:400;text-transform:uppercase}.bio{display:grid;grid-template-columns:1fr 1fr;gap:8vw}.bio p{font-size:clamp(25px,4vw,58px);line-height:.96;letter-spacing:-.045em;margin:0;font-weight:400}.bio aside{border-left:2px solid var(--y);padding-left:20px;font-size:14px;line-height:1.55;max-width:430px}.bio aside b{color:var(--y)}
@@ -82,7 +82,6 @@
   }
 }
 </style>
-
 </head>
 <body>
 <header class="top"><div class="top-inner"><a class="brand-center" href="#home"><img src="./logo.webp?v=20261004-2" alt="PayBac Iboro" decoding="async"></a><nav class="menu"><a href="#bio">BIO</a><a href="#gallery">GALLERY</a><a href="#music">MUSIC</a><a href="#shop">MERCH</a><a href="#contact">CONTACT</a><button class="bag" id="bagBtn" type="button" onclick="location.href='cart.html'">CART (0)</button></nav></div></header>
@@ -94,7 +93,6 @@
       <div class="spotify-card">
        <div class="untitled-embed">
   <iframe style="border-radius: 24px" src="https://untitled.stream/embed/SY4R33hsLdsz" width="100%" height="344" allowFullScreen="" allow="picture-in-picture" frameborder="0" loading="lazy"></iframe>
-</div>
 </div>
       </div>
       <div class="bio-block" id="bio">
@@ -119,6 +117,7 @@
       <button class="shop-tab" type="button">CDs</button>
       <button class="shop-tab" type="button">TEES</button>
       <button class="shop-tab" type="button">HOODIES</button>
+      <button class="shop-tab" type="button">SWEATSHIRTS</button>
       <button class="shop-tab" type="button">CAPS</button><button class="shop-tab" type="button">BOOKS</button>
     </div>
   </div>
@@ -134,6 +133,10 @@
     <article class="product" data-category="hoodies">
       <div class="visual product-image-visual"><img src="./Afroskankin%20West%20African%20Goat%20Hoodie%20Portrait.webp?v=20261007-1" alt="Iboro Classic Hoodie" decoding="async" loading="lazy"></div>
       <div class="info"><h3>Classic Hoodie</h3><p>₦50,000.00</p><select id="hoodie"><option>S</option><option>M</option><option>L</option><option>XL</option></select><button type="button" onclick="viewProduct('Classic Hoodie',50000,'Hoodie','hoodie','hoodie')">VIEW PRODUCT</button></div>
+    </article>
+    <article class="product" data-category="sweatshirts">
+      <div class="visual product-image-visual"><img src="./skankin-sweatshirt-front.webp" alt="Skankin Sweatshirt front" decoding="async" loading="lazy"></div>
+      <div class="info"><h3>Skankin Sweatshirt</h3><p>PRICE ANNOUNCEMENT SOON</p><button type="button" disabled>COMING SOON</button></div>
     </article>
     <article class="product" data-category="caps">
       <div class="visual product-image-visual"><img src="./WhatsApp%20Image%202026-10-05%20at%2003.42.28.webp?v=20261007-1" alt="Afroskankin Iboro Cap" decoding="async" loading="lazy"></div>
@@ -217,6 +220,29 @@ shopTabs.forEach(tab=>{const label=tab.textContent.trim().toLowerCase();tab.data
 showCategory('all');
 render();
 </script>
-  <script src="./contentful-config.js"></script>
-<script src="./contentful.js?v=3"></script>
+
+<style id="selar-floating-widget-style">
+  .selar-floating-widget{
+    position:fixed;right:20px;bottom:22px;z-index:9999;
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    padding:14px 20px;border:2px solid #050505;border-radius:999px;
+    background:#FEE600;color:#050505;font:700 13px/1.1 Arial,Helvetica,sans-serif;
+    letter-spacing:.04em;text-decoration:none;box-shadow:0 5px 18px rgba(0,0,0,.3);
+    transition:transform .18s ease,box-shadow .18s ease;
+  }
+  .selar-floating-widget:hover,.selar-floating-widget:focus-visible{
+    color:#050505;transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.38);
+  }
+  .selar-floating-widget .selar-disc{font-size:20px;line-height:1}
+  @media(max-width:600px){
+    .selar-floating-widget{right:12px;bottom:14px;padding:12px 15px;font-size:11px;gap:7px}
+    .selar-floating-widget .selar-disc{font-size:18px}
+  }
+</style>
+<a class="selar-floating-widget" href="https://selar.com/c188q11887" target="_blank" rel="noopener noreferrer" aria-label="Buy the AFROSKANKIN album on Selar">
+  <span class="selar-disc" aria-hidden="true">💿</span>
+  <span>BUY ALBUM ON SELAR ↗</span>
+</a>
+<script src="./contentful-config.js"></script>
+<script src="./contentful.js"></script>
 </body></html>
