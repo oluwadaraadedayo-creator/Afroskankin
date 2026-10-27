@@ -175,7 +175,7 @@ button,input,select{font-family:'Anton',Arial,Helvetica,sans-serif}
 <script>
 const params=new URLSearchParams(location.search);
 const name=params.get('name')||'AFROSKANKIN PRODUCT';
-const priceMap={'Signature Tee':25000,'Classic Hoodie':50000,'Embroidered Cap':18000,'AFROSKANKIN Vinyl':70000,'AFROSKANKIN CD':10000,'AFROSKANKIN Book':10000};
+const priceMap={'Signature Tee':25000,'Classic Hoodie':50000,'Skankin Sweatshirt':0,'Embroidered Cap':18000,'AFROSKANKIN Vinyl':70000,'AFROSKANKIN CD':10000,'AFROSKANKIN Book':10000};
 const price=priceMap[params.get('name')] ?? 0;
 const type=params.get('type')||'Merch';
 const requestedSize=params.get('size')||'One Size';
@@ -195,7 +195,7 @@ const products={
   gallery: {
     hoodie: './West%20African%20Goat%20Hoodie%20Back%20View.webp'
   }
-}, 'Embroidered Cap':{category:'Caps',tag:'AFROSKANKIN, CAP',sku:'N/A',description:'The AFROSKANKIN embroidered cap is a simple finishing piece built around the Iboro identity.',additional:'Adjustable one-size fit. Embroidered AFROSKANKIN branding.',visual:'AFROSKANKIN\nIBORO\nCAP',image:'./WhatsApp%20Image%202026-10-05%20at%2003.42.28.webp',sizes:['One Size'],colors:['Black','Yellow'],gallery:{cap:'./WhatsApp%20Image%202026-10-05%20at%2003.42.28.webp'}},
+}, 'Skankin Sweatshirt':{category:'Sweatshirts',tag:'AFROSKANKIN, SWEATSHIRT',sku:'N/A',description:'The Skankin Sweatshirt pairs a bold yellow body with deep green raglan sleeves and repeated AFROSKANKIN lettering.',additional:'Raglan long-sleeve sweatshirt. Front and back product views.',visual:'SKANKIN\nSWEATSHIRT',image:'./skankin-sweatshirt-front.webp',sizes:['S','M','L','XL'],colors:['Yellow / Green'],gallery:{first:'./skankin-sweatshirt-front.webp',back:'./skankin-sweatshirt-back.webp'}}, 'Embroidered Cap':{category:'Caps',tag:'AFROSKANKIN, CAP',sku:'N/A',description:'The AFROSKANKIN embroidered cap is a simple finishing piece built around the Iboro identity.',additional:'Adjustable one-size fit. Embroidered AFROSKANKIN branding.',visual:'AFROSKANKIN\nIBORO\nCAP',image:'./WhatsApp%20Image%202026-10-05%20at%2003.42.28.webp',sizes:['One Size'],colors:['Black','Yellow'],gallery:{cap:'./WhatsApp%20Image%202026-10-05%20at%2003.42.28.webp'}},
  'AFROSKANKIN Book':{category:'Books',tag:'AFROSKANKIN, BOOK',sku:'N/A',description:'The AFROSKANKIN book is part of the official PayBac Iboro merch collection.',additional:'One size. Official AFROSKANKIN merchandise.',visual:'AFROSKANKIN\nBOOK',image:'./signature-tee.webp',sizes:['One Size'],colors:['Black']},
  'AFROSKANKIN Vinyl':{category:'Vinyl',tag:'AFROSKANKIN, VINYL',sku:'N/A',description:'The official AFROSKANKIN vinyl release.',additional:'Official AFROSKANKIN merchandise.',visual:'AFROSKANKIN\nVINYL',sizes:['One Size'],colors:['Black']},
  'AFROSKANKIN CD':{category:'CDs',tag:'AFROSKANKIN, CD',sku:'N/A',description:'The official AFROSKANKIN CD release.',additional:'Official AFROSKANKIN merchandise.',visual:'AFROSKANKIN\nCD',sizes:['One Size'],colors:['Black']}
@@ -311,6 +311,7 @@ const relatedCatalog=[
     name:'Signature Tee',variant:item.variant,label:item.label,category:'SHIRTS',price:25000,image:item.image,available:true
   })),
   {name:'Classic Hoodie',variant:'hoodie',label:'CLASSIC HOODIE',category:'HOODIES',price:50000,image:'./Afroskankin%20West%20African%20Goat%20Hoodie%20Portrait.webp',available:true},
+   {name:'Skankin Sweatshirt',variant:'first',label:'SKANKIN SWEATSHIRT',category:'SWEATSHIRTS',price:0,image:'./skankin-sweatshirt-front.webp',available:false},
   {name:'Embroidered Cap',variant:'cap',label:'EMBROIDERED CAP',category:'CAPS',price:18000,image:'./WhatsApp%20Image%202026-10-05%20at%2003.42.28.webp',available:true},
   {name:'AFROSKANKIN Vinyl',variant:'first',label:'AFROSKANKIN VINYL',category:'VINYL',price:70000,available:false},
   {name:'AFROSKANKIN CD',variant:'first',label:'AFROSKANKIN CD',category:'CDS',price:10000,available:false},
