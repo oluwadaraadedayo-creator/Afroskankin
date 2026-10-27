@@ -6,13 +6,19 @@
 <link rel="icon" type="image/webp" href="./logo.webp?v=20261017">
 <title>PRODUCT | AFROSKANKIN</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@font-face {
+  font-family: 'AfroskankinCustom';
+  src: url('./AFROSKANKINN.ttf?v=20261027-3') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 :root{--y:#FEE600;--k:#050505;--w:#F4F1E8;--g:#808080;--line:#111}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--y);color:#000;font-family:'Anton',Arial,Helvetica,sans-serif}
+body{margin:0;background:var(--y);color:#000;font-family:'AfroskankinCustom',Arial,Helvetica,sans-serif}
 a{color:inherit;text-decoration:none}
-button,input,select{font-family:'Anton',Arial,Helvetica,sans-serif}
+button,input,select{font-family:'AfroskankinCustom',Arial,Helvetica,sans-serif}
 .top{width:100vw;height:118px;padding:0;margin:0;display:flex;align-items:flex-start;justify-content:center;background:var(--g);box-sizing:border-box}
 .top-inner{width:100vw;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:space-between;background:var(--g)}
 .brand-center{height:70px;width:100vw;display:flex;align-items:center;justify-content:center;background:var(--g)}
@@ -67,7 +73,7 @@ button,input,select{font-family:'Anton',Arial,Helvetica,sans-serif}
 .add-product:hover{background:#222}
 .add-product.is-added{background:var(--w);color:#000;border:2px solid #000}
 .meta{font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.8;margin-top:20px}
-.meta strong{font-family:'Anton',Arial,Helvetica,sans-serif;font-weight:400}
+.meta strong{font-family:'AfroskankinCustom',Arial,Helvetica,sans-serif;font-weight:400}
 .details{margin-top:70px;border-top:2px solid #000}
 .detail-tabs{display:flex;gap:28px;border-bottom:1px solid #000}
 .detail-tab{border:0;background:transparent;padding:18px 0;font-size:12px;cursor:pointer;text-transform:uppercase}
@@ -83,7 +89,7 @@ button,input,select{font-family:'Anton',Arial,Helvetica,sans-serif}
 .related-type{font-size:10px;letter-spacing:.1em;margin-top:14px;text-transform:uppercase}
 .related-name{font-size:19px;margin-top:7px;text-transform:uppercase}
 .related-price{font-size:14px;margin-top:8px}
-.related-action{font-family:'Anton',Arial,Helvetica,sans-serif;font-size:10px;text-transform:uppercase;text-decoration:underline;margin-top:10px;display:inline-block}
+.related-action{font-family:'AfroskankinCustom',Arial,Helvetica,sans-serif;font-size:10px;text-transform:uppercase;text-decoration:underline;margin-top:10px;display:inline-block}
 .site-footer{background:#000;color:var(--w);padding:65px 5vw 35px;margin-top:90px}
 .footer-inner{max-width:1380px;margin:0 auto;text-align:center}
 .footer-title{font-size:55px;font-weight:400;line-height:.9;margin:0 0 30px}
@@ -175,13 +181,22 @@ button,input,select{font-family:'Anton',Arial,Helvetica,sans-serif}
 <script>
 const params=new URLSearchParams(location.search);
 const name=params.get('name')||'AFROSKANKIN PRODUCT';
-const priceMap={'Signature Tee':25000,'Classic Hoodie':50000,'Skankin Sweatshirt':0,'Embroidered Cap':18000,'AFROSKANKIN Vinyl':70000,'AFROSKANKIN CD':10000,'AFROSKANKIN Book':10000};
+const priceMap={
+  'Signature Tee':25000,
+  'Classic Hoodie':50000,
+  'Skankin Sweatshirt':30000,
+  'Embroidered Cap':18000,
+  'AFROSKANKIN Vinyl':70000,
+  'AFROSKANKIN CD':10000,
+  'AFROSKANKIN Book':10000
+};
 const price=priceMap[params.get('name')] ?? 0;
 const type=params.get('type')||'Merch';
 const requestedSize=params.get('size')||'One Size';
 const variant=params.get('variant')||'first';
 const products={
  'Signature Tee':{category:'Shirts',tag:'AFROSKANKIN, TEE',sku:'N/A',description:'The AFROSKANKIN signature tee is a wearable expression of the PayBac Iboro world. Built around the AFROSKANKIN identity with a bold, minimal graphic treatment.',additional:'100% cotton. Available in S, M, L and XL. Designed for everyday wear.',visual:'THE\nAFRO\nSKANKIN\nTEE',image:'./Afroskankin%20Graphic%20Tee%20Portrait%20%281%29.webp',sizes:['S','M','L','XL'],colors:['White','Black','Yellow'],gallery:{first:'./West%20African%20Goat%20T-Shirt%20Model.webp',second:'./West%20African%20Goat%20T-Shirt%20Portrait.webp',star:'./West%20African%20Goat%20T-Shirt%20Portrait.webp'}},
+ 
  'Classic Hoodie': {
   category: 'Hoodies',
   tag: 'AFROSKANKIN, IBORO',
@@ -195,7 +210,20 @@ const products={
   gallery: {
     hoodie: './West%20African%20Goat%20Hoodie%20Back%20View.webp'
   }
-}, 'Skankin Sweatshirt':{category:'Sweatshirts',tag:'AFROSKANKIN, SWEATSHIRT',sku:'N/A',description:'The Skankin Sweatshirt pairs a bold yellow body with deep green raglan sleeves and repeated AFROSKANKIN lettering.',additional:'Raglan long-sleeve sweatshirt. Front and back product views.',visual:'SKANKIN\nSWEATSHIRT',image:'./skankin-sweatshirt-front.webp',sizes:['S','M','L','XL'],colors:['Yellow / Green'],gallery:{first:'./skankin-sweatshirt-back.webp'}}, 'Embroidered Cap':{category:'Caps',tag:'AFROSKANKIN, CAP',sku:'N/A',description:'The AFROSKANKIN embroidered cap is a simple finishing piece built around the Iboro identity.',additional:'Adjustable one-size fit. Embroidered AFROSKANKIN branding.',visual:'AFROSKANKIN\nIBORO\nCAP',image:'./WhatsApp%20Image%202026-10-05%20at%2003.42.28.webp',sizes:['One Size'],colors:['Black','Yellow'],gallery:{cap:'./WhatsApp%20Image%202026-10-05%20at%2003.42.28.webp'}},
+ },
+ 'Skankin Sweatshirt': {
+  category: 'Sweatshirts',
+  tag: 'AFROSKANKIN, SWEATSHIRT',
+  sku: 'N/A',
+  description: 'The Skankin Sweatshirt brings the AFROSKANKIN identity into an everyday essential.',
+  additional: 'Available in S, M, L and XL.',
+  visual: 'SKANKIN\nSWEATSHIRT',
+  image: './sweatshirt-front.webp',
+  sizes: ['S', 'M', 'L', 'XL'],
+  colors: ['Black'],
+  gallery: { first: './skankin-sweatshirt-back.webp' }
+ },
+ 'Embroidered Cap':{category:'Caps',tag:'AFROSKANKIN, CAP',sku:'N/A',description:'The AFROSKANKIN embroidered cap is a simple finishing piece built around the Iboro identity.',additional:'Adjustable one-size fit. Embroidered AFROSKANKIN branding.',visual:'AFROSKANKIN\nIBORO\nCAP',image:'./WhatsApp%20Image%202026-10-05%20at%2003.42.28.webp',sizes:['One Size'],colors:['Black','Yellow'],gallery:{cap:'./WhatsApp%20Image%202026-10-05%20at%2003.42.28.webp'}},
  'AFROSKANKIN Book':{category:'Books',tag:'AFROSKANKIN, BOOK',sku:'N/A',description:'The AFROSKANKIN book is part of the official PayBac Iboro merch collection.',additional:'One size. Official AFROSKANKIN merchandise.',visual:'AFROSKANKIN\nBOOK',image:'./signature-tee.webp',sizes:['One Size'],colors:['Black']},
  'AFROSKANKIN Vinyl':{category:'Vinyl',tag:'AFROSKANKIN, VINYL',sku:'N/A',description:'The official AFROSKANKIN vinyl release.',additional:'Official AFROSKANKIN merchandise.',visual:'AFROSKANKIN\nVINYL',sizes:['One Size'],colors:['Black']},
  'AFROSKANKIN CD':{category:'CDs',tag:'AFROSKANKIN, CD',sku:'N/A',description:'The official AFROSKANKIN CD release.',additional:'Official AFROSKANKIN merchandise.',visual:'AFROSKANKIN\nCD',sizes:['One Size'],colors:['Black']}
@@ -289,17 +317,34 @@ const signatureTees=[
  {variant:'second',name:'Signature Tee',label:'SIGNATURE TEE 02',image:'./Afroskankin%20Graphic%20Tee%20Portrait.webp'},
  {variant:'star',name:'Signature Tee',label:'SIGNATURE TEE 03',image:'./Afroskankin%20Star%20Graphic%20Portrait.webp'}
 ];
-function productUrl(n,productVariant='first'){const p=products[n]||{};const prices={'Signature Tee':25000,'Classic Hoodie':50000,'Embroidered Cap':18000,'AFROSKANKIN Vinyl':70000,'AFROSKANKIN CD':10000,'AFROSKANKIN Book':10000};return 'product.html?name='+encodeURIComponent(n)+'&price='+prices[n]+'&type='+encodeURIComponent(p.category||'Merch')+'&size='+encodeURIComponent((p.sizes||['One Size'])[0])+'&variant='+encodeURIComponent(productVariant)}
+
+function productUrl(n,productVariant='first'){
+  const p=products[n]||{};
+  const prices={
+    'Signature Tee':25000,
+    'Classic Hoodie':50000,
+    'Skankin Sweatshirt':30000,
+    'Embroidered Cap':18000,
+    'AFROSKANKIN Vinyl':70000,
+    'AFROSKANKIN CD':10000,
+    'AFROSKANKIN Book':10000
+  };
+  return 'product.html?name='+encodeURIComponent(n)+'&price='+prices[n]+'&type='+encodeURIComponent(p.category||'Merch')+'&size='+encodeURIComponent((p.sizes||['One Size'])[0])+'&variant='+encodeURIComponent(productVariant)
+}
+
+
 const order=[
  {name:'Signature Tee',variant:'first'},
  {name:'Signature Tee',variant:'second'},
  {name:'Classic Hoodie',variant:'first'},
+ {name:'Skankin Sweatshirt',variant:'first'},
  {name:'Embroidered Cap',variant:'first'},
  {name:'Signature Tee',variant:'star'},
  {name:'AFROSKANKIN Vinyl',variant:'first'},
  {name:'AFROSKANKIN CD',variant:'first'},
  {name:'AFROSKANKIN Book',variant:'first'}
 ];
+
 const currentIndex=Math.max(0,order.findIndex(item=>item.name===name && item.variant===variant));
 const prev=order[(currentIndex-1+order.length)%order.length],next=order[(currentIndex+1)%order.length];
 document.getElementById('prevProduct').href=productUrl(prev.name,prev.variant);
@@ -311,7 +356,7 @@ const relatedCatalog=[
     name:'Signature Tee',variant:item.variant,label:item.label,category:'SHIRTS',price:25000,image:item.image,available:true
   })),
   {name:'Classic Hoodie',variant:'hoodie',label:'CLASSIC HOODIE',category:'HOODIES',price:50000,image:'./Afroskankin%20West%20African%20Goat%20Hoodie%20Portrait.webp',available:true},
-   {name:'Skankin Sweatshirt',variant:'first',label:'SKANKIN SWEATSHIRT',category:'SWEATSHIRTS',price:0,image:'./skankin-sweatshirt-front.webp',available:false},
+  {name:'Skankin Sweatshirt',variant:'first',label:'SKANKIN SWEATSHIRT',category:'SWEATSHIRTS',price:30000,image:'./sweatshirt-front.webp',available:true},
   {name:'Embroidered Cap',variant:'cap',label:'EMBROIDERED CAP',category:'CAPS',price:18000,image:'./WhatsApp%20Image%202026-10-05%20at%2003.42.28.webp',available:true},
   {name:'AFROSKANKIN Vinyl',variant:'first',label:'AFROSKANKIN VINYL',category:'VINYL',price:70000,available:false},
   {name:'AFROSKANKIN CD',variant:'first',label:'AFROSKANKIN CD',category:'CDS',price:10000,available:false},
